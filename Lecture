@@ -27,7 +27,56 @@ N^3 + N^2 + N + 6 = N^3 // as removing constants (6) and removing less dominant 
 
 
 
-Big Oh Notation
+Big Oh Notation (upper bound)
 
-""
+f(N)/g(N) < Infinity
+
+Everything  mentioned in time complexity big Oh, is the maximun and there cannot be anything higer/more than that.
+
+
+
+Big Omega Notation. (lower bound )
+
+f(n)/f(n) > 0
+
+Everything  mentioned in time complexity big Omega, is the minimum and there can be anything higer/more than that.
+
+Opposite of Big Oh Notaion.
+
+
+Big Theta Notation.
+
+Combination of Big Oh and Big Omega.
+
+0 < f(n)/g(n) < Infinity
+
+
+Little Oh Notation.
+
+Provides only the upper bound.
+
+It is a Loose upper bound 
+
+
+
+Little Omega Notation.
+
+Provides the Loose lower bound of an algorithm.
+
+
+
+
+Space Complexity.
+
+
+Spacecomplexity = Input Space + Space required for the alogorithm.
+
+
+Auxilary space is the Extra space/ temporary space used by the Algorithm
+
+
+
+
+
+
 
