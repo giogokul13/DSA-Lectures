@@ -76,7 +76,30 @@ Auxilary space is the Extra space/ temporary space used by the Algorithm
 
 
 
+Recursive Algorithms
+
+Space complexity of recursive program - is not constant O(1) is is always greater than constant 
+
+Space complexity of recursion  > O(1)
+
+Space complexity of the Recursion is always equal the height of the recusrsion tree
+
+Space complexity  = height of the tree
 
 
 
+2 Tyoes of recurions
 
+1. Linear
+2. Divide and Conquer
+
+ 
+Divide and Conquer Recurrance relation
+
+
+How to get the best compleixity?
+
+1.AKra Bazzi Formaula
+2. Masters Thorem.
+3; plug and change()
+ 
