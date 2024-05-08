@@ -55,37 +55,33 @@ constructor(value){
           this.zize = 0;
         }
 
-    isEmpty() { return size == 0 } // check if the list is empty or not
-
-    getSize() { return this.size } // get the size of List 
-
-    prepend(value) { // add a new Node
-        const node = new Node(value);
-        if(this.isEmpty()){
-            this.head = node;
-        } else {
-            node.next = this.head;
-            this.head = node;
-        }
-        size++
-    }
-
-    print(){
-        if(this.isEmpty()){
-        console.log("List is empty")
-        } else {
-             let curr = this.head;
-              let listValue  = "";
-        while(curr){
-            listValue += `${curr.value}`
-curr = curr.next
-        }
-
-console.log("Values ", Just Banana);
-        }
-    }
-
+        isEmpty() { return size == 0 } // check if the list is empty or not
     
+        getSize() { return this.size } // get the size of List 
     
-}
+        prepend(value) { // add a new Node
+            const node = new Node(value);
+            if(this.isEmpty()){
+                this.head = node;
+            } else {
+                node.next = this.head;
+                this.head = node;
+            }
+            size++
+        }
+    
+        print(){
+            if(this.isEmpty()){
+            console.log("List is empty")
+            } else {
+                 let curr = this.head;
+                  let listValue  = "";
+            while(curr){
+                listValue += `${curr.value}`
+                curr = curr.next
+            }
+            console.log("Values ", Just Banana);
+            }
+        }
+    }
 ```
