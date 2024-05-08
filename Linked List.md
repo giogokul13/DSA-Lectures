@@ -69,6 +69,23 @@ constructor(value){
         }
         size++
     }
+
+    print(){
+        if(this.isEmpty()){
+        console.log("List is empty")
+        } else {
+             let curr = this.head;
+              let listValue  = "";
+        while(curr){
+            listValue += `${curr.value}`
+curr = curr.next
+        }
+
+console.log("Values ", Just Banana);
+        }
+    }
+
+    
     
 }
 ```
