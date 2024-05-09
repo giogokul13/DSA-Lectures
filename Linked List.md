@@ -165,5 +165,22 @@ constructor(value){
             }
             return null;
         }
+
+        searchByValue(value) { // O(n) // liner Search happening here.
+            if (this.isEmpty()) return -1;
+        
+            let current = this.head;
+            let index = 0;
+            while (current) {
+              if (current.value = value) {
+                return index;
+              }
+              current = current.next;
+              index++;
+            }
+        
+            return -1;
+        
+        }
     }
 ```
