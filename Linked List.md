@@ -58,7 +58,8 @@ constructor(value){
         isEmpty() { return size == 0 } // check if the list is empty or not
     
         getSize() { return this.size } // get the size of List 
-    
+
+        // Adda new node at the begining
         prepend(value) { // add a new Node
             const node = new Node(value);
             if(this.isEmpty()){
@@ -69,7 +70,8 @@ constructor(value){
             }
             size++
         }
-    
+
+        // Print the lined List
         print(){
             if(this.isEmpty()){
             console.log("List is empty")
@@ -80,8 +82,24 @@ constructor(value){
                 listValue += `${curr.value}`
                 curr = curr.next
             }
-            console.log("Values ", Just Banana);
+            console.log("Values ", listValue);
             }
+        }
+
+        // Append the value in the linked List
+        append(value){
+            let node = new Node(value);
+            if(this.isEmtpty() == 0) {
+                 this.head = node;
+            } else {
+                let prev = this.head;
+                while(prev.next){
+                    prevv = prev.next
+                }
+                prev.next = node;
+            }
+            this.size++;
+            
         }
     }
 ```
