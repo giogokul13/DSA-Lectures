@@ -4,8 +4,7 @@
 
 ### 1.  1290 - Convert Binary Number in a Linked List to Integer
 
-    ```
-    /**
+    ```/**
      * Definition for singly-linked list.
      * function ListNode(val, next) {
      *     this.val = (val===undefined ? 0 : val)
@@ -24,7 +23,11 @@
         }
     
         return sum;
-    };
+    }; ```
+
+### 2.  206. Reverse Linked List
+
+
 
 
     
