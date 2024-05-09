@@ -143,6 +143,27 @@ constructor(value){
             this.size--;
             return removedNode.value;
         }
-        
+
+        removeNodeByValue(value){ // O(n)
+            if(this.isEmpty()) return null; // no element found;
+            
+            if(this.head.value == value) {
+                this.head = this.head.next;
+                this.size--;
+                return value;
+            } else {
+                let prev = this.head;
+                while(prev.next && prev.next.value != value){
+                    prev = prev.next;
+                }
+                if(prev.next) {
+                    let removeNode = prev.next;
+                    prev.next = removeNode.next;
+                    this.size--;
+                    return value;
+                }
+            }
+            return null;
+        }
     }
 ```
