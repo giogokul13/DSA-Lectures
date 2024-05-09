@@ -59,7 +59,7 @@ constructor(value){
     
         getSize() { return this.size } // get the size of List 
 
-        // Adda new node at the begining
+        // Adda new node at the begining O(1) constant time
         prepend(value) { // add a new Node
             const node = new Node(value);
             if(this.isEmpty()){
@@ -87,7 +87,8 @@ constructor(value){
         }
 
         // Append the value in the linked List
-        append(value){
+        // O(n)
+        append(value){ // 
             let node = new Node(value);
             if(this.isEmtpty() == 0) {
                  this.head = node;
@@ -101,5 +102,47 @@ constructor(value){
             this.size++;
             
         }
+
+        insert(value, index){
+            if(index < 0 || index > this.size) {
+                console.log("Not a Valid Index");
+                return ""
+            } 
+            if(index == 0) {
+                this.prepend(value);
+            } else {
+                const node = new Node(value);
+                let prev = this.head;
+                for(let i = 0; i < index - 1; i++){
+                    prev = prev.next;
+                }
+                node.next = prev.next;
+                prev.next = node;
+                this.size++;
+                
+            }
+        }
+
+        removeAtIndex(index){
+            if(index < 0 || index >= this.size) {
+                console.log("Not a Valid Index");
+                return ""
+            }
+            let removeNode;
+            if(index == 0){
+                removeNode = this.head;
+                this.head = head.next;
+            } else {
+                let prev = head;
+                for(let i = 0; i < index - 1; i++){
+                    prev = prev.next;
+                }
+                removeNode = prev.next;
+                preve.next = removedNode.next;
+            }
+            this.size--;
+            return removedNode.value;
+        }
+        
     }
 ```
