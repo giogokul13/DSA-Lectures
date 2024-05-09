@@ -199,3 +199,15 @@ constructor(value){
 
     }
 ```
+
+
+## List with Tail pointer
+
+### With Tail node the last Element is called as tail node
+
+### Prepend/adding the node at begining is same in both with or without tail
+
+### Appending it soemthing which chanages with O(1)
+
+
+### 
