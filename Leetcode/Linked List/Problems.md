@@ -25,6 +25,8 @@
         return sum;
     }; ```
 
+---
+
 ### 2.  206. Reverse Linked List
 ### In Both Recursive and Iterative way
 ```
@@ -59,6 +61,9 @@
        return reverseList(next, head);
     };
 ```
+
+---
+
 ### 3.  876. Middle of the LinkedList
 
 ```
@@ -90,8 +95,9 @@
 ```
 
 ### Video reference 
-[video](https://www.youtube.com/watch?v=IPaMfcxQtP0)
+[![YT Video](https://img.youtube.com/vi/IPaMfcxQtP0/0.jpg)](https://www.youtube.com/watch?v=IPaMfcxQtP0)
 
+***
 
 
 
