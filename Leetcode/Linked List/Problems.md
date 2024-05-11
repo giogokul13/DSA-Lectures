@@ -180,7 +180,93 @@ var deleteNode = function(node) {
 
 [![YT Video](https://img.youtube.com/vi/icnp4FJdZ_c/0.jpg)](https://www.youtube.com/watch?v=icnp4FJdZ_c)
 
+***
 
+### 6. 234. Palindrome Linked List
+### Time O(n) Space O(n)
+```
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function(head) {
+    let stack = [];
+
+    while(head){ // loop through all the elements in the List and store it in the stack.
+        stack.push(head.val);
+        head = head.next;
+    }
+
+    let i = 0;
+    let j = stack.length - 1;
+
+    while( i < j){ // use a two pointer method to check the first and last element; if match continue checking else return false;
+        if(stack[i] != stack[j]) return false;
+
+        i++;
+        j--;
+    }
+
+    return true;
+};
+```
+### Optimized Time O(n) Space - O(1)
+```
+### Optimized
+        class ListNode {
+        constructor(val, next = null) {
+            this.val = val;
+            this.next = next;
+        }
+        }
+        
+        var isPalindrome = function(head) {
+        if (!head || !head.next) {
+            return true; // Empty list or single node is considered a palindrome
+        }
+        
+        // Find the middle of the linked list using slow and fast pointers
+        let slow = head;
+        let fast = head;
+        while (fast && fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // Reverse the second half of the linked list
+        let prev = null;
+        let curr = slow;
+        while (curr) {
+            let nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+        
+        // Compare the reversed second half with the first half
+        let p1 = head;
+        let p2 = prev;
+        while (p2) {
+            if (p1.val !== p2.val) {
+                return false; // Not a palindrome
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        
+        return true; // Palindrome
+        };
+        
+        // Example usage
+        let head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(2);
+        head.next.next.next.next = new ListNode(1);
+        
+        console.log(isPalindrome(head)); // Output: true
+
+```
 
 
     
