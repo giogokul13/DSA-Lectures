@@ -135,7 +135,7 @@ var mergeTwoLists = function(list1, list2) {
 };
 
 ```
-### Anothe rmethos to solve the problme
+### Another method to solve the problem
 
 ```
 var mergeTwoLists = function (l1, l2) {
