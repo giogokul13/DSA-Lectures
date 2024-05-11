@@ -99,6 +99,45 @@
 
 ***
 
+### 4. 21. Merge Two Sorted Lists
+Compare two elements from the list and insert the smallest at the new List create
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(list1, list2) {
+   var mergedList = {val: -1, next: null};
+   let crt = mergedList;
+
+   while(list1 && list2){
+    if(list1.val > list2.val){
+        crt.next = list2;
+        list2 = list2.next;
+    } else {
+        crt.next = list1;
+        list1 = list1.next;
+    }
+    crt = crt.next;
+   }
+
+   crt.next = list1 || list2;
+
+   return mergedList.next;
+};
+
+```
+## Video Reference
+[![YT Video](https://img.youtube.com/vi/0ougDTvVOFI/0.jpg)](https://www.youtube.com/watch?v=0ougDTvVOFI)
+
 
 
     
