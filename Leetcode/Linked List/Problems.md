@@ -153,6 +153,34 @@ var mergeTwoLists = function (l1, l2) {
 ## Video Reference
 [![YT Video](https://img.youtube.com/vi/0ougDTvVOFI/0.jpg)](https://www.youtube.com/watch?v=0ougDTvVOFI)
 
+***
+
+### 5. 237. Delete Node in a Linked List
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} node
+ * @return {void} Do not return anything, modify node in-place instead.
+ */
+var deleteNode = function(node) {
+    node.val = node.next.val; // pointing the next value at the current node
+    node.next = node.next.next; // poniting the next node in the current node so that the current node is removed with its value and next node reference
+};
+
+```
+
+### Video Reference
+
+[![YT Video](https://img.youtube.com/vi/icnp4FJdZ_c/0.jpg)](https://www.youtube.com/watch?v=icnp4FJdZ_c)
+
+
 
 
     
