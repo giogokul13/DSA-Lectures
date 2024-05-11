@@ -212,7 +212,6 @@ var isPalindrome = function(head) {
 ```
 ### Optimized Time O(n) Space - O(1)
 ```
-### Optimized
         class ListNode {
         constructor(val, next = null) {
             this.val = val;
@@ -256,16 +255,6 @@ var isPalindrome = function(head) {
         
         return true; // Palindrome
         };
-        
-        // Example usage
-        let head = new ListNode(1);
-        head.next = new ListNode(2);
-        head.next.next = new ListNode(3);
-        head.next.next.next = new ListNode(2);
-        head.next.next.next.next = new ListNode(1);
-        
-        console.log(isPalindrome(head)); // Output: true
-
 ```
 
 
