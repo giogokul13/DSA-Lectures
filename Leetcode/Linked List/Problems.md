@@ -256,6 +256,7 @@ var isPalindrome = function(head) {
         return true; // Palindrome
         };
 ```
+***
 
 ### 7. 160. Intersection of Two Linked Lists
 
@@ -289,5 +290,33 @@ var getIntersectionNode = function (headA, headB) {
 
 };
 ```
+***
+
+### 8.  141. Linked List Cycle
+
+```
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */ Time O(n) Space Constant O(1)
+
+// hare and Tortoise approach
+// hare move two times
+// Tortoise move only once
+// If there is a Cycle then there should be a match else we would reach the end.
+var hasCycle = function(head) {
+    let fast = head;
+    let slow = head;
+    while(fast && fast.next){
+        fast = fast.next.next;
+        slow = slow.next;
+
+        if(fast == slow) return true;
+    }
+
+    return false;
+};
+```
+***
 
     
