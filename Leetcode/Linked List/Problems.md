@@ -321,4 +321,26 @@ var hasCycle = function(head) {
 ```
 ***
 
-    
+### 9. 83. Remove Duplicates from Sorted List
+## Time  O(n) and Space O(1)
+
+```
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function (head) {
+    let curr = head;
+
+    while (curr) {
+        if (curr.next && curr.val == curr.next.val) {
+            curr.next = curr.next.next;
+        } else {
+            curr = curr.next;
+        }
+    }
+
+    return head;
+};
+```
+***
