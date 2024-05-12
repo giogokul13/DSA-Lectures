@@ -348,4 +348,30 @@ var deleteDuplicates = function (head) {
 ### 10.  203. Remove Linked List Elements
 ## Time  O(n) and Space O(1)
 
+```
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var removeElements = function(head, val) {
+    if(!head) return head;
 
+    let curr = head.next;
+    let prev = head;
+
+    while(curr){
+        if(curr.val == val){
+            curr = curr.next;
+            prev.next = curr;
+        } else {
+            prev = curr;
+            curr = curr.next
+        }
+    }
+
+    if(head.val == val) return head.next;
+
+    return head;
+};
+```
