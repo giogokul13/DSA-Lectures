@@ -259,6 +259,7 @@ var isPalindrome = function(head) {
 ***
 
 ### 7. 160. Intersection of Two Linked Lists
+### Time O(M + N) and Space = O(1)
 
 ```
 /**
@@ -293,6 +294,7 @@ var getIntersectionNode = function (headA, headB) {
 ***
 
 ### 8.  141. Linked List Cycle
+### Time O(n) Space Constant O(1)
 
 ```
 /**
