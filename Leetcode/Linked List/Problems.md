@@ -375,3 +375,83 @@ var removeElements = function(head, val) {
     return head;
 };
 ```
+***
+
+# Medium Level Problems
+
+## 1. 355. Design Twitter
+### More of a Low Level Design
+
+```
+var Twitter = function () {
+    this.tweetStore = {};
+    this.followersMap = {};
+    this.tweetTimeMap = {};
+    this.time = 0;
+};
+
+/** 
+ * @param {number} userId 
+ * @param {number} tweetId
+ * @return {void}
+ */
+
+Twitter.prototype.postTweet = function (userId, tweetId) {
+    if (!this.tweetStore[userId]) this.tweetStore[userId] = [];
+    this.tweetStore[userId].push(tweetId);
+    this.tweetTimeMap[tweetId] = this.time++;
+};
+
+/** 
+ * @param {number} userId
+ * @return {number[]}
+ */
+Twitter.prototype.getNewsFeed = function (userId) {
+    let tweets = [];
+    if (this.tweetStore[userId]) {
+        tweets = tweets.concat(this.tweetStore[userId]);
+    }
+    for (let followee of (this.followersMap[userId] || [])) {
+        if (followee !== userId && this.tweetStore[followee]) {
+            tweets = tweets.concat(this.tweetStore[followee]);
+        }
+    }
+    const that = this;
+    return tweets.sort((a, b) => that.tweetTimeMap[b] - that.tweetTimeMap[a]).slice(0, 10);
+};
+
+/** 
+ * @param {number} followerId 
+ * @param {number} followeeId
+ * @return {void}
+ */
+Twitter.prototype.follow = function (followerId, followeeId) {
+    if (!this.followersMap[followerId]) this.followersMap[followerId] = [];
+    if (!this.followersMap[followerId].includes(followeeId)) {
+        this.followersMap[followerId].push(followeeId);
+    }
+};
+
+/** 
+ * @param {number} followerId 
+ * @param {number} followeeId
+ * @return {void}
+ */
+Twitter.prototype.unfollow = function (followerId, followeeId) {
+    if (this.followersMap[followerId]) {
+        const followeeIndex = this.followersMap[followerId].indexOf(followeeId);
+        if (followeeIndex !== -1) {
+            this.followersMap[followerId].splice(followeeIndex, 1);
+        }
+    }
+};
+
+// Usage
+// const obj = new Twitter();
+// obj.postTweet(userId, tweetId);
+// const param_2 = obj.getNewsFeed(userId);
+// obj.follow(followerId, followeeId);
+// obj.unfollow(followerId, followeeId);
+
+```
+***
