@@ -454,4 +454,31 @@ Twitter.prototype.unfollow = function (followerId, followeeId) {
 // obj.unfollow(followerId, followeeId);
 
 ```
+### "
+The time and space complexity of the methods in the Twitter class are as follows:
+
+1. postTweet:
+   - Time complexity: O(1)
+     The postTweet method simply adds the tweetId to the tweetStore for the given userId. Since adding an element to an array has a time complexity of O(1), this method has a constant time complexity.
+
+   - Space complexity: O(n)
+     The space complexity of the tweetStore will be O(n), where n is the total number of tweets posted by all users.
+
+2. getNewsFeed:
+   - Time complexity: O(1)
+     The getNewsFeed method retrieves the last 10 tweets from the tweetStore for the given userId. Since slicing an array has a time complexity of O(1), this method also has a constant time complexity.
+
+   - Space complexity: O(1)
+     The space complexity of this method is also O(1) because it only returns the last 10 tweets.
+
+3. follow:
+   - Time complexity: O(1)
+     The follow method adds the followeeId to the followersMap for the given followerId. Since adding an element to an array has a time complexity of O(1), this method has a constant time complexity.
+
+   - Space complexity: O(n)
+     The space complexity of the followersMap will be O(n), where n is the total number of followees for all users.
+
+Overall, the time complexity of each method is O(1) and the space complexity depends on the total number of tweets and followees in the system.
+"
+
 ***
