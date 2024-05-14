@@ -485,9 +485,49 @@ Overall, the time complexity of each method is O(1) and the space complexity dep
 
 ## 2. 92. Reverse Linked List II
 
-### Time O() and space Complexity O()
+### Time O(n) and space Complexity O(1)
 
 ```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} left
+ * @param {number} right
+ * @return {ListNode}
+ */
+var reverseBetween = function (head, left, right) {
+
+
+    if (!head || left === right) {
+        return head;
+    }
+
+    let dummy = new ListNode(-1); // Dummy node to handle edge case of reversing from the first node
+    dummy.next = head;
+    let prev = dummy;
+
+    for (let i = 1; i < left; i++) {
+        prev = prev.next;
+    }
+
+    let curr = prev.next;
+
+
+    for (let i = left; i < right; i++) {
+        let nextNode = curr.next;
+        curr.next = nextNode.next;
+        nextNode.next = prev.next;
+        prev.next = nextNode;
+    }
+
+    return dummy.next;
+};
 
 ```
 
