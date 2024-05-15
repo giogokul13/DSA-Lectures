@@ -581,3 +581,24 @@ var reorderList = function (head) {
 [![YT Video](https://img.youtube.com/vi/S5bfdUTrKLM/0.jpg)](https://www.youtube.com/watch?v=S5bfdUTrKLM)
 
  ***
+
+
+## 4. 19. Remove Nth Node From End of List
+
+### Time O(n) and Space Complexity O(1)
+
+
+```
+
+```
+
+
+***
+
+
+
+
+
+
+
+
