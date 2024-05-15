@@ -589,9 +589,33 @@ var reorderList = function (head) {
 
 
 ```
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+   let dummy = new ListNode(0);
+   dummy.next = head;
 
+    let first = dummy;
+    let second = dummy;
+
+    for(let i = 0; i <= n; i++){ // quickly move to n places on second loop
+        second = second.next;
+    }
+
+    while(second){ // move untill the second is in last node , if second is in last noe the first is in the nth place.
+        first = first.next;
+        second = second.next;
+    }
+
+    first.next = first.next.next; // remove the node by connecting to the next.next node.
+
+    return dummy.next // return the head as dummy.next = head;
+
+};
 ```
-
 
 ***
 
