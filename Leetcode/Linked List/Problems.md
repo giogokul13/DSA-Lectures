@@ -578,5 +578,6 @@ var reorderList = function (head) {
     // Do not return as the question suggested.
 };
 ```
+[![YT Video](https://img.youtube.com/vi/S5bfdUTrKLM/0.jpg)](https://www.youtube.com/watch?v=S5bfdUTrKLM)
 
  ***
