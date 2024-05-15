@@ -533,3 +533,50 @@ var reverseBetween = function (head, left, right) {
 
 ***
 
+## 3. 143. Reorder List
+### Time O(n) and Space Complexity O(1)
+
+### First we divide the list into two, reverse the second list.
+### Use hare and tortose method to find the half of the list.
+
+```
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ */
+var reorderList = function (head) {
+    let slow = head, fast = head.next;
+
+    while (fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    let second = slow.next // second array starting point
+
+    let prev = null;
+    slow.next = null;
+    while (second) { // reverse the second half of the list
+        let temp = second.next;
+        second.next = prev;
+        prev = second;
+        second = temp;
+    }
+
+    //  Merge two lists / not two join the list
+
+    second = prev;
+    let first = head;
+
+    while (second) { // replace the lists next pointers appropriately
+        let [temp1, temp2] = [first.next, second.next];
+        first.next = second;
+        second.next = temp1;
+        [first, second] = [temp1, temp2];
+    }
+
+    // Do not return as the question suggested.
+};
+```
+
+ ***
