@@ -578,6 +578,8 @@ var reorderList = function (head) {
     // Do not return as the question suggested.
 };
 ```
+### Video reference
+
 [![YT Video](https://img.youtube.com/vi/S5bfdUTrKLM/0.jpg)](https://www.youtube.com/watch?v=S5bfdUTrKLM)
 
  ***
@@ -619,9 +621,44 @@ var removeNthFromEnd = function(head, n) {
 
 ***
 
+## 5.  1721. Swapping Nodes in a Linked List
 
+### Time O(n) and Space Complexity O(1)
 
+```
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var swapNodes = function(head, k) {
+    if(!head) return head;
 
+    let length = 1;
+    let [node, start] = [head, null];
+
+    while(node){
+        if(length == k) start = node;
+        length++;
+        node = node.next;
+    }
+
+    let end = head;
+
+    for(let i = 1; i < length - k; i++ ){
+        end = end.next;
+    }
+
+    [start.val, end.val] = [end.val,  start.val];
+
+    return head;
+};
+```
+### Video reference
+
+[![YT Video](https://img.youtube.com/vi/KUTRaNOzmoo/0.jpg)](https://www.youtube.com/watch?v=KUTRaNOzmoo)
+ 
+***
 
 
 
