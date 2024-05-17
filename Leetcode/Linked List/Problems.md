@@ -761,3 +761,39 @@ var addTwoNumbers = function (l1, l2) {
 
 ***
 
+## 8. 142. Linked List Cycle II
+### Time O(n) and Space Complexity O(1)
+
+```
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function (head) {
+    let fast = head;
+    let slow = head;
+    while (fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
+
+        if (fast == slow) {
+            while (head != slow) {
+                head = head.next;
+                slow = slow.next;
+            }
+
+            return slow;
+        }
+    }
+
+    fast = head;
+
+    return null;
+};
+```
+
+Video Reference 
+[![YT Video](https://img.youtube.com/vi/95ZfuoSAUPI/0.jpg)](https://www.youtube.com/watch?v=95ZfuoSAUPI)
+
+
+***
