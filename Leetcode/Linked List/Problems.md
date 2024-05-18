@@ -851,3 +851,40 @@ var flatten = function (head) {
 
 
 ***
+
+## 10. 61. Rotate List
+### Time O(n) and Space Complexity O(1)
+
+```
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var rotateRight = function (head, k) {
+    if (!head || !head.next) return head;
+    let len = 1;
+    let tail = head;
+
+    while (tail.next) { // Get the length of the linked List
+        tail = tail.next;
+        len++;
+    }
+
+    tail.next = head;
+
+    k = len - k % len;
+
+    for (let i = 0; i < k; i++) {
+        tail = tail.next;
+        head = tail.next;
+    }
+
+    tail.next = null;
+    return head;
+};
+```
+
+***
+
+
