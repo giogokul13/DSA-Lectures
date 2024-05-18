@@ -210,4 +210,15 @@ constructor(value){
 ### Appending it soemthing which chanages with O(1)
 
 
-### 
+## Doubly Linked List
+<img width="637" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/f1d4bcb0-8441-47af-8df1-505bd5f29bc1">
+
+### List has the reference to the Prev and Next
+
+
+## Circulat Linked List
+
+### The nodes are connected and there is no null at the tail, the tail points to the head again in the circular fashion 
+
+<img width="327" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/c90e6946-a604-41fb-98b9-6b74f0e62969">
+
