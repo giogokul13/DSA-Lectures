@@ -797,3 +797,57 @@ Video Reference
 
 
 ***
+
+## 9. 430. Flatten a Multilevel Doubly Linked List
+### Time O(n) and Space Complexity O(n)
+Time -  as We loop through n nodes
+Space - At worst case all nodes can have childrens.
+
+```
+/**
+ * // Definition for a Node.
+ * function Node(val,prev,next,child) {
+ *    this.val = val;
+ *    this.prev = prev;
+ *    this.next = next;
+ *    this.child = child;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var flatten = function (head) {
+    let stack = [];
+    let start = head;
+
+    while (head) {
+        if (head.child) {
+
+            if (head.next) {
+                stack.push(head.next);
+            }
+
+            head.next = head.child;
+            head.next.prev = head;
+            head.child = null;
+        }
+
+        if (!head.next && stack.length != 0) {
+            head.next = stack.pop();
+            head.next.prev = head;
+        }
+
+        head = head.next;
+    }
+
+    return start;
+};
+```
+
+### Video Reference
+[![YT Video](https://img.youtube.com/vi/t69HJbUugpQ/0.jpg)](https://www.youtube.com/watch?v=t69HJbUugpQ)
+
+
+***
