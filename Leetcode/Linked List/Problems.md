@@ -887,4 +887,46 @@ var rotateRight = function (head, k) {
 
 ***
 
+## 11. 138. Copy List with Random Pointer
+### Time O(n) and Space Complexity O(n)
+
+```
+/**
+ * // Definition for a Node.
+ * function Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var copyRandomList = function (head) {
+    if (!head) return null;
+
+    let newListMap = new Map();
+
+    let curr = head;
+    while (curr) {
+        newListMap.set(curr, new Node(curr.val));
+        curr = curr.next;
+    }
+
+    curr = head;
+
+    while (curr) {
+        newListMap.get(curr).next = newListMap.get(curr.next) || null
+        newListMap.get(curr).random = newListMap.get(curr.random) || null;
+        curr = curr.next;
+    }
+
+    return newListMap.get(head);
+};
+```
+
+***
+
 
