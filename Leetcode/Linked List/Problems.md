@@ -929,4 +929,55 @@ var copyRandomList = function (head) {
 
 ***
 
+## 12. 146. LRU Cache
 
+```
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function(capacity) {
+    this.capacity = capacity;
+    this.cache = new Map(); // Maintains the order of insertion
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function(key) {
+    if (!this.cache.has(key)) {
+        return -1; // Key not found
+    }
+    const value = this.cache.get(key);
+    this.cache.delete(key); // Remove the item
+    this.cache.set(key, value); // Reinsert the item to mark it as recently used
+    return value;
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function(key, value) {
+    if (this.cache.has(key)) {
+        this.cache.delete(key); // Remove the old item
+    }
+    this.cache.set(key, value); // Insert the new item
+
+    if (this.cache.size > this.capacity) {
+        const firstKey = this.cache.keys().next().value; // Get the first (least recently used) item
+        this.cache.delete(firstKey); // Remove it to maintain capacity
+    }
+};
+
+/** 
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
+
+```
+
+***
