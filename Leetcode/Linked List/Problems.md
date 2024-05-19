@@ -1024,6 +1024,7 @@ var deleteDuplicates = function (head) {
 ## 14. 86. Partition List
 ### Time O(n) and Space Complexity O(1)
 
+```
 <code>
 /**
  * Definition for singly-linked list.
@@ -1061,6 +1062,7 @@ var partition = function (head, x) {
 };
 
 </code>
+```
 ### Video Reference
 [![YT Video](https://img.youtube.com/vi/KT1iUciJr4g/0.jpg)](https://www.youtube.com/watch?v=KT1iUciJr4g)
 
