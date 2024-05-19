@@ -982,7 +982,7 @@ LRUCache.prototype.put = function(key, value) {
 
 ***
 
-## 82. Remove Duplicates from Sorted List II
+## 13. 82. Remove Duplicates from Sorted List II
 ### Time O(n) and Space Complexity O(1)
 
 ```
@@ -1018,5 +1018,50 @@ var deleteDuplicates = function (head) {
 ```
 ### Video Reference
 [![YT Video](https://img.youtube.com/vi/R6-PnHODewY/0.jpg)](https://www.youtube.com/watch?v=R6-PnHODewY)
+
+***
+
+## 14. 86. Partition List
+### Time O(n) and Space Complexity O(1)
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function (head, x) {
+    let left = new ListNode(0);
+    let right = new ListNode(0);
+    let [leftTail, rightTail] = [left, right];
+
+    while (head) {
+        if (head.val < x) {
+            leftTail.next = head;
+            leftTail = leftTail.next;
+        } else {
+            rightTail.next = head;
+            rightTail = rightTail.next;
+        }
+
+        head = head.next;
+    }
+
+    leftTail.next = right.next;
+    rightTail.next = null;
+
+    return left.next;
+};
+
+```
+### Video Reference
+[![YT Video](https://img.youtube.com/vi/KT1iUciJr4g/0.jpg)](https://www.youtube.com/watch?v=KT1iUciJr4g)
 
 ***
