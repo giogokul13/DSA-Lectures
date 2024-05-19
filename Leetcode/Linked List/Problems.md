@@ -1204,3 +1204,47 @@ var removeZeroSumSublists = function(head) {
 ```
 
 ***
+
+## 18. 147. Insertion Sort List
+### Time O(n ^ 2) and Space Complexity O(1) because we used Hash Map for space
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var insertionSortList = function (head) {
+
+    if (!head) return head;
+
+    let dummyNode = new ListNode(0, head);
+    let curr = head.next;
+    head.next = null;
+
+    while (curr) {
+        let prevNode = dummyNode;
+        let nextNode = curr.next;
+
+        while (prevNode.next && prevNode.next.val < curr.val) {
+            prevNode = prevNode.next;
+        }
+
+        curr.next = prevNode.next;
+        prevNode.next = curr;
+
+        curr = nextNode;
+    }
+
+    return dummyNode.next;
+};
+
+```
+
+***
