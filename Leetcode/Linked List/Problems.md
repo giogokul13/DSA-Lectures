@@ -1248,3 +1248,51 @@ var insertionSortList = function (head) {
 ```
 
 ***
+
+## 19. 2074. Reverse Nodes in Even Length Groups
+### Time O(n) and Space Complexity O(1) because we used Hash Map for space
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseEvenLengthGroups = function (head) {
+    let dummyNode = new ListNode(0, head);
+    let prev = dummyNode;
+    let group = 0;
+    while (prev.next) {
+        group++;
+        let values = [];
+        // insert the group values inside the array
+        let start = prev;
+        for (let count = 0; count < group && start.next; count++) {
+            start = start.next;
+            values.push(start.val);
+        }
+
+        if (values.length % 2 == 0) {
+            start = prev;
+            for (let count = 0; count < group && start.next; count++) {
+                start = start.next;
+                start.val = values.pop();
+            }
+        }
+
+        for (let count = 0; count < group && prev.next; count++) { // Navigate to the next nodes after performing the reverse
+            prev = prev.next; 
+        }
+    }
+
+    return dummyNode.next;
+};
+```
+
+***
