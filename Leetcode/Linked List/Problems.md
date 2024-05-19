@@ -1116,4 +1116,40 @@ function detectAndRemoveLoop(head)
 ```
 *** 
 
+## 16. 24. Swap Nodes in Pairs
+### Time O(n) and Space Complexity O(1)
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function(head) {
+    let node = new ListNode(0);
+    node.next = head;
+    let curr = node;
+
+    while(curr && curr.next && curr.next.next){
+        let temp = curr.next;
+        let temp2 = curr.next.next;
+        curr.next = temp2;
+        temp.next = temp2.next;
+        temp2.next = temp;
+        curr = curr.next.next;
+    }
+
+    return node.next;
+};
+```
+
+[![YT Video](https://img.youtube.com/vi/o811TZLAWOo/0.jpg)](https://www.youtube.com/watch?v=o811TZLAWOo)
+
+***
 
