@@ -1153,3 +1153,54 @@ var swapPairs = function(head) {
 
 ***
 
+## 17. 1171. Remove Zero Sum Consecutive Nodes from Linked List
+### Time O(n) and Space Complexity O(n) because we used Hash Map for space
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var removeZeroSumSublists = function(head) {
+    let dummy = new ListNode();
+    let cur = head;
+    dummy.next = head;
+    let m = new Map();
+    m.set(0, dummy);
+    let prefixSum = 0;
+    while (cur !== null) {
+        prefixSum += cur.val;
+        if (m.has(prefixSum)) {
+            // save pointer to next node
+            let next = cur.next;
+
+            // delete the nodes in between from map
+            let temp = m.get(prefixSum).next;
+            let tempPrefixSum = prefixSum;
+            while (temp !== cur && temp !== null) {
+                tempPrefixSum += temp.val;
+                m.delete(tempPrefixSum);
+                temp = temp.next;
+            }
+
+            // set a new cur
+            cur = m.get(prefixSum);
+            cur.next = next;
+        } else {
+            m.set(prefixSum, cur);
+        }
+        cur = cur.next;
+    }
+    
+    return dummy.next;
+};
+```
+
+***
