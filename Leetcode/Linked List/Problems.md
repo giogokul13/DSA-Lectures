@@ -1496,3 +1496,62 @@ var mergeInBetween = function(list1, a, b, list2) {
 
 ***
 
+## 23. 1472. Design Browser History
+
+The time complexity for the `visit` method is O(1) because we are simply adding a new page to the array. 
+
+The time complexity for the `back` and `forward` methods is also O(1) because we are accessing elements in the array based on the current index.
+
+The space complexity for the `visit` method is O(n) where n is the number of pages visited so far. This is because we are storing all visited pages in an array.
+
+Overall, the time complexity for all methods is O(1) and the space complexity is O(n).
+
+```
+/**
+ * @param {string} homepage
+ */
+var BrowserHistory = function (homepage) {
+
+    this.pages = [];
+    this.pages.push(homepage);
+    this.currentIndex = 0;
+};
+
+/** 
+ * @param {string} url
+ * @return {void}
+ */
+BrowserHistory.prototype.visit = function (url) {
+    this.pages = this.pages.slice(0, this.currentIndex + 1);
+    this.pages.push(url);
+    this.currentIndex += 1;
+};
+
+/** 
+ * @param {number} steps
+ * @return {string}
+ */
+BrowserHistory.prototype.back = function (steps) {
+    this.currentIndex = this.pages[this.currentIndex - steps] ? this.currentIndex - steps : 0
+    return this.pages[this.currentIndex];
+};
+
+/** 
+ * @param {number} steps
+ * @return {string}
+ */
+BrowserHistory.prototype.forward = function (steps) {
+    this.currentIndex = this.pages[this.currentIndex + steps] ? this.currentIndex + steps : this.pages.length - 1
+    return this.pages[this.currentIndex];
+};
+
+/** 
+ * Your BrowserHistory object will be instantiated and called as such:
+ * var obj = new BrowserHistory(homepage)
+ * obj.visit(url)
+ * var param_2 = obj.back(steps)
+ * var param_3 = obj.forward(steps)
+ */
+```
+
+*** 
