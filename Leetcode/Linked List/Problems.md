@@ -1338,3 +1338,161 @@ Solution.prototype.getRandom = function () {
 ```
 
 ***
+
+## 21. 148. Sort List
+### Solution 1
+#### Time O(n log n) and Space Complexity O(n) because we used Array to store values
+
+
+```
+var sortList = function(head) {
+    let arr = [];
+
+    while(head){
+        arr.push(head.val);
+        head = head.next;
+    }
+
+    arr = arr.sort((a, b) => a - b); // Sort Array;
+    let list = new ListNode();
+    let dummy = list;
+    for(let i = 0; i < arr.length; i++){
+        let node = new ListNode(arr[i]);
+        list.next = node;
+        list = list.next;
+    }
+
+    return dummy.next;
+};
+```
+
+### Solution 2 (Optimal)
+#### Time O(n log n) and Space Complexity O(1)
+
+```
+var sortList = function (head) {
+    if (head === null || head.next == null) return head // check if list is empty or contains only one item.
+
+    // Function is used to get the lenght of the Linkekd List
+    let getLength = function (head) {
+        let len = 0;
+        let curr = head;
+        while (curr) {
+            len++;
+            curr = curr.next
+        }
+
+        return len;
+    }
+
+    let split = function (head, steps) {
+        if (!head) return null;
+
+        for (let i = 1; (i < steps && head.next); i++) {
+            head = head.next; // move right till the steps
+        }
+
+        let right = head.next;
+        head.next = null;
+
+        return right;
+    }
+
+    const merge = function (left, right, tail) {
+        let curr = tail;
+        while (left && right) {
+            if (left.val < right.val) {
+                curr.next = left;
+                left = left.next;
+            } else {
+                curr.next = right;
+                right = right.next;
+            }
+            curr = curr.next;
+        }
+
+        curr.next = left ? left : right;
+        while (curr.next)
+            curr = curr.next;
+
+        return curr;
+    };
+
+    let length = getLength(head);
+    let dummy = new ListNode(0);
+    dummy.next = head;
+
+    let steps = 1;
+
+    while (steps < length) {
+        let curr = dummy.next;
+        let tail = dummy;
+
+        while (curr) {
+            const left = curr;
+            const right = split(left, steps);
+            curr = split(right, steps);
+
+            tail = merge(left, right, tail);
+        }
+
+        steps *= 2;
+    }
+
+    return dummy.next;
+
+}
+
+```
+
+***
+
+## 22. 1669. Merge In Between Linked Lists
+#### Time O(m + n) and Space Complexity O(1)
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {number} a
+ * @param {number} b
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeInBetween = function(list1, a, b, list2) {
+    let curr = list1;
+    let i = 0;
+
+    while( i < a -  1){
+        curr = curr.next;
+        i++;
+    }
+
+    head = curr;
+    while(i <= b){
+        i++;
+        curr = curr.next;
+    }
+    head.next = list2;
+
+    while(list2.next){
+        list2 = list2.next;
+    }
+
+    list2.next = curr;
+
+    return list1;
+};
+```
+### Video Reference 
+
+[![YT Video](https://img.youtube.com/vi/pI775VutBxg/0.jpg)](https://www.youtube.com/watch?v=pI775VutBxg)
+
+***
+
