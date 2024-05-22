@@ -1367,7 +1367,7 @@ var sortList = function(head) {
 ```
 
 ### Solution 2 (Optimal)
-#### Time O(n log n) and Space Complexity O(1)
+### Time O(n log n) and Space Complexity O(1)
 
 ```
 var sortList = function (head) {
@@ -1448,7 +1448,7 @@ var sortList = function (head) {
 ***
 
 ## 22. 1669. Merge In Between Linked Lists
-#### Time O(m + n) and Space Complexity O(1)
+### Time O(m + n) and Space Complexity O(1)
 
 ```
 /**
@@ -1555,3 +1555,32 @@ BrowserHistory.prototype.forward = function (steps) {
 ```
 
 *** 
+
+
+## 24. 2095. Delete the Middle Node of a Linked List
+### Time O(n) and Space Complexity O(1)
+
+```
+
+```
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteMiddle = function (head) {
+    let dummy = new ListNode(0);
+    dummy.next = head;
+    let slow = dummy;
+    let fast = head;
+    while (fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+
+    slow.next = slow.next.next;
+
+    return dummy.next;
+
+};
+
+***
