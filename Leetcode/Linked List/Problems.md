@@ -1584,3 +1584,80 @@ var deleteMiddle = function (head) {
 };
 
 ***
+
+## 25. 1019. Next Greater Node In Linked List
+### Time O(n) and Space Complexity O(n)
+
+```
+/**
+ * @param {ListNode} head
+ * @return {number[]}
+ */
+var nextLargerNodes = function (head) {
+    let ans = [];
+    let curr = head;
+    let pointer = head;
+
+    while (curr.next) {
+        pointer = pointer.next;
+        if (pointer.val > curr.val) {
+            ans.push(pointer.val);
+            curr = curr.next;
+            pointer = curr;
+
+        } else if (pointer.next == null) {
+            ans.push(0);
+            curr = curr.next;
+            pointer = curr;
+        }
+    }
+
+    ans.push(0);
+
+    return ans;
+};
+```
+
+***
+
+## 26. 328. Odd Even Linked List
+### Time O(n) and Space Complexity O(1)
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var oddEvenList = function (head) {
+    if(!head) return head;
+    
+    let odd = head;
+    let even = head.next;
+
+    let evenHead = even;
+
+    while (even && even.next) {
+        odd.next = odd.next.next;
+        odd = odd.next;
+
+        even.next = even.next.next;
+        even = even.next;
+    }
+
+    odd.next = evenHead;
+
+    return head;
+};
+```
+### Vide Reference 
+
+[![YT Video](https://img.youtube.com/vi/WoUAs7R3Ao4/0.jpg)](https://www.youtube.com/watch?v=WoUAs7R3Ao4)
+
+***
