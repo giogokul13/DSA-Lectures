@@ -1661,3 +1661,12 @@ var oddEvenList = function (head) {
 [![YT Video](https://img.youtube.com/vi/WoUAs7R3Ao4/0.jpg)](https://www.youtube.com/watch?v=WoUAs7R3Ao4)
 
 ***
+
+## 27. 725. Split Linked List in Parts
+### Time O(n) and Space Complexity O(1)
+
+```
+
+```
+
+*** 
