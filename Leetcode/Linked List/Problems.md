@@ -1712,3 +1712,60 @@ var splitListToParts = function(head, k) {
 ```
 
 *** 
+
+## 2058. Find the Minimum and Maximum Number of Nodes Between Critical Points
+
+### Time O(n) and Space Complexity O(1)
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number[]}
+ */
+var nodesBetweenCriticalPoints = function (head) {
+
+    // base condition if the list is less than equl to two
+    if (!head || (!head.next || !head.next.next)) return [-1, -1];
+
+    let prev = head;
+    let curr = head.next;
+    let next = head.next.next;
+
+    let index = 3;
+    let criticalPoints = [];
+
+    while (next) {
+        if ((curr.val > prev.val && curr.val > next.val) || (curr.val < prev.val && curr.val < next.val)) {
+            criticalPoints.push(index - 1);
+        }
+        index++;
+        prev = curr;
+        curr = next;
+        next = next.next;
+    }
+
+    if(criticalPoints.length < 2) return [-1, -1];
+
+    let min = Infinity, max = 0;
+
+    for(let i = 1; i < criticalPoints.length; i++){
+        min = Math.min(min, criticalPoints[i] - criticalPoints[i - 1]);
+        if(i == criticalPoints.length -1){
+            max = criticalPoints[i] - criticalPoints[0];
+        }
+    }
+
+    return [min, max];
+
+
+};
+```
+
+***
