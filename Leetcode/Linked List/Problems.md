@@ -1663,10 +1663,52 @@ var oddEvenList = function (head) {
 ***
 
 ## 27. 725. Split Linked List in Parts
-### Time O(n) and Space Complexity O(1)
+### Time O(n) and Space Complexity O(n)
 
 ```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode[]}
+ */
+var splitListToParts = function(head, k) {
+    let curr = head;
 
+    let len = 0;
+
+    while(curr){ // egt the length of the Linked List
+        len++;
+        curr = curr.next;
+    }
+
+    let [baseLength, remainder] = [Math.floor(len / k), len % k];
+    let result = [];
+
+    curr = head;
+
+    for(let i = 0; i < k; i++){ // Loop through the list K times
+        result.push(curr);
+        let base = (remainder > 0) ? 1 : 0;
+        for(let j = 0; j < (baseLength - 1 + base); j++){ //split the list base length times
+            if(!curr) break;
+            curr = curr.next;
+        }
+        remainder -= (remainder > 0) ? 1 : 0;
+        if(curr) {
+            [curr.next, curr] = [null, curr.next];
+        }
+    }
+
+    return result;
+
+};
 ```
 
 *** 
