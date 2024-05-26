@@ -52,3 +52,103 @@ var nextGreaterElement = function (nums1, nums2) {
 
 ***
 
+## 2. 155. Min Stack
+### Time  O(1) and Space Complexity O(N)
+
+```
+
+```
+
+***
+
+## Medium Problems
+
+## 2. 155. Min Stack
+
+### Solution 1
+### Time Everything is O(1) except getMin and Space Complexity O(N)
+
+```
+var MinStack = function() {
+    this.stack = [];
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+MinStack.prototype.push = function(val) {
+    this.stack.push(val);
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+    this.stack.pop();
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+    return this.stack[this.stack.length - 1];
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.getMin = function() {
+    return Math.min(...this.stack);
+};
+
+/** 
+ * Your MinStack object will be instantiated and called as such:
+ * var obj = new MinStack()
+ * obj.push(val)
+ * obj.pop()
+ * var param_3 = obj.top()
+ * var param_4 = obj.getMin()
+ */
+```
+
+### Solution 2
+### Time Everything is O(1) and Space Complexity O(N)
+
+```
+var MinStack = function() {
+  this.stack = [];
+};
+
+MinStack.prototype.push = function(val) {
+  if (this.stack.length === 0) {
+    this.stack.push({ val: val, min: val });
+  } else {
+    var min = Math.min(this.stack[this.stack.length - 1].min, val);
+    this.stack.push({ val: val, min: min });
+  }
+};
+
+MinStack.prototype.pop = function() {
+  if (this.stack.length > 0) {
+    this.stack.pop();
+  }
+};
+
+MinStack.prototype.top = function() {
+  if (this.stack.length > 0) {
+    return this.stack[this.stack.length - 1].val;
+  }
+  return null;
+};
+
+MinStack.prototype.getMin = function() {
+  if (this.stack.length > 0) {
+    return this.stack[this.stack.length - 1].min;
+  }
+  return null;
+};
+
+```
+
+***
