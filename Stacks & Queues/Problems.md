@@ -3,8 +3,10 @@
 ## Easy Problem
 
 ## 1. 496. Next Greater Element I
-### Time O(M * N) and Space Complexity O(M)
+
 ### Solution 1
+
+### Time O(M * N) and Space Complexity O(M)
 ```
 *var nextGreaterElement = function (nums1, nums2) {
     let ans = [];
@@ -27,8 +29,10 @@
 };
 ```
 
-### Time O(M + N) and Space Complexity O(M)
 ### Solution 2
+
+### Time O(M + N) and Space Complexity O(M)
+
 ```
 var nextGreaterElement = function (nums1, nums2) {
     let ans = [];
