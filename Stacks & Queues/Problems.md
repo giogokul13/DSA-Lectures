@@ -52,14 +52,49 @@ var nextGreaterElement = function (nums1, nums2) {
 
 ***
 
-## 2. 155. Min Stack
-### Time  O(1) and Space Complexity O(N)
+## 2. 1021. Remove Outermost Parentheses
+### Time  O(N) and Space Complexity O(N)
 
 ```
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var removeOuterParentheses = function (s) {
+    let stack = [];
+    let length = stack.length;
+    const objList = {
+        '(': ')',
+    }
 
+    for (let char of s) {
+        if (char in objList) {
+            if (length) {
+                stack.push(char)
+            }
+            length += 1;
+        } else {
+            length -= 1
+            if (length) {
+                stack.push(char)
+            }
+        }
+    }
+    return stack.join("");
+};
 ```
 
 ***
+
+
+
+
+
+
+
+
+
+
 
 ## Medium Problems
 
