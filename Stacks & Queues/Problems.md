@@ -112,6 +112,84 @@ var removeDuplicates = function (s) {
 
 ***
 
+## 4. 933. Number of Recent Calls
+[https://leetcode.com/problems/number-of-recent-calls/description/](url)
+### Time  O(N) and Space Complexity O(N)
+
+```
+
+var RecentCounter = function() {
+    this.timestamps = [];
+};
+
+/** 
+ * @param {number} t
+ * @return {number}
+ */
+RecentCounter.prototype.ping = function(t) {
+    this.timestamps.push(t);
+    while(this.timestamps[0] < t- 3000){
+            this.timestamps.shift() // remove the timestamps which is less than the requested one.
+    }
+
+    return this.timestamps.length;
+    
+};
+
+/** 
+ * Your RecentCounter object will be instantiated and called as such:
+ * var obj = new RecentCounter()
+ * var param_1 = obj.ping(t)
+ */
+```
+
+***
+
+## 5. [https://practice.geeksforgeeks.org/problems/reverse-first-k-elements-of-queue/1/](url)
+
+## 6. [https://practice.geeksforgeeks.org/problems/delete-middle-element-of-a-stack/1/](url)
+
+## 7. [https://practice.geeksforgeeks.org/problems/inorder-traversal-iterative/1/](url)
+
+## 8. [https://practice.geeksforgeeks.org/problems/preorder-traversal-iterative/1/](url)
+
+## 9. 733. Flood Fill
+[https://leetcode.com/problems/flood-fill/description/](url)
+### ### Time  O(N) and Space Complexity O(N)
+
+```
+/**
+ * @param {number[][]} image
+ * @param {number} sr
+ * @param {number} sc
+ * @param {number} color
+ * @return {number[][]}
+ */
+const floodFill = (image, sr, sc, newColor, firstColor = image[sr][sc]) => {
+    // handle if the coordinate is out of bounds
+    if (sr < 0 || sc < 0 || sr >= image.length || sc >= image[sr].length || image[sr][sc] !== firstColor || image[sr][sc] === newColor)   {
+        return image; // return image as-is
+    }
+    
+    image[sr][sc] = newColor;
+    
+    floodFill(image, sr + 1, sc, newColor, firstColor);
+    floodFill(image, sr - 1, sc, newColor, firstColor);
+    floodFill(image, sr, sc + 1, newColor, firstColor);
+    floodFill(image, sr, sc - 1, newColor, firstColor);
+    
+	// return modified image
+    return image;
+};
+```
+
+***
+
+
+
+
+
+
 
 
 
