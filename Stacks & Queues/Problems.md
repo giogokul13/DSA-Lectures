@@ -86,7 +86,31 @@ var removeOuterParentheses = function (s) {
 
 ***
 
+## 3. 1047. Remove All Adjacent Duplicates In String
+[https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/description/](url)
+### Time  O(N) and Space Complexity O(N)
 
+```
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var removeDuplicates = function (s) {
+    let stack = [];
+    for(let char of s){
+        if(stack[stack.length - 1] == char) {
+            stack.pop();
+        } else {
+            stack.push(char);
+        }
+    }
+   
+
+    return stack.join("");
+};
+```
+
+***
 
 
 
