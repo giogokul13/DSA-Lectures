@@ -298,7 +298,7 @@ MyQueue.prototype.empty = function() {
 
 ## Medium Problems
 
-## 2. 155. Min Stack
+## 1. 155. Min Stack
 
 ### Solution 1
 ### Time Everything is O(1) except getMin and Space Complexity O(N)
@@ -384,6 +384,65 @@ MinStack.prototype.getMin = function() {
   return null;
 };
 
+```
+
+***
+
+## 2. 1381. Design a Stack With Increment Operation
+
+### Solution 1
+###  Time complexity:
+### Pop O(1)
+### Push O(1)
+### Increment O(n) n = value of k or stack.length which is minimum
+### Space complexity: O(n)
+
+```
+/**
+ * @param {number} maxSize
+ */
+var CustomStack = function(maxSize) {
+    this.stack = [];
+    this.maxSize = maxSize;
+};
+
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+CustomStack.prototype.push = function(x) {
+    if(this.stack.length < this.maxSize) this.stack.push(x);
+};
+
+/**
+ * @return {number}
+ */
+CustomStack.prototype.pop = function() {
+    return (this.stack.length == 0) ? -1 : this.stack.pop();
+};
+
+/** 
+ * @param {number} k 
+ * @param {number} val
+ * @return {void}
+ */
+CustomStack.prototype.increment = function(k, val) {
+    let length = (k < this.stack.length) ? k : this.stack.length;
+
+    if(length == 0) return;
+
+    for(let i = 0; i < length; i++){
+        this.stack[i] += val;
+    }
+};
+
+/** 
+ * Your CustomStack object will be instantiated and called as such:
+ * var obj = new CustomStack(maxSize)
+ * obj.push(x)
+ * var param_2 = obj.pop()
+ * obj.increment(k,val)
+ */
 ```
 
 ***
