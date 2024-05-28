@@ -551,3 +551,42 @@ var decodeString = function (s) {
 ```
 
 ***
+
+
+## 5. 735. Asteroid Collision
+### Time Everything is O(N) and Space Complexity O(N)
+
+
+```
+/**
+ * @param {number[]} asteroids
+ * @return {number[]}
+ */
+var asteroidCollision = function(asteroids) {
+    let stack = [];
+
+    for (let a of asteroids){
+        while(stack.length && a < 0 && stack[stack.length - 1] > 0 ){
+            let diff = a + stack[stack.length - 1];
+            if(diff < 0) {
+                stack.pop();
+            } else if (diff  > 0){
+                a = 0;
+            } else {
+                a = 0;
+                stack.pop();
+            }
+        }
+
+        if(a) { stack.push(a)}
+    }
+
+    return stack;
+};
+```
+
+### Vide Reference 
+
+[![YT Video](https://img.youtube.com/vi/LN7KjRszjk4/0.jpg)](https://www.youtube.com/watch?v=LN7KjRszjk4)
+
+***
