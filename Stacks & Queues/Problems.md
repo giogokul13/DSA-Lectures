@@ -508,3 +508,46 @@ var minAddToMakeValid = function(s) {
 ```
 
 ***
+
+## 4. 394. Decode String
+
+### Time Everything is O(N) and Space Complexity O(N)
+
+```
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var decodeString = function (s) {
+    let stack = [];
+
+    for (let i = 0; i < s.length; i++) {
+        let char = s[i];
+        if (char != "]") {
+            stack.push(char);
+            continue;
+        }
+        let cur = stack.pop();
+        let str = "";
+
+        while (cur !== "[") {
+            str = cur + str;
+            cur = stack.pop();
+        }
+
+        let num = "";
+        cur = stack.pop();
+
+        while (!isNaN(Number(cur))) {
+            num = cur + num;
+            cur = stack.pop();
+        }
+        stack.push(cur);
+        stack.push(str.repeat(Number(num)));
+    }
+
+    return stack.join("");
+};
+```
+
+***
