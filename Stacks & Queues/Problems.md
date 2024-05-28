@@ -446,3 +446,65 @@ CustomStack.prototype.increment = function(k, val) {
 ```
 
 ***
+
+## 3. 921. Minimum Add to Make Parentheses Valid
+
+### Solution 1
+
+### Time Everything is O(N) and Space Complexity O(N)
+
+
+```
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minAddToMakeValid = function(s) {
+    if(s == "") return 0;
+
+    let stack = [];
+
+    for(let i = 0; i < s.length; i++){
+        if(s[i] == ")" && stack[stack.length - 1] == "(") {
+            stack.pop();
+        } else {
+            stack.push(s[i]);
+        }
+    }
+
+    return stack.length;
+};
+```
+
+### Solution 2
+
+### Time Everything is O(N) and Space Complexity O(1)
+
+```
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minAddToMakeValid = function(s) {
+    if(s == "") return 0;
+
+    // let stack = [];
+    let open = 0, close = 0;
+
+    for(let i = 0; i < s.length; i++){
+        if(s[i] == "(") {
+            open++;
+        } else {
+            if(open) {
+                open--
+            } else {
+                close++;
+            }
+        }
+    }
+
+    return open + close;
+};
+```
+
+***
