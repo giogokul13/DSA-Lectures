@@ -590,3 +590,33 @@ var asteroidCollision = function(asteroids) {
 [![YT Video](https://img.youtube.com/vi/LN7KjRszjk4/0.jpg)](https://www.youtube.com/watch?v=LN7KjRszjk4)
 
 ***
+
+## 6. 456. 132 Pattern
+### Time Everything is O(N) and Space Complexity O(N)
+
+```
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var find132pattern = function (nums) {
+
+    if(nums.length < 3) return false;
+
+    let stack = [], min = Number.MIN_SAFE_INTEGER;
+
+    for(let i = nums.length - 1; i >=0; i--){
+        if(nums[i] < min) return true;
+
+        while(stack.length && stack[stack.length - 1] < nums[i]){
+            min = stack.pop();
+        }
+
+        stack.push(nums[i]);
+    }
+    return false;
+
+};
+```
+
+***
