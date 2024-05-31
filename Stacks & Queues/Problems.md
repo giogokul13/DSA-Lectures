@@ -968,3 +968,12 @@ FrontMiddleBackQueue.prototype.popBack = function() {
 ```
 
 ***
+
+## 10. 621. Task Scheduler
+### Time O(N) and Space Complexity O(K)
+
+```
+
+```
+
+***
