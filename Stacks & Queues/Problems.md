@@ -1005,5 +1005,7 @@ var leastInterval = function(tasks, n) {
   return Math.max(tasks.length, (maxVal - 1) * (n + 1) + maxValCount);
 };
 ```
+## Video referring : [https://www.youtube.com/watch?v=l6-y7MrHLB8[s](url)](url)
+
 
 ***
