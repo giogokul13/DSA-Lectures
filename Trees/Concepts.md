@@ -132,6 +132,28 @@ No, of leaf Nodes = 1 + no, of Internal Nodes with 2 Childrens (apart from the r
 
 <img width="922" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/62d94d32-87f7-46ab-9103-79a7e4797ad9">
 
+## BFS -  Breadth First Search
+<img width="905" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/d6a8f59d-2110-4201-9790-d9f51ae2fef6">
+
+<img width="916" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/5a77f9c0-50dd-4481-8f0a-bba478bb8f48">
+
+### BFS Traversal Approaches
+  <img width="508" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/be25d062-1dfd-4349-8117-84e7333b1a12">
+
+  <img width="920" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/c153014c-8502-4594-87ee-c4c92b41b1eb">
+
+
+## Delete the Node
+
+### Remove Node - No Child or Remove leaf Node
+<img width="617" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/ef5fcdea-1134-4d1b-844b-bc0581983f92">
+
+### Node to be deleted as one child Node
+<img width="615" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/5dc50f6b-d2e8-4137-a643-cafc115a2bbc">
+
+### Node to be deleted has two child Nodes
+<img width="627" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/2a081a6c-8ded-4852-92b3-7da3c8e73679">
+
 
 # Sudo Code BST
 
@@ -159,7 +181,6 @@ class BinarySearchTree(){
       this.root = node;
     } else {
       this.insertNode(this.root, node);
-
     }
   }
 
@@ -195,6 +216,9 @@ class BinarySearchTree(){
     }
   }
 
+  /**
+  * DFS Methods
+  */
   this.preOrder = function(root){
     if(root){
       console.log(root.value);
@@ -219,6 +243,73 @@ class BinarySearchTree(){
       console.log(root.value);
     }
   }
+
+  /* * END DFS  */
+
+  /**
+  *  BFS Methos
+  */
+
+    this.levelOrder = function(){
+      let queue = []; // use a Optimized Key from Code Evolution Videos
+      queue.push(this.root);
+      while(queue.length){
+        let curr = queue.shift();
+        console.log(curr.value);
+        if(curr.left){
+          queue.push(curr.left);
+        }
+        if(curr.right){
+          queue.push(curr.right);
+        }
+      }
+    }
+
+    /** END BFS  */
+
+    this.getMinValue = function(root){
+      if(!root.left) {
+        return this.root.value;
+      } else {
+        return this.getMinValue(root.left)
+      }     
+    }
+
+    this.getMaxValue = function(root){
+      if(!root.right) {
+        return this.root.value;
+      } else {
+        return this.getMaxValue(root.right)
+      }     
+    }
+
+    this.delete = function(value){
+      this.root = this.deleteNode(this.root, value);
+    }
+
+    this.deleteNode = function(root, value){
+      if(!root) return root;
+
+      if(value < root.value){
+        root.left = this.deleteNode(root.left, value);
+      } else {
+        root.right = this.deleteNode(root.right, value);
+      } else {
+        if(!root.left && !root.right) {
+          return null;
+        }
+        if(!root.left){
+          return root.right;
+        } else if(!root.right) {
+          return root.left;
+        }
+
+        root.value = this.getMinValue(root.right);
+        root.right = this.deleteNode(root.right, root.value);
+      }
+
+      return root;
+    }
 
 }
 
