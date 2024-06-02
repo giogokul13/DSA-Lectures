@@ -23,7 +23,7 @@ Where the nodes on left are empty and the nodes at right has values continuously
 6. Future Data Structure
 
 
-## Eement Placing Binary Tree
+## Element Placing Binary Tree
 You can place your elements anywhere isn the nodes, no need follow a order
 Similar to Linked Data Structure, but trere as additionla nodee
 Class Node (){
@@ -31,6 +31,26 @@ Class Node (){
   this.left <Node>;
   this.right <Node>;
 }
+
+
+## Element Placing Binary Search Tree
+### All the smaller elements to the previous node goes left and greater elements go right
+eg        10
+     5          6
+   3     7            20
+                  15
+
+## Operations of Binary Search Tree
+1. Insertion
+2. Search
+3. DFS & BFS
+4. Deletion
+
+## ApPlications of BST
+1. Searching
+2. Sorting
+3. Implement high level datatypes such as Lookup tables and Priority Queues
+   
 
 ### Size of the Tree - Total no, of nodes in the Tree
 ### Child and Parent - Parent has child nodes
@@ -90,15 +110,120 @@ No, of leaf Nodes = 1 + no, of Internal Nodes with 2 Childrens (apart from the r
 
 1. Linked Representation
   Similar to Linked List
-2. Sequentioal Representation
+2. Sequential Representation
   Representing ina  array Format (Not suggested widely)
-
  
 
+## DFS -  Depth First Search
+<img width="885" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/6bd4dd7c-8689-47d0-9b93-13840da324e5">
 
-## Element Placing Binary Search Tree
-### All the smaller elements to the previous node goes left and greater elements go right
-eg        10
-     5          6
-   3     7            20
-                  15
+### Preorder Traversal
+<img width="378" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/c41edc04-d04e-4273-8119-917de5f23058">
+
+<img width="913" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/a0c6abe0-506d-4b25-829f-2128fd392afd">
+
+### Inorder Traversal
+<img width="402" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/98de104d-e99d-4ad4-a231-a436dcbd89b5">
+
+<img width="920" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/97951941-a3d9-4458-92ad-6da70ab5c2a8">
+
+### Post Order Traversal
+<img width="395" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/13120209-b030-4670-9a6f-2d32ab253e17">
+
+<img width="922" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/62d94d32-87f7-46ab-9103-79a7e4797ad9">
+
+
+# Sudo Code BST
+
+```
+class Node (){
+  constructor(value){
+    this.value = value
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree(){
+  constructor(){
+    this.root = null;  
+  }
+
+  this.isEmpty = function(){  // check whethe rthe roor is null or not
+    return (this.root == null);
+  }
+
+  this.insert = function(value){
+    let node = new Node(value);
+    if(this.isEmpty()){
+      this.root = node;
+    } else {
+      this.insertNode(this.root, node);
+
+    }
+  }
+
+  this.insertNode = function (root, node){
+
+    if(node.value < root.value){
+
+      if(root.left == null) {
+        root.left = node;
+      } else {
+        this.insertNode(root.left, neweNode);
+      }
+
+    } else {
+      if(root.right == null) {
+        root.right = node;
+      } else {
+        this.insertNode(root.right, neweNode);
+      }
+    }
+
+  }
+
+  this.search = function(root, value){
+    if(!root) return false;
+
+    if(root.value == value) return true;
+
+    if(value < root.value) {
+      return this.search(root.left, value);
+    } else {
+       return this.search(root.right, value);
+    }
+  }
+
+  this.preOrder = function(root){
+    if(root){
+      console.log(root.value);
+      this.preOrder(root.left)
+      this.preOrder(root.right);
+    }    
+  }
+
+  this.inOrder = function(root){
+    if(root){
+      this.Inorder(root.left);
+      console.log(root.value);
+      this.Inorder(root.right);
+      console.log(root.value);
+    }
+  }
+
+  this.postOrder = function(root){
+    if(root){
+      this.postOrder(root.left);
+      this.postOrder(root.right);
+      console.log(root.value);
+    }
+  }
+
+}
+
+let BST = new BinarySearhTree() // Invoke the BST Class
+
+```
+
+
