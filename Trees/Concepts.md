@@ -232,7 +232,6 @@ class BinarySearchTree(){
       this.Inorder(root.left);
       console.log(root.value);
       this.Inorder(root.right);
-      console.log(root.value);
     }
   }
 
