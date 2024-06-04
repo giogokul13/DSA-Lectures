@@ -114,15 +114,37 @@ var isSymmetric = function (root) {
 ***
 
 
-## 4. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 4. 104. Maximum Depth of Binary Tree
+Time - O(n)
+Space - O(h) h, height of the tree in Stack.
 
+```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    
+    if(!root) return 0;
+    
+
+    return Math.max(maxDepth(root.right), maxDepth(root.left)) + 1;
+};
 ```
 
 ***
 
 ## 5. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 6. 94. Binary Tree Inorder Traversal
 Time -
 Space - 
 
