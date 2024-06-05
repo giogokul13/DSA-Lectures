@@ -134,12 +134,31 @@ var maxDepth = function(root) {
 
 ***
 
-## 5. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 5. 108. Convert Sorted Array to Binary Search Tree
+Time - O(n)
+Space - O(n) we are creating a new TreeNode for each element in the input array, and the recursion stack can grow up to O(n) in the worst case scenario.
 
 ```
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var sortedArrayToBST = function (nums) {
 
+    let constructNodes = function (left, right) {
+        if (left > right) return null;
+
+        let middle = Math.floor((left + right) / 2);
+        let tree = new TreeNode(nums[middle]);
+        tree.left = constructNodes(left, middle - 1);
+        tree.right = constructNodes(middle + 1, right);
+
+        return tree;
+    }
+
+    return constructNodes(0, nums.length - 1);
+
+};
 ```
 
 ***
