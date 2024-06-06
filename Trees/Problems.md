@@ -319,6 +319,8 @@ var hasPathSum = function (root, targetSum) {
 
 }
 ```
+### Video reference 
+[![YT Video](https://img.youtube.com/vi/_FVbQCXeGy8/0.jpg)](https://www.youtube.com/watch?v=_FVbQCXeGy8)
 
 ***
 
