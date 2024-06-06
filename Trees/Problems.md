@@ -163,7 +163,53 @@ var sortedArrayToBST = function (nums) {
 Video Reference https://www.youtube.com/watch?v=0K0uCMYq5ng
 ***
 
-## 6. 94. Binary Tree Inorder Traversal
+## 6. 110. Balanced Binary Tree
+Time - O(n)
+Space - O(n)
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function (root) {
+    return dfs(root)[0];
+
+};
+
+function dfs(root) {
+    if (!root) return [true, 0]; // Base condition for no root or only one root.
+
+    let [left, right] = [dfs(root.left), dfs(root.right)];
+    let isBalanced = left[0] && right[0] && Math.abs(left[1] - right[1]) <= 1;
+
+    return [isBalanced, ( 1 + Math.max(left[1], right[1]))];
+}
+```
+
+***
+
+## 7. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 8. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 9. 94. Binary Tree Inorder Traversal
 Time -
 Space - 
 
