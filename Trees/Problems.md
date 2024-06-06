@@ -296,12 +296,26 @@ var postorderTraversal = function (root) {
 ***
 
 
-## 10. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 10. 112. Path Sum
+Time - O(n)
+Space - O(n)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {boolean}
+ */
+var hasPathSum = function (root, targetSum) {
 
+    if (!root) return false; // when no nodes present
+
+    // check leaf nodes && current value is TargetSum :: success we found the sum
+    if(root.val == targetSum && (!root.left && !root.right)) return true; 
+
+    return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+
+}
 ```
 
 ***
