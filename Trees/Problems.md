@@ -186,25 +186,79 @@ function dfs(root) {
     return [isBalanced, ( 1 + Math.max(left[1], right[1]))];
 }
 ```
+### Video reference 
+[![YT Video](https://img.youtube.com/vi/QfJsau0ItOY/0.jpg)](https://www.youtube.com/watch?v=QfJsau0ItOY)
 
 ***
 
-## 7. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 7. 111. Minimum Depth of Binary Tree
+Time - O(n)
+Space - O(n)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function (root) {
+    if (!root) return 0;
 
+    let depth = 1;
+
+    let queue = [];
+    queue.push(root);
+     while (queue.length) {
+        let levelSize = queue.length; // Number of nodes at the current level
+
+        for (let i = 0; i < levelSize; i++) {
+            let curr = queue.shift();
+
+            // Check if we have reached a leaf node
+            if (!curr.left && !curr.right) return depth;
+
+            if (curr.left) {
+                queue.push(curr.left);
+            }
+            if (curr.right) {
+                queue.push(curr.right);
+            }
+        }
+
+        depth++; // Increment depth after processing all nodes at the current level
+    }
+
+    return depth;
+};
 ```
 
 ***
 
-## 8. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 8. 144. Binary Tree Preorder Traversal
+Time - O(n)
+Space - O(n)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function (root) {
+    if (!root) return [];
 
+    let nodes = [];
+
+    let preOrder = function (root) {
+        if (root) {
+            nodes.push(root.val);
+            preOrder(root.left);
+            preOrder(root.right);
+        }
+
+        return nodes;
+    }
+
+    return preOrder(root);
+};
 ```
 
 ***
