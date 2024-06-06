@@ -263,7 +263,60 @@ var preorderTraversal = function (root) {
 
 ***
 
-## 9. 94. Binary Tree Inorder Traversal
+## 9. 145. Binary Tree Postorder Traversal
+Time - O(n)
+Space - O(n)
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function (root) {
+
+    let nodes = [];
+
+    if (!root) return nodes;
+
+    let postTraverse = function (root) {
+        if (root) {
+            postTraverse(root.left);
+            postTraverse(root.right);
+
+            nodes.push(root.val);
+        }
+
+        return nodes;
+    }
+
+    return postTraverse(root);
+};
+```
+
+***
+
+
+## 10. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 11. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 12. 94. Binary Tree Inorder Traversal
 Time -
 Space - 
 
