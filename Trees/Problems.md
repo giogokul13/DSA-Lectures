@@ -230,6 +230,8 @@ var minDepth = function (root) {
     return depth;
 };
 ```
+### Video reference 
+[![YT Video](https://img.youtube.com/vi/tZS4VHtbYoo/0.jpg)](https://www.youtube.com/watch?v=tZS4VHtbYoo)
 
 ***
 
