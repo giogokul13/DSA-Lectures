@@ -355,12 +355,38 @@ var invertTree = function (root) {
 
 ***
 
-## 12. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 12. 257. Binary Tree Paths
+Time - O(n)
+Space - O(n)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+var binaryTreePaths = function (root) {
+    let paths = [];
+    if (!root) return paths;
 
+    function leafPath(root, path) {
+        if (root) {
+            path += root.val;
+            if(!root.left && !root.right){
+                paths.push(path);
+            } else {
+                path += "->";
+                leafPath(root.left, path);
+                leafPath(root.right, path);
+            }
+
+        }
+    }
+
+    leafPath(root, "");
+    console.log(paths);
+
+    return paths;
+};
 ```
 
 ***
