@@ -391,12 +391,33 @@ var binaryTreePaths = function (root) {
 
 ***
 
-## 13. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 13. 404. Sum of Left Leaves
+Time - O(n)
+Space - O(h), height of the Tree on Recursion Stack
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumOfLeftLeaves = function(root) {
+    let sum = 0;
 
+    if(!root) return sum;
+
+    let leftLeavesSum = function(node, isLeft){
+        if(node){
+            if(!node.left && !node.right && isLeft) sum += node.val;
+
+            leftLeavesSum(node.left, true);
+            leftLeavesSum(node.right, false);
+        }
+    }
+
+    leftLeavesSum(root, false);
+
+    return sum;
+};
 ```
 
 ***
