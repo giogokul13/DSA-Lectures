@@ -324,7 +324,38 @@ var hasPathSum = function (root, targetSum) {
 
 ***
 
-## 11. 94. Binary Tree Inorder Traversal
+## 11. 226. Invert Binary Tree
+Time - O(n)
+Space - O(n)
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function (root) {
+
+    if(!root) return root;
+
+    function invert(root) {
+        if (root) {
+            let temp = root.left;
+            root.left = root.right;
+            root.right = temp;
+            invert(root.left);
+            invert(root.right);
+        }
+    }
+
+    invert(root);
+
+    return root;
+};
+```
+
+***
+
+## 12. 94. Binary Tree Inorder Traversal
 Time -
 Space - 
 
@@ -334,7 +365,47 @@ Space -
 
 ***
 
-## 12. 94. Binary Tree Inorder Traversal
+## 13. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 14. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 15. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 16. 94. Binary Tree Inorder Traversal
+Time -
+Space - 
+
+```
+
+```
+
+***
+
+## 17. 94. Binary Tree Inorder Traversal
 Time -
 Space - 
 
