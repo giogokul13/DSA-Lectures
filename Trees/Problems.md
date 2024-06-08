@@ -422,39 +422,118 @@ var sumOfLeftLeaves = function(root) {
 
 ***
 
-## 14. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 14. 501. Find Mode in Binary Search Tree
+
+Time - O(n)
+Space - O(n)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var findMode = function (root) {
+    let modes = [];
+    let count = 0;
+    let maxCount = 0
+    let currVal = null;
 
+    if (!root) return modes;
+
+    let inOrderTraverse = function (node) {
+        if (node) {
+            inOrderTraverse(node.left);
+            count = (node.val == currVal) ? count + 1 : 1;
+            if (count == maxCount) {
+                modes.push(node.val)
+            } else if (count > maxCount) {
+                maxCount = count;
+                modes = [node.val]
+            }
+            currVal = node.val;
+
+            inOrderTraverse(node.right);
+        }
+    }
+
+    inOrderTraverse(root);
+
+    return modes;
+};
 ```
 
 ***
 
-## 15. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 15. 530. Minimum Absolute Difference in BST
+Time - O(n)
+Space -  O(n)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var getMinimumDifference = function (root) {
+    let min = Infinity;
+    let prev = null;
 
+    function inOrderTraversal(node) {
+        if (node) {
+            inOrderTraversal(node.left);
+
+            if (prev !== null) {
+                min = Math.min(Math.abs(prev - node.val), min);
+            }
+            prev = node.val;
+
+            inOrderTraversal(node.right);
+        }
+    }
+
+    inOrderTraversal(root);
+
+    return min;
+};
 ```
 
 ***
 
-## 16. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+## 16. 543. Diameter of Binary Tree
+Time - O(n)
+Space - O(n)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var diameterOfBinaryTree = function (root) {
+    let diameter = 0;
 
+    let postOrderTraversal = function (node) {
+        if (!node) return 0;
+
+        let leftDepth = postOrderTraversal(node.left);
+        let rightDepth = postOrderTraversal(node.right);
+
+        diameter = Math.max(diameter, (leftDepth + rightDepth));
+
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+
+    postOrderTraversal(root);
+
+    return diameter;
+};
 ```
 
 ***
+
+# Medium Problems
 
 ## 17. 94. Binary Tree Inorder Traversal
-Time -
-Space - 
+Time - 
+Space -  
 
 ```
 
