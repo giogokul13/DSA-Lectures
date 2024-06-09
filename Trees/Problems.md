@@ -531,7 +531,212 @@ var diameterOfBinaryTree = function (root) {
 
 # Medium Problems
 
-## 17. 94. Binary Tree Inorder Traversal
+## 1. 98. Validate Binary Search Tree
+Time - O(n)
+Space -  O(n)
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function (root) {
+    let prev = null;
+    let traverse = function (node) { // Inorder Traversal
+        if (node == null) return true;
+
+        if (!traverse(node.left)) return false;
+
+        if (prev !== null && node.val <= prev.val) return false;
+
+        prev = node;
+        return traverse(node.right);
+    }
+
+    return traverse(root);
+};
+```
+
+***
+
+## 2. 863. All Nodes Distance K in Binary Tree
+Time - O(n)
+Space -  O(n)
+
+```
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} target
+ * @param {number} k
+ * @return {number[]}
+ */
+var distanceK = function (root, target, k) {
+
+    // when k is Zero, which means zero distance we should return the graph itself
+    if (k === 0) return [target.val];
+
+    let parentMap = new Map();
+
+    let traverse = function(root){
+        if(!root) return;
+
+        if(root.left){
+            parentMap.set(root.left, root);
+            traverse(root.left);
+        }
+
+        if(root.right){
+            parentMap.set(root.right, root);
+            traverse(root.right);
+        }
+    };
+
+    let output = [];
+    let visited = new Set();
+
+    let findNode = function(root, dist) {
+        if(!root) return;
+
+        if(visited.has(root)) return;
+
+        if(dist == k) output.push(root.val);
+
+        visited.add(root);
+
+        findNode(root.left, dist + 1);
+        findNode(root.right, dist + 1);
+        findNode(parentMap.get(root), dist + 1);
+    }
+
+    traverse(root);
+    findNode(target, 0);
+
+    return output;
+
+};  
+```
+
+***
+
+## 3. 1361. Validate Binary Tree Nodes
+Time - O(n)
+Space - O(n)  
+
+```
+/**
+ * @param {number} n
+ * @param {number[]} leftChild
+ * @param {number[]} rightChild
+ * @return {boolean}
+ */
+
+
+const findRoot = (leftChildren, rightChildren) => {
+    let root = 0;
+    for(let i = 0; i < leftChildren.length; i++) {
+        const left = leftChildren[i];
+        const right = rightChildren[i];    
+        if(left === root || right == root) root = i;
+    }
+    return root;
+}
+
+var validateBinaryTreeNodes = function(n, leftChild, rightChild) {
+    const visited = {};
+    const dfs = (i, leftChild, rightChild) => {
+        if( visited[i] ) return false;
+        visited[i] = true;
+        const left = leftChild[i];
+        const right = rightChild[i];
+        if(left > -1) {
+            if(!dfs(left, leftChild, rightChild)) return false;
+        }
+        if(right > -1) {
+            if(!dfs(right, leftChild, rightChild)) return false;
+        }
+        
+        return true;
+}
+    const root = findRoot(leftChild, rightChild);
+    return dfs(root, leftChild, rightChild) && Object.keys(visited).length === n;
+};
+```
+### Video reference 
+[![YT Video](https://img.youtube.com/vi/Mw67DTgUEqk/0.jpg)](https://www.youtube.com/watch?v=Mw67DTgUEqk)
+
+***
+
+## 4. 94. Binary Tree Inorder Traversal
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 5. 94. Binary Tree Inorder Traversal
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 6. 94. Binary Tree Inorder Traversal
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 7. 94. Binary Tree Inorder Traversal
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 8. 94. Binary Tree Inorder Traversal
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 9. 94. Binary Tree Inorder Traversal
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 10. 94. Binary Tree Inorder Traversal
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 11. 94. Binary Tree Inorder Traversal
 Time - 
 Space -  
 
