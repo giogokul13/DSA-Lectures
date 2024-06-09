@@ -160,7 +160,9 @@ var sortedArrayToBST = function (nums) {
 
 };
 ```
-Video Reference https://www.youtube.com/watch?v=0K0uCMYq5ng
+### Video Reference
+[![YT Video](https://img.youtube.com/vi/0K0uCMYq5ng/0.jpg)](https://www.youtube.com/watch?v=0K0uCMYq5ng)
+
 ***
 
 ## 6. 110. Balanced Binary Tree
@@ -889,6 +891,8 @@ var widthOfBinaryTree = function(root) {
     return res;
 };
 ```
+### Video Reference 
+[![YT Video](https://img.youtube.com/vi/FPzLE2L7uHs/0.jpg)](https://www.youtube.com/watch?v=FPzLE2L7uHs)
 
 ***
 
