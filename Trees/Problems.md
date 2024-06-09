@@ -666,24 +666,157 @@ var validateBinaryTreeNodes = function(n, leftChild, rightChild) {
 
 ***
 
-## 4. 94. Binary Tree Inorder Traversal
-Time - 
-Space -  
+## 4. 687. Longest Univalue Path
+Time - O(n)
+Space -  O(h) height of the tree
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var longestUnivaluePath = function (root) {
 
+    if(!root) return 0;
+
+    let max = 0;
+
+    let postOrderTraversal = function (node) {
+        if (!node) return 0;
+
+        let left = postOrderTraversal(node.left);
+        let right = postOrderTraversal(node.right);
+
+        if(!node.left || node.left.val !== node.val) left = 0;
+
+        if(!node.right || node.right.val !== node.val) right = 0;
+
+        max = Math.max(max, left + right);
+        return Math.max(left, right) + 1;
+    }
+
+    postOrderTraversal(root);
+
+    return max;
+};
 ```
 
 ***
 
-## 5. 94. Binary Tree Inorder Traversal
-Time - 
-Space -  
+## 5. 2476. Closest Nodes Queries in a Binary Search Tree
+Time - O(N log N)
+Space - O(N) 
+
+### Solution 1
 
 ```
+/**
+ * @param {TreeNode} root
+ * @param {number[]} queries
+ * @return {number[][]}
+ */
+var closestNodes = function (root, queries) {
+    let nodes = [];
 
+    let preOrderTraversal = function (node) { // get all the elements from the tree
+        if (node) {
+            nodes.push(node.val);
+            preOrderTraversal(node.left);
+            preOrderTraversal(node.right);
+        }
+    }
+
+    preOrderTraversal(root);
+
+    let answer = [];
+
+    nodes = nodes.sort((a, b) => a - b) // sort the Array of node values inascending order
+    let arr = [];
+    for (let i = 0; i < queries.length; i++) {
+        arr = [];
+        let min, max;
+        for (let j = 0; j < nodes.length; j++) {
+            if (nodes[j] <= queries[i]) min = nodes[j];
+
+            if (max == null && nodes[j] >= queries[i]) max = nodes[j];
+        }
+
+        min = (min == null) ? -1 : min;
+        max = (max == null) ? -1 : max;
+
+        arr = [min, max]
+        answer.push(arr);
+    }
+
+    return answer;
+
+};
 ```
 
+### Solution 2 - Optimal
+Time - O(n logn)
+Space - O(n)
+```
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number[]} queries
+ * @return {number[][]}
+ */
+var closestNodes = function (root, queries) {
+    let nodes = [];
+
+    let inOrderTraversal = function (node) { // get all the elements from the tree in Ascending order
+        if (node) {
+            inOrderTraversal(node.left);
+            nodes.push(node.val);
+            inOrderTraversal(node.right);
+        }
+    }
+
+    inOrderTraversal(root);
+    
+    let answer = [];
+
+    for(let i = 0; i < queries.length; i++){
+        answer.push(findClosestValues(queries[i], nodes));
+    }
+   
+    return answer;
+
+};
+
+
+function findClosestValues(target, nodeArr){
+    let [left, right] = [-1, -1];
+
+    let low = 0;
+    let high = nodeArr.length - 1;
+
+    while(low <= high){
+        let mid = Math.floor(low + (high - low) / 2);
+        if(nodeArr[mid] == target){
+            left = right = nodeArr[mid];
+            break;
+        } else if(nodeArr[mid] < target){
+            left = nodeArr[mid];
+            low = mid + 1;
+        } else {
+            right = nodeArr[mid];
+            high = mid - 1;
+        }
+    }
+
+    return [left, right];
+}   
+```
 ***
 
 ## 6. 94. Binary Tree Inorder Traversal
