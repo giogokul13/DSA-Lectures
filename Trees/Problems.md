@@ -819,12 +819,75 @@ function findClosestValues(target, nodeArr){
 ```
 ***
 
-## 6. 94. Binary Tree Inorder Traversal
-Time - 
-Space -  
+## 6. 662. Maximum Width of Binary Tree
+
+### Solution 1 
+Time - O(n)
+Space - O(n)
 
 ```
+var widthOfBinaryTree = function(root) {
+    if (root == null) return 0;
 
+    let res = 0;
+    let queue = [[root, 0]]; // [Node, index]
+    
+    while (queue.length) {
+        let levelSize = queue.length;
+        let levelMinIndex = queue[0][1]; // Get the index of the first node at the current level
+        let firstIndex = 0, lastIndex = 0;
+        
+        for (let i = 0; i < levelSize; i++) {
+            let [node, index] = queue.shift();
+            index -= levelMinIndex; // Normalize index to prevent overflow
+            
+            if (i === 0) firstIndex = index; // First index at this level
+            if (i === levelSize - 1) lastIndex = index; // Last index at this level
+            
+            if (node.left) queue.push([node.left, 2 * index]);
+            if (node.right) queue.push([node.right, 2 * index + 1]);
+        }
+        
+        res = Math.max(res, lastIndex - firstIndex + 1);
+    }
+    
+    return res;
+};
+```
+
+### Solution 2  
+Time - O(n)
+Space - O(n)  
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var widthOfBinaryTree = function(root) {
+    let res = 0;
+
+    let queue = [[root, 1, 0]]; // [Node, num, level]
+    let [prevLevel, prevNum] = [0, 1];
+    
+    while (queue.length){
+        let curr = queue.shift();
+        let [node, num, level] = curr;
+
+        if(level > prevLevel) {
+            preLevel = level;
+            preNum = num;
+        }
+
+        res = Math.max(res, num - prevNum + 1);
+
+        if(node.left) queue.push([node.left, num * 2 , level + 1]);
+        if(node.right) queue.push([node.right, (num * 2) + 1, level + 1]);
+
+    }
+
+    return res;
+};
 ```
 
 ***
