@@ -896,17 +896,55 @@ var widthOfBinaryTree = function(root) {
 
 ***
 
-## 7. 94. Binary Tree Inorder Traversal
-Time - 
-Space -  
+## 7. 1367. Linked List in Binary Tree
+Time - O(m * n) m, no of nodes in tree; n, no of nodes in linked list 
+Space -  O(h), h, height of the tree
 
 ```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSubPath = function (head, root) {
+    if (!root) return false;
 
+    if (root.val == head.val) {
+        if (checkEquality(root, head)) return true;
+    }
+
+    return isSubPath(head, root.left,) || isSubPath(head, root.right);
+};
+
+function checkEquality(root, list) {
+    if (!list) return true;
+
+    if (!root) return false;
+
+    if (list.val !== root.val) return false;
+
+    return checkEquality(root.left, list.next) || checkEquality(root.right, list.next);
+}
 ```
 
 ***
 
-## 8. 94. Binary Tree Inorder Traversal
+## 8. 1993. Operations on Tree
 Time - 
 Space -  
 
