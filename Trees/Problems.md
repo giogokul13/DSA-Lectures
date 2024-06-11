@@ -944,22 +944,86 @@ function checkEquality(root, list) {
 
 ***
 
-## 8. 1993. Operations on Tree
-Time - 
-Space -  
+## 8. 331. Verify Preorder Serialization of a Binary Tree
+Time - O(n)
+Space -  O(1)
 
 ```
+/**
+ * @param {string} preorder
+ * @return {boolean}
+ */
+var isValidSerialization = function (preorder) {
 
+    let preOrderArr = preorder.split(",");
+    let slots = 1;
+
+    for(let node of preOrderArr){
+        // console.log(node);
+        if(slots <= 0 ) return false;
+
+        if(node == "#"){
+            slots += -1 
+        } else {
+            slots += 1;
+        }
+    }
+
+    return slots == 0;
+};
 ```
+### Video Reference
+[![YT Video](https://img.youtube.com/vi/25WFGyeNbg0/0.jpg)](https://www.youtube.com/watch?v=25WFGyeNbg0)
 
 ***
 
-## 9. 94. Binary Tree Inorder Traversal
-Time - 
-Space -  
+## 9. 2583. Kth Largest Sum in a Binary Tree
+**Time complexity**:
+The time complexity of this solution is O(n) where n is the number of nodes in the binary tree. This is because we are traversing each node once to calculate the level sums and then sorting the level sums array, which takes O(nlogn) time complexity. However, since we are only interested in the kth largest level sum, the overall time complexity is O(n).
+
+**Space complexity**:
+The space complexity is also O(n) because we are using a queue to perform level order traversal of the binary tree and storing the level sums in an array. The size of the queue can be at most the number of nodes in the binary tree, which is O(n).
 
 ```
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthLargestLevelSum = function (root, k) {
 
+    let levelSum = [];
+
+    let queue = [root];
+
+    let sum = 0
+    while (queue.length) {
+        sum = 0;
+        let queueLen = queue.length;
+        for (let i = 0; i < queueLen; i++) {
+            let node = queue.shift();
+            sum += node.val;
+            if (node.left) {
+                queue.push(node.left);
+            }
+
+            if (node.right) {
+                queue.push(node.right);
+            }
+        }
+        levelSum.push(sum);
+    }
+
+    return levelSum.sort((a, b) => b - a)[k - 1] || -1;
+};
 ```
 
 ***
