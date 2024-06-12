@@ -1028,7 +1028,7 @@ var kthLargestLevelSum = function (root, k) {
 
 ***
 
-## 10. 94. Binary Tree Inorder Traversal
+## 10. 2049. Count Nodes With the Highest Score
 Time - 
 Space -  
 
@@ -1038,7 +1038,108 @@ Space -
 
 ***
 
-## 11. 94. Binary Tree Inorder Traversal
+## 11. 113. Path Sum II
+Time - O(N)
+Space -  O(N)
+
+```
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {number[][]}
+ */
+var pathSum = function (root, targetSum) {
+    let fullPath = [];
+
+    function dfs(root, targetSum, list) {
+        if (root == null) return; // when no nodes present
+
+        list.push(root.val)
+
+        // check leaf nodes && current value is TargetSum :: success we found the sum
+        if (root.val == targetSum && (root.left == null && root.right == null)) {
+            fullPath.push(list.slice());
+            list.pop();
+            return;
+        }
+
+        dfs(root.left, targetSum - root.val, list);
+        dfs(root.right, targetSum - root.val, list);
+        list.pop();
+        return;
+    }
+
+    dfs(root, targetSum, []);
+    return fullPath;
+};
+```
+
+***
+
+## 12. 437. Path Sum III
+Time - O(N)
+Space -  O(N)
+
+```
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {number}
+ */
+var pathSum = function (root, targetSum) {
+    let fullPathCounter = 0;
+    let map = {};
+
+    function dfs(node, pathSum) {
+        if (node == null) return null; // when no nodes present
+
+        pathSum += node.val;
+        // check leaf nodes && current value is TargetSum :: success we found the sum
+        if (pathSum == targetSum) {
+            fullPathCounter += 1;
+        }
+
+        if (map[pathSum - targetSum]) fullPathCounter += map[pathSum - targetSum];
+
+        if (map[pathSum]) map[pathSum]++;
+        else map[pathSum] = 1;
+
+        if(node.left) dfs(node.left, pathSum);
+        if(node.right) dfs(node.right, pathSum);
+
+        map[pathSum]--;
+    }
+
+    dfs(root, 0);
+    return fullPathCounter;
+};
+```
+### Video Reference
+[![YT Video](https://img.youtube.com/vi/ofMqFAFVcKY/0.jpg)](https://www.youtube.com/watch?v=ofMqFAFVcKY)
+
+***
+
+## 13. 437. Path Sum III
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 14. 437. Path Sum III
+Time - 
+Space -  
+
+```
+
+```
+
+***
+
+## 15. 437. Path Sum III
 Time - 
 Space -  
 
