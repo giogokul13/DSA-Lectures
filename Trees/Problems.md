@@ -1119,13 +1119,45 @@ var pathSum = function (root, targetSum) {
 
 ***
 
-## 13. 437. Path Sum III
-Time - 
-Space -  
+## 13. 1339. Maximum Product of Splitted Binary Tree
+Time - O(N)
+Space - O(N)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxProduct = function (root) {
 
+    let sum = [];
+
+    function postOrderTraverse(node) {
+        if (node == null) return 0;
+
+        let leftSum = postOrderTraverse(node.left);
+        let rightSum = postOrderTraverse(node.right);
+        sum.push(leftSum, rightSum); // sum.push(leftSum).push(rightSum);
+        return leftSum + rightSum + node.val;
+    }
+
+    let totalSum = postOrderTraverse(root);
+    // console.log(sum);
+    // console.log(totalSum);
+
+    let max = 0;
+
+    for (let num of sum) {
+        let curr = num * (totalSum - num);
+        max = Math.max(max, curr);
+    }
+
+    return max % (10 ** 9 + 7) ;
+
+};
 ```
+### Video Reference
+[![YT Video](https://img.youtube.com/vi/ZGmvcUtXKxU/0.jpg)](https://www.youtube.com/watch?v=ZGmvcUtXKxU)
 
 ***
 
