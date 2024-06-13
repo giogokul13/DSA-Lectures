@@ -1161,7 +1161,56 @@ var maxProduct = function (root) {
 
 ***
 
-## 14. 437. Path Sum III
+## 14. 2467. Most Profitable Path in a Tree
+Time - 
+Space -  
+
+```
+NOT ATTEMPTED
+```
+
+***
+
+## 15. 2096. Step-By-Step Directions From a Binary Tree Node to Another
+Time - O(N)
+Space -  O(N)
+
+```
+/**
+ * @param {TreeNode} root
+ * @param {number} startValue
+ * @param {number} destValue
+ * @return {string}
+ */
+var getDirections = function (root, startValue, destValue) {
+    let start = "", end = "";
+
+    function traverse(node, path) {
+
+        if (node == null) return "";
+
+        if (startValue == node.val) start = path;
+        if (destValue == node.val) end = path;
+
+        traverse(node.left, path + "L");
+        traverse(node.right, path + "R");
+    }
+
+    traverse(root, "");
+    let index = 0;
+    
+    while(start[index] == end[index]){
+        index += 1;
+    }
+    
+    return start.slice(index).split('').map(_ => "U").join("") + end.slice(index);
+};
+```
+
+***
+
+
+## 16. 437. Path Sum III
 Time - 
 Space -  
 
@@ -1171,7 +1220,8 @@ Space -
 
 ***
 
-## 15. 437. Path Sum III
+
+## 17. 437. Path Sum III
 Time - 
 Space -  
 
