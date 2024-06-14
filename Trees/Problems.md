@@ -1210,23 +1210,75 @@ var getDirections = function (root, startValue, destValue) {
 ***
 
 
-## 16. 437. Path Sum III
-Time - 
-Space -  
+## 16. 558. Logical OR of Two Binary Grids Represented as Quad-Trees
+Time - O(N)
+Space -  O(N)
 
 ```
+/**
+ * @param {Node} quadTree1
+ * @param {Node} quadTree2
+ * @return {Node}
+ */
+var intersect = function (quadTree1, quadTree2) {
 
+    if (quadTree1.isLeaf) return quadTree1.val ? quadTree1 : quadTree2;
+
+    if (quadTree2.isLeaf) return quadTree2.val ? quadTree2 : quadTree1;
+
+
+    let nodes = [
+        intersect(quadTree1.topLeft, quadTree2.topLeft),
+        intersect(quadTree1.topRight, quadTree2.topRight),
+        intersect(quadTree1.bottomLeft, quadTree2.bottomLeft),
+        intersect(quadTree1.bottomRight, quadTree2.bottomRight),
+    ]
+
+    let areSame = nodes.every(({ isLeaf, val }) => isLeaf && val);
+
+    let [topLeft, topRight, bottomLeft, bottomRight] = nodes;
+
+    if (areSame) return topLeft;
+
+    return new Node(true, false, topLeft, topRight, bottomLeft, bottomRight);
+};
 ```
 
 ***
 
 
-## 17. 437. Path Sum III
-Time - 
-Space -  
+## 17. 971. Flip Binary Tree To Match Preorder Traversal
+Time - O(N)
+Space -  O(N)
 
 ```
+/**
+ * @param {TreeNode} root
+ * @param {number[]} voyage
+ * @return {number[]}
+ */
+var flipMatchVoyage = function (root, voyage) {
+    let flips = [];
+    let index = 0;
 
+    let preOrder = function (node) {
+        if (node == null || flips[0] == -1) return;
+
+        if (node.val !== voyage[index++]) {
+            flips = [-1];
+        } else if (node.left && node.left.val !== voyage[index]) {
+            flips.push(node.val);
+            preOrder(node.right);
+            preOrder(node.left);
+        } else {
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+    preOrder(root);
+    return flips;
+};
 ```
 
 ***
