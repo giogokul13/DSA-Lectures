@@ -18,6 +18,17 @@ Few More types of Graph
 <img width="220" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/36f2175e-7e5e-4691-91ae-a39085e71951">
 
 
+## Degrees in a Graph
+No, of nodes atached to the current node
+
+### Property
+1. Total Degree  = 2 * no, of edges in the graph
+   
+### Indegree - No, of incoming edges in Directed Graph
+### OutDegree edges - No, of outgoing edges in Directed Graph
+
+### Edge Weight -  The weights assigned to each edge in the graph.
+
 ## Graph Representation
 
 Adjacency matrix
@@ -91,3 +102,13 @@ Class Graph {
 
 const graph = new Graph();
 ```
+
+
+## Conneted Components
+
+## Traversal Algorithm.
+
+### DFS
+<img width="437" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/9c235560-24a9-42d4-9049-9b6cac202d06">
+
+ 
