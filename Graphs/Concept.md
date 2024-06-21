@@ -111,4 +111,51 @@ const graph = new Graph();
 ### DFS
 <img width="437" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/9c235560-24a9-42d4-9049-9b6cac202d06">
 
+ Requirements
+ 1. Set
+ 2. Stack
+
+ ## Iterative Method.
+
+```
+TC -  V + e -  Vertex + Edges
+function dfsIterative(startVertex) {
+  let visited = new Set();
+  let stack = [];
+
+  stack.push(startVertex);
+
+  while (stack.length) {
+    let currentVertex = stack.pop();
+    visited.add(currentVertex);
+
+    for (let neighbour of this.adjacecentList[currentVertex]) {
+      if (!visited.has(neighbour)) {
+        stack.push(neighbour);
+      }
+    }
+  }
+}
+```
+
+## Recursive Solution
+
+```
+function dfsRecursive(startVertex) {
+  let visited = new Set();
+  dfs(startVertex, visited)
  
+}
+
+
+function dfs(vertex, visited){
+  visited.add(vertex)
+  
+ for(let neighbour of adjacencyList[vertex]){
+  if(!visited.has(neighbour)){
+    dfs(neighbour, visited)
+  }
+ }
+}
+```
+
