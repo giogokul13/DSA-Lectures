@@ -4,7 +4,7 @@
 
 T.C = O(1) 
 S.T = O(1)
-1. 1791. Find Center of Star Graph
+1.  1791 Find Center of Star Graph
 
 ```
 /**
