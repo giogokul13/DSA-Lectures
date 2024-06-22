@@ -159,3 +159,63 @@ function dfs(vertex, visited){
 }
 ```
 
+## BFS
+<img width="598" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/e101391e-f9ac-4bde-bffd-9225d32bea40">
+
+### Iterative Solution
+```
+function BFSIterative(startVertex){
+  let visited = new Set();
+  let queue = [];
+
+  queue.push(startVertex);
+  visited.add(startVertex);
+
+  while (queue.length) {
+    let currentVertex = queue.shift();
+
+    for (let neighbour of this.adjacecentList[currentVertex]) {
+      if (!visited.has(neighbour)) {
+        queue.push(neighbour);
+        visited.add(neighbour);
+      }
+    }
+  }
+}
+
+```
+
+### Recursive Solution.
+
+```
+function bfsRecursive(startVertex) {
+  let visited = new Set();
+  bfs([startVertex], visited);
+}
+
+function bfs(queue, visited) {
+  if (queue.length === 0) {
+      return;
+  }
+
+  let nextQueue = [];
+  for (let vertex of queue) {
+      if (!visited.has(vertex)) {
+          visited.add(vertex);
+          console.log(vertex); // You can push this to a result array if needed
+
+          for (let neighbor of this.adjacencyList[vertex]) {
+              if (!visited.has(neighbor)) {
+                  nextQueue.push(neighbor);
+              }
+          }
+      }
+  }
+
+  bfs(nextQueue, visited);
+}
+
+```
+
+
+
