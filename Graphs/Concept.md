@@ -395,7 +395,7 @@ console.log(mst);
 
 ```
 
-f## Kruskal's Algorithm.
+## Kruskal's Algorithm.
 
 Algorithm
 <img width="563" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/3f848861-2462-404b-b60d-415cc3823118">
