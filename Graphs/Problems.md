@@ -54,7 +54,99 @@ class Solution {
 }
 ```
 
-## 207. Course Schedule
+### Given an integer n representing number of vertices. Find out how many undirected graphs (not necessarily connected) can be constructed out of a given n number of vertices.
+
+https://www.geeksforgeeks.org/problems/graph-and-vertices/1
+
+TC and SC -  O(1)
+```
+//User function Template for javascript
+/**
+ * @param {number} n
+ * @returns {number}
+*/
+
+class Solution
+{
+    //Function to count the number of digits in a number.
+    count(n)
+    {
+        return Math.pow(2, (n * (n - 1) / 2));
+    }
+}
+```
+### Print the Adjacency List
+
+TC - O(E) - E is Edges
+SC - O(N) -  N no, of Nodes
+```
+// User function Template for javascript
+class Solution {
+    printGraph(V, edges) {
+       // Initialize an empty adjacency list with V vertices.
+        const res = Array.from({ length: V }, () => []);
+    
+        // Iterate through each edge and add it to the adjacency list.
+        edges.forEach(edge => {
+            const [u, v] = edge;
+            res[u].push(v);
+            res[v].push(u); // For undirected graphs, add both directions.
+        });
+    
+        return res;
+    }
+}
+```
+
+### 
+
+DFS Implementation
+```
+class Solution {
+    // Function to return a list containing the DFS traversal of the graph.
+    dfsOfGraph(V, adj) {
+        let visited = new Array(V).fill(false);
+        let stack = [];
+        let ans = [];
+        
+        // Helper function to perform DFS from a given vertex
+        const dfs = (vertex) => {
+            stack.push(vertex);
+            
+            while (stack.length > 0) {
+                let v = stack.pop();
+                
+                if (!visited[v]) {
+                    visited[v] = true;
+                    ans.push(v);
+                    
+                    // Push all adjacent vertices to the stack
+                    // Important to add in reverse order to maintain traversal order
+                    for (let i = adj[v].length - 1; i >= 0; i--) {
+                        if (!visited[adj[v][i]]) {
+                            stack.push(adj[v][i]);
+                        }
+                    }
+                }
+            }
+        };
+        
+        // Start DFS from each vertex to handle disconnected graphs
+        for (let i = 0; i < V; i++) {
+            if (!visited[i]) {
+                dfs(i);
+            }
+        }
+        
+        return ans;
+    }
+}
+
+```
+
+## Medium
+
+### 207. Course Schedule
 
 TC - O(V + E)
 SC O(V)
