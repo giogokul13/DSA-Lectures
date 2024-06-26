@@ -144,6 +144,11 @@ class Solution {
 
 ```
 
+***
+***
+***
+
+
 ## Medium
 
 ### 207. Course Schedule
@@ -185,4 +190,114 @@ var canFinish = function (numCourses, prerequisites) {
     return count === numCourses;
 };
 ```
+*** 
+547. Number of Provinces 
 
+TC: O(n) + O(V + E) =  O(n) N Recursive Stack  Vertex + Edge
+SC: O(N)   Store Visited Array
+
+```
+/**
+ * @param {number[][]} isConnected
+ * @return {number}
+ SC O(n)
+ TC O(n) + O(V + E) =  O(n)
+ */
+var findCircleNum = function (isConnected) {
+
+    let adj = {};
+
+    for (let i = 0; i < isConnected.length; i++) {
+        for (let j = 0; j < isConnected[i].length; j++) {
+            if (!adj[i]) adj[i] = [];
+            if (!adj[j]) adj[j] = [];
+
+            if (isConnected[i][j] == 1 && i != j) {
+                adj[i].push(j);
+                adj[j].push(i);
+            }
+        }
+    }
+
+    let visited = [0];
+    let provinces = 0;
+
+    for (let i = 0; i < isConnected[0].length; i++) {
+        if (!visited[i]) {
+            provinces++;
+            dfs(i, adj, visited);
+        }
+    }
+
+    return provinces;
+};
+
+
+function dfs(node, adj, visited) {
+    visited[node] = 1;
+    for (let item of adj[node]) {
+        if (!visited[item]) {
+            dfs(item, adj, visited);
+        }
+    }
+}
+
+```
+[![YT Video](https://img.youtube.com/vi/ACzkVtewUYA/0.jpg)](https://www.youtube.com/watch?v=ACzkVtewUYA)
+
+*** 
+
+
+994. Rotting Oranges -n https://leetcode.com/problems/rotting-oranges/description/
+
+TC and SC  = O(M * N)
+
+```
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var orangesRotting = function (grid) {
+    let queue = [];
+    let time = 0, freshOranges = 0;
+    let rows = grid.length;
+    let cols = grid[0].length;
+
+    // Count the no, of fresh orangesand push the rotten oranges
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            if (grid[row][col] == 1) freshOranges++;
+            if (grid[row][col] == 2) {
+                queue.push([row, col]);
+            }
+        }
+    }
+
+    let directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+    while (queue.length && freshOranges > 0) {
+        let newQueue = [];
+        while (queue.length) {
+            let [r, c] = queue.shift();
+
+            for (let dir of directions) {
+                let [row, col] = [dir[0] + r, dir[1] + c];
+                // on end bounds and when not a fresh orange continue
+                if (row < 0 || row == rows || col < 0 || col == cols || grid[row][col] != 1) continue;
+
+                grid[row][col] = 2;
+                newQueue.push([row, col]);
+                freshOranges--
+            }
+        }
+        time++;
+        queue = newQueue;
+    }
+
+    return (freshOranges == 0) ? time : -1;
+};
+
+```
+
+[![YT Video](https://img.youtube.com/vi/y704fEOx0s0/0.jpg)](https://www.youtube.com/watch?v=y704fEOx0s0)
+
+*** 
