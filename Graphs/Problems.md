@@ -456,5 +456,8 @@ var numEnclaves = function (grid) {
     return totalLand - borderLand;
 };
 ```
+### Video reference 
+
+[![YT Video](https://img.youtube.com/vi/gf0zsh1FIgE/0.jpg)](https://www.youtube.com/watch?v=gf0zsh1FIgE)
 
 *** 
