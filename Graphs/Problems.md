@@ -297,7 +297,7 @@ var orangesRotting = function (grid) {
 };
 
 ```
-
+### Video Reference
 [![YT Video](https://img.youtube.com/vi/y704fEOx0s0/0.jpg)](https://www.youtube.com/watch?v=y704fEOx0s0)
 
 *** 
@@ -346,3 +346,115 @@ var updateMatrix = function(mat) {
 ```
 
 ***
+
+### 130. Surrounded Regions
+
+TC  O(M * N)
+SP = O(1)
+
+```
+/**
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+var solve = function (board) {
+    let rows = board.length;
+    let cols = board[0].length;
+
+    // Capture the unsurrounded regions (O -> #)
+    function capture(r, c) {
+        if (r < 0 || c < 0 || r >= rows || c >= cols || board[r][c] != 'O') return;
+
+        board[r][c] = "#";
+        capture(r + 1, c);
+        capture(r - 1, c);
+        capture(r, c + 1);
+        capture(r, c - 1);
+    }
+
+    // Start from the boundary and capture all connected 'O's
+    for (let i = 0; i < rows; i++) { // this covers the first col and last col
+        if (board[i][0] === 'O') capture(i, 0);
+        if (board[i][cols - 1] === 'O') capture(i, cols - 1);
+    }
+
+    for (let j = 0; j < cols; j++) { // this covers the first row and last row
+        if (board[0][j] === 'O') capture(0, j);
+        if (board[rows - 1][j] === 'O') capture(rows - 1, j);
+    }
+
+    // Change all 'O' to 'X' and '#' back to 'O'
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (board[i][j] === 'O') board[i][j] = 'X';
+            if (board[i][j] === '#') board[i][j] = 'O';
+        }
+    }
+
+};
+
+```
+
+### Video Reference
+[![YT Video](https://img.youtube.com/vi/9z2BunfoZ5Y/0.jpg)](https://www.youtube.com/watch?v=9z2BunfoZ5Y)
+
+*** 
+
+1020. Number of Enclaves
+
+Time complexity:
+    O(M * N) Loop through the Grid
+Space complexity:
+    O(M * N) Constrcut the M * N Visited Array
+
+
+```
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var numEnclaves = function (grid) {
+    let rows = grid.length;
+    let cols = grid[0].length;
+    let visited = Array.from({ length: rows }, () => Array(cols).fill(false));
+
+    function dfs(r, c) {
+        if (r < 0 || r >= rows || c < 0 || c >= cols || visited[r][c] || grid[r][c] === 0) return 0;
+
+        visited[r][c] = true;
+        let res = 1;
+        let directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+
+        for (let dir of directions) {
+            res += dfs(r + dir[0], c + dir[1]);
+        }
+
+        return res;
+    }
+
+    let totalLand = 0;
+    let borderLand = 0;
+
+    // First, mark all border-connected lands
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if ((i === 0 || i === rows - 1 || j === 0 || j === cols - 1) && grid[i][j] === 1) {
+                borderLand += dfs(i, j);
+            }
+        }
+    }
+
+    // Count all land cells
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (grid[i][j] === 1) {
+                totalLand++;
+            }
+        }
+    }
+
+    return totalLand - borderLand;
+};
+```
+
+*** 
