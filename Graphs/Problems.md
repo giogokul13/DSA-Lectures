@@ -461,3 +461,49 @@ var numEnclaves = function (grid) {
 [![YT Video](https://img.youtube.com/vi/gf0zsh1FIgE/0.jpg)](https://www.youtube.com/watch?v=gf0zsh1FIgE)
 
 *** 
+
+
+### 785. Is Graph Bipartite?
+TC O(V + E)
+SC O(V)
+
+```
+/**
+ * @param {number[][]} graph
+ * @return {boolean}
+ */
+var isBipartite = function (graph) {
+    let odd = new Array(graph.length).fill(0);
+
+    function bfs(i) {
+        if (odd[i]) return true;
+
+        let queue = [i];
+        odd[i] = -1;
+
+        while (queue.length > 0) {
+            i = queue.shift();
+            for (let node of graph[i]) {
+                if (odd[i] == odd[node]) {
+                    return false;
+                } else if (!odd[node]) {
+                    queue.push(node);
+                    odd[node] = -1 * odd[i];
+                }
+            }
+        }
+        return true;
+    }
+
+
+    for (let i = 0; i < graph.length; i++) {
+        if (!bfs(i)) return false;
+    }
+
+    return true;
+};
+```
+[![YT Video](https://img.youtube.com/vi/mev55LTubBY/0.jpg)](https://www.youtube.com/watch?v=mev55LTubBY)
+
+***
+
