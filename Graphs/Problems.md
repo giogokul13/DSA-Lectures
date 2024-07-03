@@ -507,6 +507,74 @@ var isBipartite = function (graph) {
 
 ***
 
+210. Course Schedule II
+TC O(V + E)
+SP - O(V)
+
+```
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {number[]}
+ */
+var findOrder = function (numCourses, prerequisites) {
+
+    // Initialize the graph as an adjacency list
+    let graph = new Map();
+    for (let i = 0; i < numCourses; i++) {
+        graph.set(i, []);
+    }
+
+    // Build the graph
+    for (let [course, prereq] of prerequisites) {
+        graph.get(prereq).push(course);
+    }
+
+    let result = [];
+    let white = new Set();
+    let grey = new Set();
+    let black = new Set();
+
+    // Add all courses to the white set initially
+    for (let i = 0; i < numCourses; i++) {
+        white.add(i);
+    }
+
+    // Helper DFS function
+    function dfs(course) {
+        // Move course to the grey set
+        white.delete(course);
+        grey.add(course);
+
+        for (let prereq of graph.get(course)) {
+            if (black.has(prereq)) continue;  // Skip already processed nodes
+            if (grey.has(prereq)) return false;  // Cycle detected
+            if (!dfs(prereq)) return false;
+        }
+
+        // Move course to the black set
+        grey.delete(course);
+        black.add(course);
+        result.push(course);
+
+        return true;
+    }
+
+    // Process each course
+    while (white.size > 0) {
+        let course = white.values().next().value;  // Get any element from white set
+        if (!dfs(course)) return [];  // Return empty if a cycle is detected
+    }
+
+    return result.reverse();  // Reverse the result to get the correct order
+
+};
+```
+[![YT Video](https://img.youtube.com/vi/6vaSka3rwDQ/0.jpg)](https://www.youtube.com/watch?v=6vaSka3rwDQ)
+
+
+***
+
 
 
 
