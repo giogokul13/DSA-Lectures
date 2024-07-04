@@ -507,7 +507,7 @@ var isBipartite = function (graph) {
 
 ***
 
-210. Course Schedule II
+### 210. Course Schedule II
 TC O(V + E)
 SP - O(V)
 
@@ -574,6 +574,57 @@ var findOrder = function (numCourses, prerequisites) {
 
 
 ***
+
+
+### 802. Find Eventual Safe States
+
+TC - O (V + E) Traversing all the Edges and Nodes
+SC - O(V) as we use hash map it may have all vertices at worstCase
+
+```
+/**
+ * @param {number[][]} graph
+ * @return {number[]}
+ */
+var eventualSafeNodes = function (graph) {
+    let safe = new Map(); // track all the safe nodes.
+
+    let result = [];
+
+    dfs = function (i) {
+        if (safe.has(i)) return safe.get(i);
+
+        safe.set(i, false);
+        for (let neighbour of graph[i]) { // loop through all the subElements in the graph
+            if (!dfs(neighbour)) {
+                return safe[i];
+            }
+        }
+        safe.set(i, true);
+        return safe.get(i);
+    }
+
+    for (let i = 0; i < graph.length; i++) {
+        if (dfs(i)) result.push(i); // Loop through all the nodes 0, 1, 2 ... n - 1
+    }
+
+    return result;
+};
+```
+
+[![YT Video](https://img.youtube.com/vi/Re_v0j0CRsg/0.jpg)](https://www.youtube.com/watch?v=Re_v0j0CRsg)
+
+***
+
+
+
+
+
+
+
+
+
+
 
 
 
