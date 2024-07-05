@@ -618,9 +618,56 @@ var eventualSafeNodes = function (graph) {
 
 ### 1319. Number of Operations to Make Network Connected
 
+TC - O(V + E);
+SP O(V)
 
 ```
+/**
+ * @param {number} n
+ * @param {number[][]} connections
+ * @return {number}
+ */
+var makeConnected = function (n, connections) {
 
+    // base condition if the wires/cables are less than nodes - 1;
+    if (connections.length < n - 1) return -1;
+
+    let neighbors = {};
+
+    let isVisited = Array(n).fill(false);
+
+    for (let node = 0; node < n; node++) { // defult construction to neighbors Map
+        neighbors[node] = [];
+    }
+
+    for (let connection of connections) {
+        neighbors[connection[0]].push(connection[1]);
+        neighbors[connection[1]].push(connection[0]);
+    }
+
+    let networkCount = 0;
+
+    for (let node = 0; node < n; node++) {
+        if (!isVisited[node]) {
+            traverseNetwork(node);
+
+            networkCount++;
+        }
+    }
+
+    return networkCount - 1;
+
+
+    function traverseNetwork(node) {
+        isVisited[node] = true;
+        for (const neighborNode of neighbors[node]) {
+            if (!isVisited[neighborNode]) {
+                traverseNetwork(neighborNode);
+            }
+        }
+
+    }
+}; 
 ```
 
 ***
