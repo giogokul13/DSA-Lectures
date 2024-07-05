@@ -616,6 +616,14 @@ var eventualSafeNodes = function (graph) {
 
 ***
 
+### 1319. Number of Operations to Make Network Connected
+
+
+```
+
+```
+
+***
 
 
 
