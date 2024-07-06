@@ -672,6 +672,47 @@ var makeConnected = function (n, connections) {
 
 ***
 
+947. Most Stones Removed with Same Row or Column
+
+TC O(N^2)
+SC O(N)
+
+```
+/**
+ * @param {number[][]} stones
+ * @return {number}
+ */
+var removeStones = function (stones) {
+
+    let visited = new Set();
+    let validStones = 0;
+
+    let traverse = function (row, col) {
+        let key = "" + row + "-" + col + "";
+        if (visited.has(key)) return;
+
+        visited.add(key);
+
+        for (let [x, y] of stones) {
+            if (row == x || col == y) traverse(x, y);
+        }
+    }
+
+    for (let [x, y] of stones) {
+        let key = "" + x + "-" + y + "";
+
+        if (visited.has(key)) continue;
+        traverse(x, y);
+        validStones++;
+    }
+
+    return stones.length - validStones;
+};
+
+```
+
+***
+
 
 
 
