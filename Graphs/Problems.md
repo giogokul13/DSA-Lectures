@@ -713,6 +713,45 @@ var removeStones = function (stones) {
 
 ***
 
+1091. Shortest Path in Binary Matrix
+
+TC and SC - O(N) as we might travel to all cells and store all values in the Queue. 
+
+```
+var shortestPathBinaryMatrix = function (grid) {
+
+    let len = grid.length;
+
+    if (grid[0][0] != 0) return -1;
+
+    let queue = [[0, 0, 1]];
+    //                 right   down    top       left   dia-right dia-left rightup  left-down
+    let directions = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [-1, -1], [1, -1], [-1, 1]];
+
+    while (queue.length > 0) {
+        let [row, col, length] = queue.shift();
+
+        if (row == (len - 1) && col == (len - 1)) return length;
+
+        for ([dr, dc] of directions) {
+            let x = row + dr;
+            let y = col + dc;
+
+            if (x < 0 || x >= len) continue;
+            if (y < 0 || y >= len) continue;
+            if (grid[x][y] == 1) continue;
+
+            queue.push([x, y, length + 1]);
+            grid[x][y] = 1; // mark this as visited
+        }
+    }
+
+    return -1;
+};
+```
+
+***
+
 
 
 
