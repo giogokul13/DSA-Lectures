@@ -672,7 +672,7 @@ var makeConnected = function (n, connections) {
 
 ***
 
-947. Most Stones Removed with Same Row or Column
+### 947. Most Stones Removed with Same Row or Column
 
 TC O(N^2)
 SC O(N)
@@ -713,7 +713,7 @@ var removeStones = function (stones) {
 
 ***
 
-1091. Shortest Path in Binary Matrix
+### 1091. Shortest Path in Binary Matrix
 
 TC and SC - O(N) as we might travel to all cells and store all values in the Queue. 
 
@@ -749,6 +749,7 @@ var shortestPathBinaryMatrix = function (grid) {
     return -1;
 };
 ```
+[![YT Video](https://img.youtube.com/vi/YnxUdAO7TAo/0.jpg)](https://www.youtube.com/watch?v=YnxUdAO7TAo)
 
 ***
 
