@@ -826,6 +826,9 @@ var minimumEffortPath = function (heights) {
     return left;
 };
 ```
+### Video Reference
+[![YT Video](https://img.youtube.com/vi/XQlxCCx2vI4/0.jpg)](https://www.youtube.com/watch?v=XQlxCCx2vI4)
+
 
 ***
 
