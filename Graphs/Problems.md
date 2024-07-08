@@ -753,6 +753,83 @@ var shortestPathBinaryMatrix = function (grid) {
 
 ***
 
+### 1631. Path With Minimum Effort
+
+TC O(V + M)
+
+```
+/**
+ * @param {number[][]} heights
+ * @return {number}
+ */
+var minimumEffortPath = function(heights) {
+    const rows = heights.length, cols = heights[0].length;
+    const curEffort = Array.from(Array(rows), () => Array(cols).fill(Infinity));
+    const minHeap = [[0, 0, 0]];  // [effort, row, col]
+    
+    curEffort[0][0] = 0;
+    const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+    
+    while (minHeap.length > 0) {
+        const [effort, row, col] = minHeap.shift();
+        
+        if (effort > curEffort[row][col]) continue;
+        
+        if (row === rows - 1 && col === cols - 1) return effort;
+        
+        for (const [dr, dc] of directions) {
+            const newRow = row + dr, newCol = col + dc;
+            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
+                const newEffort = Math.max(effort, Math.abs(heights[row][col] - heights[newRow][newCol]));
+                if (newEffort < curEffort[newRow][newCol]) {
+                    curEffort[newRow][newCol] = newEffort;
+                    minHeap.push([newEffort, newRow, newCol]);
+                    minHeap.sort((a, b) => a[0] - b[0]);
+                }
+            }
+        }
+    }
+    return -1;
+};
+
+***
+
+var minimumEffortPath = function (heights) {
+    let m = heights.length;
+    let n = heights[0].length;
+    let visited = new Set();
+    function isMiniEffort(row, col, limit, preHeight) {
+        if (row >= m || col >= n || row < 0 | col < 0) return false;
+        let position = `${row}_${col}`;
+        let height = heights[row][col];
+
+        if (visited.has(position)) return false;
+        if (Math.abs(height - preHeight) > limit) return false;
+        if (row === m - 1 && col === n - 1) return true;
+        visited.add(position);
+        return isMiniEffort(row - 1, col, limit, height) ||
+            isMiniEffort(row + 1, col, limit, height) ||
+            isMiniEffort(row, col - 1, limit, height) ||
+            isMiniEffort(row, col + 1, limit, height);
+    };
+    let left = 0;
+    let right = 10 ** 6;
+
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+
+        visited.clear();
+        isMiniEffort(0, 0, mid, heights[0][0])
+            ? right = mid
+            : left = mid + 1
+    }
+    return left;
+};
+```
+
+***
+
+
 
 
 
