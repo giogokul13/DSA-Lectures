@@ -834,9 +834,42 @@ var minimumEffortPath = function (heights) {
 
 ### 787. Cheapest Flights Within K Stops
 
-```
+The time complexity of this solution is O(k * |flights|), where k is the maximum number of stops allowed and |flights| is the number of flights. This is because we iterate k times through the flights array to update the prices array.
+
+The space complexity is O(n) because we are using an array of size n to store the prices of each node.
 
 ```
+/**
+ * @param {number} n
+ * @param {number[][]} flights
+ * @param {number} src
+ * @param {number} dst
+ * @param {number} k
+ * @return {number}
+ Bellman ford Algorithm
+ */
+var findCheapestPrice = function (n, flights, src, dst, k) {
+    let prices = Array(n).fill(Infinity);
+    prices[src] = 0;
+
+    for (let i = 0; i < k + 1;  i++) {
+        let tempPrice = prices.slice();
+
+        for (let [source, dest, price] of flights) {
+            if (prices[source] == Infinity) continue;
+
+            if ((prices[source] + price) < tempPrice[dest]) {
+                tempPrice[dest] = prices[source] + price;
+            }
+
+        }
+        prices = tempPrice
+    }
+
+    return (prices[dst] == Infinity) ? -1 : prices[dst];
+};
+```
+[![YT Video](https://img.youtube.com/vi/5eIK3zUdYmE/0.jpg)](https://www.youtube.com/watch?v=5eIK3zUdYmE)
 
 ***
 
