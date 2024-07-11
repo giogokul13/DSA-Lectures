@@ -883,6 +883,65 @@ var findCheapestPrice = function (n, flights, src, dst, k) {
 ***
 
 
+### 1976. Number of Ways to Arrive at Destination
+
+TC  =   O((V + E) * logn) as Priority Queue as been used.
+SC -  O(V + E) as all the nodes and their edges were used.
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} roads
+ * @return {number}
+ */
+var countPaths = function (n, roads) {
+    let adjacencyList = {};
+    let paths = 0;
+    const MOD = Math.pow(10, 9) + 7;
+
+    for (let [p1, p2, time] of roads) {
+        if (!adjacencyList[p1]) adjacencyList[p1] = [];
+        if (!adjacencyList[p2]) adjacencyList[p2] = [];
+        adjacencyList[p1].push([p2, time]);
+        adjacencyList[p2].push([p1, time]);
+    }
+
+    let dis = new Array(n).fill(Infinity);
+    let ways = new Array(n).fill(0)
+    ways[n - 1] = 1;
+    dis[n - 1] = 0;
+
+    let dijkstras = function () {
+        let heap = new MinPriorityQueue({ priority: x => x[1] });
+        heap.enqueue([n - 1, 0]);
+        while (heap.size()) {
+            let [node, time1] = heap.dequeue().element;
+            if (node) {
+                for (let [nextNode, time2] of adjacencyList[node]) {
+                    let total = time1 + time2;
+                    if (dis[nextNode] == total) {
+                        ways[nextNode] = (ways[nextNode] + ways[node]) % MOD;
+                    } else if (dis[nextNode] > total) {
+                        dis[nextNode] = total;
+                        ways[nextNode] = ways[node];
+                        heap.enqueue([nextNode, total]);
+                    }
+                }
+            }
+        }
+    }
+    dijkstras();
+    return ways[0];
+};
+
+```
+
+***
+
+
+
+
+
 
 
 
