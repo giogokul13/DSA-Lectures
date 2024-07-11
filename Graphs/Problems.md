@@ -939,6 +939,84 @@ var countPaths = function (n, roads) {
 ***
 
 
+### 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance
+
+TC: O(N ^ 3)
+SC: O(N ^ 2)
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {number} distanceThreshold
+ * @return {number}
+ Solve using Floyd Warshall
+ */
+var findTheCity = function (n, edges, distanceThreshold) {
+    let distanceMatrix = Array(n).fill().map(() =>
+        Array(n).fill(Infinity));
+
+
+    for (let edge of edges) {
+        distanceMatrix[edge[0]][edge[1]] = edge[2];
+        distanceMatrix[edge[1]][edge[0]] = edge[2];
+    }
+
+    for (let i = 0; i < n; i++) {
+        distanceMatrix[i][i] = 0; // changing the self node distance to 0 from Infinity as Slef node travesal distance is zero
+    }
+
+    for (let k = 0; k < n; k++) {
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < n; j++) {
+                distanceMatrix[i][j] = Math.min(distanceMatrix[i][j], distanceMatrix[i][k] + distanceMatrix[k][j]);
+            }
+        }
+    }
+
+    let cityCount = n;
+    let cityNum = -1;
+
+    for (let city = 0; city < n; city++) { // traverse through the cities
+        let count = 0;
+        for (let adjCity = 0; adjCity < n; adjCity++) {
+            // check if the distance between the points is under the given threshold
+            if (distanceMatrix[city][adjCity] <= distanceThreshold) count++;
+        }
+
+        if (count <= cityCount) { // if the current count city has less values then assign that to maintain the city.
+            cityCount = count;
+            cityNum = city;
+        }
+    }
+
+    return cityNum;
+
+    // console.log(distanceMatrix);
+
+};
+```
+
+***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
