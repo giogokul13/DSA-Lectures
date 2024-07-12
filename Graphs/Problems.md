@@ -1001,6 +1001,75 @@ var findTheCity = function (n, edges, distanceThreshold) {
 ***
 
 
+### 721. Accounts Merge
+
+TC: O(N LogN);
+SC: O(N)
+
+The time complexity of this solution is O(n * log(n)), where n is the total number of emails across all accounts. This is because we are iterating through each account and each email within the account, and sorting the emails in the adjacency list. The sorting operation has a time complexity of O(n * log(n)).
+
+The space complexity is O(n), where n is the total number of emails across all accounts. This is because we are using a namesObj to store the mapping of email to name, an adjacencyList to store the relationships between emails, a result array to store the final merged accounts, and a visited set to keep track of visited emails during the depth-first search.
+
+
+```
+/**
+ * @param {string[][]} accounts
+ * @return {string[][]}
+ */
+var accountsMerge = function (accounts) {
+
+    let namesObj = {};
+    let adjacencyList = {};
+
+    for (let account of accounts) { //account = [name, email1, email2, email3...];
+        let name = account[0];
+        namesObj[account[1]] = name;
+        let emails = [];
+        for (let i = 1; i < account.length; i++) {
+            if (!adjacencyList[account[i]]) adjacencyList[account[i]] = new Set();
+            if (!adjacencyList[account[1]]) adjacencyList[account[i]] = new Set();
+            namesObj[account[i]] = name;
+            if (i != 1) {
+                adjacencyList[account[1]].add(account[i]);
+                adjacencyList[account[i]].add(account[1]);
+            }
+        }
+    }
+
+    let result = [];
+    let visited = new Set();
+
+    let dfs = function (email) {
+        visited.add(email);
+        let emails = [email];
+        adjacencyList[email].forEach((e) => {
+            if (!visited.has(e)) {
+                emails.push(...dfs(e));
+            }
+        });
+
+        return emails;
+    }
+
+
+    for (let key in adjacencyList) {
+        if (!visited.has(key)) {
+            let temp = dfs(key);
+            temp.sort();
+            temp.unshift(namesObj[temp[0]]);
+            result.push(temp);
+        }
+    }
+
+    console.log(adjacencyList);
+    return result;
+};
+```
+
+***
+
+
+
 
 
 
