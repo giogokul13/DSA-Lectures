@@ -1213,3 +1213,45 @@ var ladderLength = function (beginWord, endWord, wordList) {
 [![YT Video](https://img.youtube.com/vi/lgiz0Oup6gM/0.jpg)](https://www.youtube.com/watch?v=lgiz0Oup6gM)
 
 ***
+
+
+### 778. Swim in Rising Water
+
+Time and Space Complexity : O(N * N)
+
+```
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var swimInWater = function (grid) {
+    let n = grid.length;
+    let minGrid = new Array(n).fill().map(() => Array(n).fill(Number.MAX_SAFE_INTEGER));// construct the N * N Grdi and default it with Max Num
+    let dir = [[-1, 0], [1, 0], [0, 1], [0, -1]]; //All four Directions
+    minGrid[0][0] = grid[0][0];
+
+    let queue = [[0, 0]];
+
+    while (queue.length > 0) {
+        let [x, y] = queue.shift(); // Pop first element
+        for (let [dx, dy] of dir) { // loop through all the elements
+            let x1 = x + dx;
+            let y1 = y + dy;
+
+            if (x1 < 0 || x1 >= n || y1 >= n || y1 < 0) continue; // Check the Grid boundary
+
+            // If there is a min passed value in grid check that with the minGrid
+            // If there is a min value accept it and assign it to the minGrid
+            if (Math.max(grid[x1][y1], minGrid[x][y]) < minGrid[x1][y1]) {
+
+                minGrid[x1][y1] = Math.max(grid[x1][y1], minGrid[x][y]);
+                queue.push([x1, y1]);
+            }
+        }
+    }
+
+    return minGrid[n - 1][n - 1];
+}; 
+```
+
+***
