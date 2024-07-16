@@ -28,3 +28,44 @@ var maxProfit = function (prices) {
 ```
 
 ***
+
+
+
+
+
+
+
+
+
+
+## Medium Problems
+
+### 53. Maximum Subarray
+
+TC- O(N);
+Space: O(1)
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+    if (nums.length == 0) return nums[0];
+    let sum = nums[0];
+    let max = sum;
+    for (let i = 1; i < nums.length; i++) {
+        if (sum < 0) {
+            sum = nums[i];
+        } else {
+            sum += nums[i];
+        }
+        // sumArray.push(sum);
+        if(max < sum) max = sum;
+    }
+    // console.log(sumArray);
+    return max;
+};
+```
+
+*** 
