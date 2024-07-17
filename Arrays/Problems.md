@@ -41,6 +41,7 @@ var maxProfit = function (prices) {
 ## Medium Problems
 
 ### 53. Maximum Subarray
+### Kadane's Algorithm
 
 TC- O(N);
 Space: O(1)
@@ -69,3 +70,62 @@ var maxSubArray = function (nums) {
 ```
 
 *** 
+
+
+### 73. Set Matrix Zeroes
+Time Complexity: O(n * N)
+Space Complexity: O(1)
+
+```
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var setZeroes = function (matrix) {
+    let m = matrix.length;
+    let n = matrix[0].length;
+    let colIndex = 1;
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+
+            if (matrix[i][j] == 0) {
+                matrix[i][0] = 0; // mark the Row with Zero 
+
+                if (j != 0) {
+                    matrix[0][j] = 0;
+
+                } else {
+                    colIndex = 0;
+                }
+            }
+        }
+    }
+
+    for (let i = 1; i < m; i++) { // Loop through the remaining elements
+        for (let j = 1; j < n; j++) {
+
+            if (matrix[i][j] !== 0) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    if (matrix[0][0] == 0) {
+        for (let i = 0; i < n; i++) {
+            matrix[0][i] = 0
+        }
+    }
+
+    if (colIndex == 0) {
+        for (let j = 0; j < m; j++) {
+            matrix[j][0] = 0;
+        }
+    }
+};
+```
+
+***
+
