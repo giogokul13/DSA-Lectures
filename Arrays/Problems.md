@@ -29,6 +29,41 @@ var maxProfit = function (prices) {
 
 ***
 
+### 118. Pascal's Triangle
+
+Time: O(N * N);
+Space: O(N * N) // as we construct the triangle.
+
+```
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+
+var generate = function (numRows) {
+    let triangle = [[1]];
+
+    if (numRows == 1) return triangle; // Base condition
+
+    for (let i = 1; i < numRows; i++) { // Loop through the given no, of rows
+        let arr = [];
+        let tri = triangle[i - 1];
+        for (let j = 0; j < tri.length + 1; j++) { // loop through eh previous rows length + 1, as a new element is going to be added
+ 
+            arr[j] = (tri[j] || 0) + (tri[j - 1] || 0); // sum up the current posotion vaue and previous position value
+        }
+
+        triangle.push(arr);
+    }
+
+    return triangle;
+};
+```
+
+***
+
+
+
 
 
 
