@@ -164,3 +164,50 @@ var setZeroes = function (matrix) {
 
 ***
 
+### 31. Next Permutation
+Time Complexity: O(N)
+Space Complexity: O(1) 
+```
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var nextPermutation = function (nums) {
+
+    let swap = function (i, j) { // swap the two given numbers in the nums array;
+        [nums[i], nums[j]] = [nums[j], nums[i]];
+    }
+
+    let reverse = function (index) {
+        let start = index, end = nums.length - 1;
+
+        while (start < end) {
+            swap(start, end);
+            start++;
+            end--;
+        }
+    }
+
+    let getLarge = function (index) { //return the largest item index from the given Index;
+        for (let n = nums.length - 1; n > index; n--) {
+            if (nums[n] > nums[index]) return n;
+        }
+    }
+
+    for (let n = nums.length - 1; n >= 0; n--) {
+        if (nums[n] < nums[n + 1]) {
+            let large = getLarge(n);
+            swap(n, large);
+            reverse(n + 1);
+            return;
+        }
+    }
+
+    nums.reverse();
+
+
+};
+```
+
+***
+
