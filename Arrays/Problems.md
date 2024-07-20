@@ -62,6 +62,39 @@ var generate = function (numRows) {
 
 ***
 
+### 88. Merge Sorted Array
+
+Time: O(M + N);
+Space: O(1)
+
+```
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function (nums1, m, nums2, n) {
+    let i = m - 1;
+    let j = n - 1;
+    let k = (m + n) - 1
+    while (j >= 0) { // two pointer method
+        if (i >= 0 && nums1[i] > nums2[j]) { // if the nums1 or nums2 is greater, then assigng the greater element to the Last cell 
+            nums1[k] = nums1[i];
+            i--;  // decrement nums1 and 
+            k--; // decrement the overall length
+        } else { 
+            nums1[k] = nums2[j];
+            k--;
+            j--;
+        }
+    }
+};
+```
+
+***
+
 
 
 
@@ -242,3 +275,33 @@ Legendary Solution https://leetcode.com/problems/rotate-image/.
 
 ***
 
+
+### 56. Merge Intervals
+
+
+```
+var merge = function (intervals) {
+    let ans = [];
+
+    // if once interval return as such
+    if (intervals.length == 1) return intervals;
+
+    intervals.sort((a, b) => a[0] - b[0]); // sort the interval by start
+
+    let newInterval = intervals[0];
+    ans.push(newInterval);
+    for (let i = 0; i < intervals.length; i++) {
+        let interval = intervals[i];
+        // if the current Interval start is <= to previous interval then update the max end and continue
+        if (interval[0] <= newInterval[1]) {
+            newInterval[1] = Math.max(interval[1], newInterval[1]);
+        } else { // else new interval.
+            newInterval = interval;
+            ans.push(interval);
+        }
+    }
+    return ans;
+};
+```
+
+***
