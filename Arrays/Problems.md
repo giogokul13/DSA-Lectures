@@ -211,3 +211,34 @@ var nextPermutation = function (nums) {
 
 ***
 
+### 48. Rotate Image
+
+Time - O(N * N)
+Space - O(1) 
+
+```
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var rotate = function(matrix) {
+    
+    //First Reverse the Array (rows) 1st Row to last row and last row to First row
+    matrix.reverse();
+
+    // Now swap the diagnal symmetric elements in the Array. 
+    // this will replace the lower half of the array diagnally
+
+    for(let i = 0; i < matrix.length; i++){
+        for(let j = i + 1; j < matrix.length; j++){
+            let temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+    }
+};               
+```
+Legendary Solution https://leetcode.com/problems/rotate-image/.
+
+***
+
