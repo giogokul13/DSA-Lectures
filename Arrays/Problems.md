@@ -333,3 +333,71 @@ var findDuplicate = function (nums) {
 ```
 
 ***
+
+
+### 74. Search a 2D Matrix
+
+Time: O(Log (M * N))
+Space =  O(1)
+
+```
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function (matrix, target) {
+    let rowIndex = getPotentialRow(matrix, target);
+    let isElementFound = false;
+    if (rowIndex != -1) isElementFound = binarySearchOnRow(rowIndex, matrix, target);
+
+    return isElementFound;
+
+};
+
+/**
+    Function to indentify the row which has the potential value
+ */
+function getPotentialRow(matrix, target) {
+    let start = 0;
+    let end = matrix.length - 1;
+
+    while (start <= end) {
+        let mid = Math.floor(start + (end - start) / 2);
+
+        if (matrix[mid][0] <= target && target <= matrix[mid][matrix[0].length - 1]) {
+            return mid;
+        }
+
+        if (matrix[mid][0] < target) {
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+    }
+    return -1
+}
+
+/**
+    Function to perform the binary search on the idetified row
+ */
+function binarySearchOnRow(rowIndex, matrix, target) {
+    let start = 0;
+    let end = matrix[rowIndex].length - 1;
+    while (start <= end) {
+        let mid = Math.floor(start + (end - start) / 2);
+
+        if (matrix[rowIndex][mid] == target) return true;
+
+        if (matrix[rowIndex][mid] < target) {
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+    }
+
+    return false;
+}
+```
+
+*** 
