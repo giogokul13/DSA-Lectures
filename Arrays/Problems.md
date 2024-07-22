@@ -401,3 +401,44 @@ function binarySearchOnRow(rowIndex, matrix, target) {
 ```
 
 *** 
+
+
+### 50. Pow(x, n)
+Time - O(log N) - Executing as we reduce the given N number
+Space - O(log N) - Call Stack
+
+The time complexity of this solution is O(log n) because we are dividing the problem size by half in each recursive call. 
+The space complexity is also O(log n) because of the recursive calls on the call stack.
+
+```
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function (x, n) {
+    // return Math.pow(x, n);
+    let mathPower = function (x, n) {
+        if (x == 0) return 0; // Zero to he power anything is Zero 0 ^ 2 = 0
+
+        if (n == 0) return 1; // anything to the power 0 is 1 2 ^ 0 = 1
+
+        if (n < 0) {
+            n = Math.abs(n);
+            x = 1 / x;
+        }
+
+        if (n % 2 == 0) { // on even number
+            let power = mathPower(x, Math.floor(n / 2));
+            return power * power;
+        } else { // on odd number n = n * n - 1 * n - 2
+            return x * mathPower(x, n - 1);
+        }
+
+    }
+
+    return mathPower(x, n);
+};
+```
+
+*** 
