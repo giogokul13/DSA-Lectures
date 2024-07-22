@@ -480,3 +480,64 @@ var myPow = function (x, n) {
 ```
 
 *** 
+
+
+### 229. Majority Element II
+
+Time Complexity - O(N)
+Space = O(1), as we know there is going to be at Maximum 2 elements anytime.
+
+```
+/**
+    The Boyer-Moore Voting Algorithm
+    The approach of taking only two elements is beacuse at max there can be only two elements picked 1/3 ratio
+ */
+
+var majorityElement = function (nums) {
+    let [num1, num2] = [0, 0]; // these are majority Elements
+    let [count1, count2] = [0, 0]; // counts defaulted to 0, 0
+
+    for (let num of nums) {
+        if (num == num1) { // if the match is found then increment the count
+            count1++;
+        } else if (num == num2) {
+            count2++;
+        } else if (count1 == 0) { // if first match then assign it as num and incremase the count
+            num1 = num;
+            count1++;
+        } else if (count2 == 0) {
+            num2 = num;
+            count2++;
+        } else { // else decrement the count when there is a non matching element found 
+            count1--;
+            count2--;
+        }
+    }
+
+    [count1, count2] = [0, 0];
+
+    for (let num of nums) { // check the count of the selected maximum numbers
+        if (num == num1) {
+            count1++;
+        } else if (num == num2) {
+            count2++;
+        }
+    }
+
+    let result = [];
+
+    // the the selected numbers count is greater then the  1/ 3rd of the Array size then add it to the list
+    if (count1 > Math.floor(nums.length / 3)) {
+        result.push(num1);
+    }
+
+
+    if (count2 > Math.floor(nums.length / 3)) {
+        result.push(num2);
+    }
+
+    return result;
+}
+```
+
+***
