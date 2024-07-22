@@ -95,6 +95,44 @@ var merge = function (nums1, m, nums2, n) {
 
 ***
 
+### 169. Majority Element
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ /**
+    The Boyer-Moore Voting Algorithm works by maintaining a balance of counts for the current candidate. 
+    If the balance (majority) goes to zero, it means that the current candidate is not the majority element, 
+    and a new candidate is chosen. This process continues until the end of the array, 
+    and the candidate that remains is returned as the majority element
+  */
+
+var majorityElement = function(nums) {
+    let res = 0;
+    let majority = 0;
+    
+    for (let n of nums) {
+        if (majority === 0) {
+            res = n;
+        }
+        
+        majority += (n === res) ? 1 : -1;
+    }
+    
+    return res;    
+};
+```
+
+***
+
+
+
+
+
+
+
 
 
 
