@@ -127,6 +127,31 @@ var majorityElement = function(nums) {
 
 ***
 
+### 1. Two Sum
+Time - O(N) - Traversing through the Array items
+Space - At worst case it is O(N) -  As we would be storing all the numbers.
+
+```
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (nums, target) {
+    let indexMap = new Map();
+
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i];
+        if (indexMap.has(num)) return [i, indexMap.get(num)];
+
+        let diff = target - num;
+        indexMap.set(diff, i);
+    }
+};
+```
+
+***
+
 
 
 
@@ -574,6 +599,32 @@ var uniquePaths = function(m, n){
 
     return grid[m - 1][n - 1];
 }
+```
+
+***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Hard 
+
+### 493. Reverse Pairs
+
+```
+
 ```
 
 ***
