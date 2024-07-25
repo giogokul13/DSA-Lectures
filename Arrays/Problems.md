@@ -658,6 +658,63 @@ var uniquePaths = function(m, n){
 
 ***
 
+### 128. Longest Consecutive Sequence
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+
+//  Time : O(N Log N), Space: O(1)
+var longestConsecutive = function (nums) {
+    if (nums.length == 0) return 0;
+
+    nums = nums.sort((a, b) => a - b);
+
+    let maxLength = 1;
+    let counter = 1;
+    for (let i = 0; i < nums.length; i++) {
+
+        if (nums[i] == nums[i + 1]) continue;
+
+        if (nums[i] + 1 == nums[i + 1]) {
+            counter++;
+        } else {
+            maxLength = Math.max(maxLength, counter)
+            counter = 1;
+        }
+    }
+
+    return maxLength;
+}; 
+
+/**
+    Time is O(N), Space is O(N)
+ */
+var longestConsecutive = function (nums) {
+    if (nums.length == 0) return 0;
+
+    let set = new Set(nums);
+    let longestSeq = 0;
+
+    for (let num of nums) {
+        if (!set.has(num - 1)) {
+            let count = 0;
+            while (set.has(num + count)) {
+                count++;
+            }
+
+            longestSeq = Math.max(count, longestSeq);
+        }
+    }
+
+    return longestSeq;
+}
+```
+
+***
+
 
 
 
