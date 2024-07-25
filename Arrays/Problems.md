@@ -716,6 +716,53 @@ var longestConsecutive = function (nums) {
 ***
 
 
+### Largest subarray with 0 sum
+
+Time and Space = O(N)
+
+```
+/**
+ * @param {Number[]} arr
+ * @param {Number} n
+ * @returns {Number}
+ */
+
+class Solution {
+    maxLen(nums){
+       let sum = 0, max = 0;
+       let hashMap = new Map();
+       
+       for(let i = 0; i < nums.length; i++){
+           sum += nums[i];
+           
+           if(sum == 0){
+            max =  i + 1;
+           } else {
+               if(hashMap.has(sum)){
+                   max = Math.max(max, i - hashMap.get(sum));
+               } else {
+                   hashMap.set(sum, i);
+               }
+           }
+           
+       }
+       
+       return max;
+    }
+}
+```
+
+*** 
+
+
+
+
+
+
+
+
+
+
 
 
 
