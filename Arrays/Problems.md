@@ -754,6 +754,35 @@ class Solution {
 
 *** 
 
+### 3. Longest Substring Without Repeating Characters
+
+Time: O(N)
+Space O(MIN(M, N)) -  N is the total Input length and Mis the unique characters length;
+
+```
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function (s) {
+
+    let max = 0, count = 0, hashMap = new Map();
+
+    for (let i = 0; i < s.length; i++) {
+        if (hashMap.has(s[i])) {
+            count = Math.max(count, hashMap.get(s[i]) + 1);
+        }
+
+        hashMap.set(s[i], i);
+        max = Math.max(max, i - count + 1);
+    }
+
+    return max;
+};
+```
+
+***
+
 
 
 
