@@ -256,6 +256,44 @@ var isPalindrome = function(head) {
         return true; // Palindrome
         };
 ```
+
+### Another Optimized Solution
+
+```
+function reverseList(head) {
+    let prev = null;
+    let curr = head;
+    while (curr) {
+        let next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+var isPalindrome = function (head) {
+    let slow = head;
+    let fast = head;
+
+    while (fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    let reverse = reverseList(slow);
+
+    while (reverse) {
+        if (head.val !== reverse.val) return false;
+
+        head = head.next;
+        reverse = reverse.next;
+    }
+
+    return true;
+
+```
+
 ***
 
 ### 7. 160. Intersection of Two Linked Lists
@@ -1766,6 +1804,70 @@ var nodesBetweenCriticalPoints = function (head) {
 
 
 };
+```
+
+***
+
+
+## Hard
+
+### 25. Reverse Nodes in k-Group
+Time O(N) and Space  is O(1)
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var reverseKGroup = function (head, k) {
+    let dummy = new ListNode(0); // Initialize a dummy node
+    dummy.next = head; // Assign head to dummy node
+    let prevGroupEnd = dummy; // Add tail as dummy
+
+    while (head) { // loop through the main head node by node
+        var groupStart = head; // start node
+        var groupEnd = getGroupEnd(head, k);  // get the end node
+
+        if (!groupEnd) break; // if there is no end node, break as this is the last element
+
+        let nextGroupStart = groupEnd.next; // save the next group's start node
+        prevGroupEnd.next = reverseList(groupStart, groupEnd.next); // reverse the start and end nodes
+        prevGroupEnd = groupStart; // the tail will now be a new start
+        head = nextGroupStart; // head is pointed to the new group's start
+    }
+
+    return dummy.next;
+};
+
+var getGroupEnd = function (head, k) {
+    while (head && k > 1) {
+        head = head.next;
+        k--;
+    }
+
+    return head;
+};
+
+var reverseList = function (startNode, endNode) {
+    let prev = endNode;
+    while (startNode !== endNode) {
+        let next = startNode.next;
+        startNode.next = prev;
+        prev = startNode;
+        startNode = next;
+    }
+
+    return prev;
+};
+
 ```
 
 ***
