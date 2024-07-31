@@ -780,6 +780,7 @@ var lengthOfLongestSubstring = function (s) {
     return max;
 };
 ```
+[![YT Video](https://img.youtube.com/vi/ZI2z5pq0TqA/0.jpg)](https://www.youtube.com/watch?v=ZI2z5pq0TqA)
 
 ***
 
@@ -814,5 +815,42 @@ var lengthOfLongestSubstring = function (s) {
 ```
 
 ```
+
+***
+
+
+### 42. Trapping Rain Water
+Time: O(N)
+Space: O(1)
+
+```
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function (height) {
+    if (height.length == 0 || height.length < 3) return 0;
+
+    let [left, right] = [0, height.length - 1];
+    let [maxLeft, maxRight] = [height[left], height[right]];
+
+    let water = 0;
+
+    while (left < right) {
+        if (maxLeft < maxRight) {
+            left += 1;
+            maxLeft = Math.max(maxLeft, height[left]);
+            water += maxLeft - height[left];
+        } else {
+            right -= 1;
+            maxRight = Math.max(maxRight, height[right]);
+            water += maxRight - height[right];
+        }
+    }
+
+    return water;
+};
+```
+
 
 ***
