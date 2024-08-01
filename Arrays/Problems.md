@@ -197,6 +197,40 @@ var fourSum = function (nums, target) {
 
 *** 
 
+### 455. Assign Cookies
+
+Time: N Log N -> We perform a sort operation of the Array
+Space is O(1) - > We do not have any extra storage.
+
+```
+/**
+ * @param {number[]} g
+ * @param {number[]} s
+ * @return {number}
+ */
+var findContentChildren = function (g, s) {
+    let max = 0;
+    let childIndex = 0;
+    let cookieIndex = 0;
+
+    g.sort((a, b) => b - a); // Sort the Childrens in decending order of greed
+    s.sort((a, b) => b - a); // Sort the Cookies in decending order of Cookies count
+
+    while (childIndex < g.length) {
+        if (!g[childIndex] || !s[cookieIndex]) break;
+
+        if (s[cookieIndex] >= g[childIndex]) { // now compare if the cookies is grater than greed, then incrementand move forward
+            max++;
+            cookieIndex++;
+        }
+        childIndex++;
+    }
+    return max;
+};
+```
+
+***
+
 
 
 
