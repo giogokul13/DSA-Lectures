@@ -819,6 +819,35 @@ var lengthOfLongestSubstring = function (s) {
 ***
 
 
+### 90. Subsets IITime (o mogn)
+```
+
+var subsetsWithDup = function(nums) {
+    nums.sort((a, b) => a - b);
+    let result = [];
+
+    backtrack = function(nums, start, arr) {
+        result.push(arr.slice()); // Add a copy of the current subset to the result
+
+        for (let i = start; i < nums.length; i++) {
+            if (i > start && nums[i] === nums[i - 1]) {
+                continue; // Skip duplicates
+            }
+            arr.push(nums[i]); // Include the current element in the subset
+            backtrack(nums, i + 1, arr); // Explore further with the updated subset
+            arr.pop(); // Backtrack by removing the current element from the subset
+        }
+    }
+
+    backtrack(nums, 0, []);
+
+    return result;
+};
+```
+
+***
+
+
 
 
 
