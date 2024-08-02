@@ -1,1 +1,47 @@
+# Problems
+
+## Easy
+
+
+## Medium
+
+### 39. Combination Sum
+The time complexity of this combinationSum function is O(2^n) where n is the number of elements in the candidates array. This is because for each element in the candidates array, we have two recursive calls: one where we include the element in the combination and one where we exclude it. This results in a binary tree-like structure with 2 branches at each level, leading to a total of 2^n possible combinations.
+
+The space complexity is O(n) where n is the number of elements in the candidates array. This is because the recursive calls and the temporary array 'temp' will have a maximum depth of n in the worst case scenario, as we are exploring all possible combinations.
+```
+
+var combinationSum = function (candidates, target) {
+    var result = [];
+    var temp = [];
+
+    let search = (index, target) => {
+        if(target == 0) return result.push(temp.slice());
+
+        if(target < 0) return;
+
+        if(index == candidates.length) return;
+
+        temp.push(candidates[index]);
+
+        search(index, target - candidates[index]);
+        temp.pop();
+
+        search(index + 1, target);
+    }
+
+
+    search(0, target);
+
+    return result;
+}
+```
+
+***
+
+
+
+
+## Hard
+
 
