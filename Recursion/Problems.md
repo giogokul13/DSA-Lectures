@@ -154,50 +154,12 @@ let isPalindrome = function (string, left, right) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Hard
 
+### 60. Permutation Sequence
 
+```
+
+```
+
+***
