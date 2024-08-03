@@ -81,6 +81,56 @@ var combinationSum2 = function (candidates, target) {
 *** 
 
 
+### 131. Palindrome Partitioning
+
+Time - O((2 ^ N) * N)
+Space - O(N)
+
+```
+/**
+ * @param {string} s
+ * @return {string[][]}
+ */
+var partition = function (s) {
+    let result = [], part = [];
+
+    let recurse = function (index) {
+
+        if (index >= s.length) {
+            result.push(part.slice());;
+            return;
+        }
+
+        for (let i = index; i < s.length; i++) {
+            if (isPalindrome(s, index, i)) {
+                part.push(s.slice(index, i + 1));
+                recurse(i + 1);
+                part.pop();
+            }
+        }
+    }
+
+    recurse(0)
+
+    return result;
+};
+
+let isPalindrome = function (string, left, right) {
+    while (left < right) {
+        if (string[left] != string[right]) return false;
+        left++;
+        right--;
+    }
+
+    return true;
+}
+
+```
+
+[![YT Video](https://img.youtube.com/vi/3jvWodd7ht0/0.jpg)](https://www.youtube.com/watch?v=3jvWodd7ht0)
+
+
+***
 
 
 
