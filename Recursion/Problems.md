@@ -40,6 +40,112 @@ var combinationSum = function (candidates, target) {
 ***
 
 
+### 40. Combination Sum II
+
+Time: O(2 ^ N)
+Space:  O(N)
+
+```
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+*/
+var combinationSum2 = function (candidates, target) {
+    var result = [];
+
+    candidates.sort((a, b) => a - b);
+
+    let search = (index, target, temp) => {
+        if (target == 0) return result.push(temp.slice());
+
+        if (target < 0) return;
+
+        for (let i = index; i < candidates.length; i++) {
+
+            if(i > index && candidates[i] == candidates[i - 1]) continue; // since the sorted array has the duplicates continue when there you encounter the previous element
+
+            if(candidates[i] > target) break;
+
+            search(i + 1, target - candidates[i], temp.concat(candidates[i]));
+        }
+    }
+
+    search(0, target, []);
+
+    return result;
+};
+
+```
+
+*** 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Hard
