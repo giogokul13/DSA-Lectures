@@ -132,6 +132,44 @@ let isPalindrome = function (string, left, right) {
 
 ***
 
+### 46. Permutations
+
+The time complexity of this solution is O(n!) because there are n! possible permutations of the input array. The space complexity is also O(n!) because we are storing all possible permutations in the result array. This is because for each element in the input array, we recursively generate permutations of the remaining elements, resulting in n! recursive calls and permutations.
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function (nums) {
+
+    if (nums.length == 1) return [nums.slice()];
+
+    let result = [];
+
+    for (let i = 0; i < nums.length; i++) {
+        let n = nums.shift();
+        var permutate = permute(nums.slice());
+
+        for (let p of permutate) {
+            p.push(n);
+        }
+
+        result.push(...permutate);
+        nums.push(n);
+    }
+
+    return result;
+};
+```
+
+[![YT Video](https://img.youtube.com/vi/s7AvT7cGdSo/0.jpg)](https://www.youtube.com/watch?v=s7AvT7cGdSo)
+
+***
+
+
+
+
 
 
 
