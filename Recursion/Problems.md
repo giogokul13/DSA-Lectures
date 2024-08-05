@@ -208,8 +208,53 @@ var permute = function (nums) {
 
 ### N Queens
 
-```
+The time complexity of this solution is O(N!), where N is the number of queens to be placed on the board. This is because there are N choices for the queen in the first row, N-2 choices for the queen in the second row (due to constraints from the first queen), N-4 choices for the queen in the third row, and so on. This results in a factorial time complexity.
+
+The space complexity is O(N) for the sets used to keep track of the columns and diagonals, and O(N^2) for the board itself. Overall, the space complexity is O(N^2) due to the board.
 
 ```
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+var solveNQueens = function (n) {
+    let col = new Set(), posDia = new Set(); // r + c 
+    let negDia = new Set(); // ( r - c)
+
+    let result = [];
+    let board = Array(n).fill().map(() => Array(n).fill("."));
+
+    let backtrack = (row) => {
+        if (row == n) {
+            result.push(board.map(r => r.join("")));
+            return;
+        }
+
+        for (let c = 0; c < n; c++) {
+            if (col.has(c) || posDia.has(row + c) || negDia.has(row - c)) continue;
+
+
+            col.add(c);
+            posDia.add(row + c);
+            negDia.add(row - c);
+            board[row][c] = "Q";
+
+            backtrack(row + 1);
+
+            col.delete(c);
+            posDia.delete(row + c);
+            negDia.delete(row - c);
+            board[row][c] = ".";
+        }
+    }
+
+    backtrack(0);
+
+    return result;
+
+};
+```
+
+[![YT Video](https://img.youtube.com/vi/Ph95IHmRp5M/0.jpg)](https://www.youtube.com/watch?v=Ph95IHmRp5M)
 
 *** 
