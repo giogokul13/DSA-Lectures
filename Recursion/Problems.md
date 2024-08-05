@@ -161,11 +161,14 @@ var permute = function (nums) {
 
     return result;
 };
+
 ```
 
 [![YT Video](https://img.youtube.com/vi/s7AvT7cGdSo/0.jpg)](https://www.youtube.com/watch?v=s7AvT7cGdSo)
 
 ***
+
+
 
 
 
@@ -201,3 +204,12 @@ var permute = function (nums) {
 ```
 
 ***
+
+
+### N Queens
+
+```
+
+```
+
+*** 
