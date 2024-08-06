@@ -316,4 +316,7 @@ let isValid = (board, row, col, length, char) => {
 
 ```
 
+[![YT Video](https://img.youtube.com/vi/nC1rbW2YSz0/0.jpg)](https://www.youtube.com/watch?v=nC1rbW2YSz0)
+
+
 ***
