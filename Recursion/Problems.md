@@ -258,3 +258,62 @@ var solveNQueens = function (n) {
 [![YT Video](https://img.youtube.com/vi/Ph95IHmRp5M/0.jpg)](https://www.youtube.com/watch?v=Ph95IHmRp5M)
 
 *** 
+
+
+### 37. Sudoku Solver
+
+Time: O(9^ (N * N))
+Space: O(N * N);
+
+```
+/**
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+var solveSudoku = function (board) {
+    solver(board, board.length);
+};
+
+
+var solver = (board, length) => {
+    for (let row = 0; row < length; row++) {
+        for (let col = 0; col < length; col++) {
+
+            if (board[row][col] != ".") continue;
+
+            for (let k = 1; k <= 9; k++) {
+                let char = "" + k;
+                if (isValid(board, row, col, length, char)) {
+                    board[row][col] = char;
+
+                    if (solver(board, length)) return true;
+                }
+            }
+
+            board[row][col] = ".";
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+let isValid = (board, row, col, length, char) => {
+    let entireRow = Math.floor(row / 3) * 3;
+    let entireCol = Math.floor(col / 3) * 3;  //3, 2 ==> 3, 0 ==> 0, 2
+
+    for (let i = 0; i < length; i++) {
+        if (board[row][i] == char || board[i][col] == char) return false;
+        let curRow = entireRow + Math.floor(i / 3);
+        let curCol = entireCol + Math.floor(i % 3);
+
+        if (board[curRow][curCol] == char) return false;
+    }
+
+    return true;
+}
+
+```
+
+***
