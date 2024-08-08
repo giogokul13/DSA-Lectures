@@ -149,10 +149,47 @@ var minAbsoluteSumDiff = function (nums1, nums2) {
 
 ***
 
-### 
-
+### K-th Element of two sorted arrays
+Time : O(M + N)
+Space = O(1);
 ```
 
+function kthElement(a, b, m, n, k) {
+    let ele = -1;
+    let cnt = 0; // counter
+    // apply the merge step:
+    let i = 0, j = 0;
+    while (i < m && j < n) {
+        if (a[i] < b[j]) {
+            if (cnt === k - 1) ele = a[i];
+            cnt++;
+            i++;
+        } else {
+            if (cnt === k - 1) ele = b[j];
+            cnt++;
+            j++;
+        }
+    }
+
+    // copy the left-out elements:
+    while (i < m) {
+        if (cnt === k - 1) ele = a[i];
+        cnt++;
+        i++;
+    }
+    while (j < n) {
+        if (cnt === k - 1) ele = b[j];
+        cnt++;
+        j++;
+    }
+    return ele;
+}
+
+let a = [2, 3, 6, 7, 9];
+let b = [1, 4, 8, 10];
+console.log("The k-th element of two sorted arrays is: " + kthElement(a, b, a.length, b.length, 5));
+        
+        
 ```
 
 ***
@@ -168,6 +205,9 @@ var minAbsoluteSumDiff = function (nums1, nums2) {
 ## Hard
 
 ### 4. Median of Two Sorted Arrays
+
+Time O(M + N)
+Space = O(M + N)
 
 ```
 
