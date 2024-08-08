@@ -149,6 +149,14 @@ var minAbsoluteSumDiff = function (nums1, nums2) {
 
 ***
 
+### 
+
+```
+
+```
+
+***
+
 
 
 
@@ -158,3 +166,56 @@ var minAbsoluteSumDiff = function (nums1, nums2) {
 
 
 ## Hard
+
+### 4. Median of Two Sorted Arrays
+
+```
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function (nums1, nums2) {
+    /*let mergedArr = [...nums1, ...nums2];
+    mergedArr.sort((a, b) => a - b);
+    let start = 0; let end = mergedArr.length - 1;
+    // while(start <= end){
+    let mid = Math.floor(start + (end - start) / 2);
+    let median = (mergedArr.length % 2 == 0) ? (mergedArr[mid] + mergedArr[mid + 1]) / 2 : mergedArr[mid];
+    return median;
+    }*/
+
+    let i = 0, j = 0;
+    let arr = [];
+
+    while (i < nums1.length && j < nums2.length) {
+        if (nums1[i] < nums2[j]) {
+            arr.push(nums1[i]);
+            i++;
+        } else {
+            arr.push(nums2[j]);
+            j++;
+        }
+    }
+
+    // If there are remaining elements in nums1 or nums2, add them to arr
+    while (i < nums1.length) {
+        arr.push(nums1[i]);
+        i++;
+    }
+
+    while (j < nums2.length) {
+        arr.push(nums2[j]);
+        j++;
+    }
+
+    let mid = Math.floor(0 + (arr.length - 1 - 0) / 2);
+    let median = (arr.length % 2 == 0) ? (arr[mid] + arr[mid + 1]) / 2 : arr[mid];
+
+    return median;
+};
+
+```
+
+***
