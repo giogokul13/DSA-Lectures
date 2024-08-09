@@ -360,6 +360,8 @@ MyStack.prototype.empty = function() {
 
 
 
+
+
 ## Medium Problems
 
 ## 1. 155. Min Stack
