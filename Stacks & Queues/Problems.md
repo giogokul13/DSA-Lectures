@@ -1141,3 +1141,114 @@ map.keys().next // provides {value: "key value", done: "true/false"};
 ```
 
 ***
+
+
+
+
+## Hard
+
+### 460. LFU Cache
+
+```
+/**
+ * @param {number} capacity
+ */
+var LFUCache = function (capacity) {
+    this.capacity = capacity;
+    this.cache = new Map(); // Stores key-value pairs
+    this.freqMap = new Map(); // Stores key-frequency pairs
+    this.freqList = new Map(); // Stores frequency-ordered sets of keys
+    this.minFreq = 0;
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LFUCache.prototype.get = function (key) {
+    console.log("map ", this.freqMap);
+    console.log("List ", this.freqList);
+    if (!this.cache.has(key)) {
+        return -1;
+    }
+
+    let value = this.cache.get(key);
+    this.updateFrequency(key);
+
+    return value;
+};
+
+/**
+    Update Frequency in map and set
+ */
+LFUCache.prototype.updateFrequency = function (key) {
+    let freq = this.freqMap.get(key);
+    this.freqMap.set(key, freq + 1);
+
+    this.freqList.get(freq).delete(key);
+    if (this.freqList.get(freq).size === 0) {
+        this.freqList.delete(freq);
+        if (this.minFreq === freq) {
+            this.minFreq++;
+        }
+    }
+
+    if (!this.freqList.has(freq + 1)) {
+        this.freqList.set(freq + 1, new Set());
+    }
+    
+    this.freqList.get(freq + 1).add(key);
+}
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LFUCache.prototype.put = function (key, value) {
+    if (this.capacity === 0) return;
+
+    if (this.cache.has(key)) {
+        this.cache.set(key, value);
+        this.updateFrequency(key);
+        return;
+    }
+
+    if (this.cache.size >= this.capacity) {
+        this.evictLFU();
+    }
+
+    this.cache.set(key, value);
+    this.freqMap.set(key, 1);
+    if (!this.freqList.has(1)) {
+        this.freqList.set(1, new Set());
+    }
+    this.freqList.get(1).add(key);
+    this.minFreq = 1;
+};
+
+/**
+    Delete the least frequently used cache item.
+ */
+LFUCache.prototype.evictLFU = function () {
+    let keys = this.freqList.get(this.minFreq);
+    let evictKey = keys.keys().next().value;
+    keys.delete(evictKey);
+
+    if (keys.size === 0) {
+        this.freqList.delete(this.minFreq);
+    }
+
+    this.cache.delete(evictKey);
+    this.freqMap.delete(evictKey);
+}
+
+/** 
+ * Your LFUCache object will be instantiated and called as such:
+ * var obj = new LFUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
+```
+
+***
