@@ -1252,3 +1252,45 @@ LFUCache.prototype.evictLFU = function () {
 ```
 
 ***
+
+### 84. Largest Rectangle in Histogram
+
+The time complexity of this algorithm is O(n) where n is the number of elements in the input array 'heights'. This is because we iterate through each element in the array once and perform constant time operations within the loop.
+
+The space complexity of this algorithm is O(n) as well. This is because we use a stack data structure to keep track of indices of elements in the input array. In the worst case scenario, the stack could contain all elements of the input array, leading to O(n) space complexity.
+
+```
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+var largestRectangleArea = function (heights) {
+
+    if (heights.length == 0) return 0;
+
+    if (heights.length == 1) return heights[0];
+
+
+    let max = 0, stack = [-1];
+    for (let i = 0; i < heights.length; i++) {
+        while (stack[stack.length - 1] !== -1 && heights[i] <= heights[stack[stack.length - 1]]) {
+            let height = heights[stack.pop()];
+            let width = i - stack[stack.length - 1] - 1;
+            max = Math.max(max, height * width);
+        }
+
+        stack.push(i);
+    }
+
+    while (stack[stack.length - 1] !== -1) {
+        let height = heights[stack.pop()];
+        let width = heights.length - stack[stack.length - 1] - 1;
+        max = Math.max(max, height * width);
+    }
+
+    return max;
+};
+
+```
+
+***
