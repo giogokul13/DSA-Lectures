@@ -1294,3 +1294,50 @@ var largestRectangleArea = function (heights) {
 ```
 
 ***
+
+
+### 239. Sliding Window Maximum
+
+The time complexity of this solution is O(n) because we iterate through the input array nums once. The space complexity is O(n) because we use a deque data structure to store indices of potential maximum elements in the window, which can grow up to the size of the input array.
+
+The reason for the time complexity being O(n) is that for each element in the input array, we perform constant time operations to update the deque and calculate the maximum element in the current window. The space complexity is O(n) because in the worst case scenario, the deque can store all elements of the input array.
+
+
+```
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function (nums, k) {
+    if (nums.length === 0 || k === 0) return [];
+
+    let result = [];
+    let deque = []; // Stores indices of potential max elements in the window
+
+    for (let i = 0; i < nums.length; i++) {
+        // Remove elements from the front of the deque if they are out of the current window
+        if (deque.length && deque[0] < i - k + 1) {
+            deque.shift();
+        }
+
+        // Remove elements from the back of the deque if they are smaller than the current element
+        // (since they can't be the maximum for the current or any future window)
+        while (deque.length && nums[deque[deque.length - 1]] <= nums[i]) {
+            deque.pop();
+        }
+
+        deque.push(i);
+
+        // If we've processed at least k elements, add the current maximum to the result array
+        if (i >= k - 1) {
+            result.push(nums[deque[0]]);
+        }
+    }
+
+    return result;
+};
+
+```
+
+***
