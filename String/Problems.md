@@ -26,3 +26,40 @@ var reverseWords = function (s) {
 ```
 
 ***
+
+### 5. Longest Palindromic Substring
+
+Time O(N * N)
+Space O(1)
+
+```
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+    let longestPalindromeStr = "";
+
+    let findPalindromeString = (str, i, j) => {
+        while( i >= 0 && j < str.length && str[i] == str[j]){
+            i--;
+            j++
+        }
+
+        return str.slice( i + 1, j);
+    }
+
+    for(let i = 0; i < s.length; i++){
+        const str1 = findPalindromeString(s, i, i);
+        const str2 = findPalindromeString(s, i, i + 1);
+
+        let longerPalindrome = (str1.length > str2.length) ? str1 : str2;
+
+        longestPalindromeStr = (longerPalindrome.length > longestPalindromeStr.length) ? longerPalindrome : longestPalindromeStr;
+    }
+
+    return longestPalindromeStr;
+};
+```
+
+***
