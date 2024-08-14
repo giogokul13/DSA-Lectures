@@ -1139,10 +1139,60 @@ map.keys() // returns a iterrator
 map.keys().next // provides {value: "key value", done: "true/false"};
 
 ```
-
 ***
 
+### 994. Rotting Oranges
 
+Time: M * N
+Space: M * N
+
+```
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var orangesRotting = function (grid) {
+    let queue = [];
+    let time = 0, freshOranges = 0;
+    let rows = grid.length;
+    let cols = grid[0].length;
+
+    // Count the no, of fresh oranges and push the rotten oranges
+    for (let row = 0; row < rows; row++) { //m * n
+        for (let col = 0; col < cols; col++) {
+            if (grid[row][col] == 1) freshOranges++;
+            if (grid[row][col] == 2) {
+                queue.push([row, col]);
+            }
+        }
+    }
+
+    let directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];// look at all the directions 4 sides and make the oranges rotten to make the identify the time  
+    while (queue.length && freshOranges > 0) {
+        let newQueue = [];
+        while (queue.length) {
+            let [r, c] = queue.shift();
+
+            for (let dir of directions) {
+                let [row, col] = [dir[0] + r, dir[1] + c];
+                // on end bounds and when not a fresh orange continue
+                if (row < 0 || row == rows || col < 0 || col == cols || grid[row][col] != 1) continue;
+
+                grid[row][col] = 2;
+                newQueue.push([row, col]);
+                freshOranges-- // For Every rotten orange reduce fresh orange
+            }
+        }
+        time++;
+        queue = newQueue; // now assign the new rotten 
+    }
+
+    return (freshOranges == 0) ? time : -1;
+};
+
+```
+
+***
 
 
 ## Hard
