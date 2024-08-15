@@ -1,6 +1,8 @@
 # Problems
 
-## 13. Roman to Integer
+## Easy
+
+### 13. Roman to Integer
 Time O(N)
 Space O(1)
 
@@ -28,6 +30,40 @@ var romanToInt = function (s) {
     }
 
     return sum;
+};
+```
+
+***
+
+### 14. Longest Common Prefix
+
+The time complexity of this solution is O(n*m), where n is the number of strings in the input array and m is the length of the shortest string. This is because we iterate through each character of the shortest string and compare it with the corresponding characters in the other strings.
+
+The space complexity is O(1) because we are using a constant amount of extra space, regardless of the size of the input.
+
+```
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function (strs) {
+
+    let prefix = strs[0];
+    let prefixLen = prefix.length;
+
+    for (let i = 1; i < strs.length; i++) {
+        let str = strs[i];
+
+        while (prefix !== str.substring(0, prefixLen)) {
+            prefixLen--;
+            if (prefixLen == 0) {
+                return "";
+            }
+            prefix = prefix.substring(0, prefixLen);
+        }
+    }
+
+    return prefix;
 };
 ```
 
@@ -138,6 +174,7 @@ var myAtoi = function (s) {
     
     return num;
 }
+
 ```
 
 ***
