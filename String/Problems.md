@@ -1,3 +1,39 @@
+# Problems
+
+## 13. Roman to Integer
+Time O(N)
+Space O(1)
+
+```
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function (s) {
+    let romanMap = {
+        "I": 1, "V": 5, "X": 10, "L": 50, "C": 100,
+        "D": 500, "M": 1000
+    }
+    let sum = 0;
+
+    let i = s.length - 1;
+    while (i >= 0) {
+        if (romanMap[s[i]] > romanMap[s[i - 1]]) {
+            sum += Math.abs(romanMap[s[i]] - romanMap[s[i - 1]])
+            i -= 2;
+        } else {
+            sum += romanMap[s[i]];
+            i -= 1;
+        }
+    }
+
+    return sum;
+};
+```
+
+***
+
+
 
 
 
