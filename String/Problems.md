@@ -69,6 +69,61 @@ var longestCommonPrefix = function (strs) {
 
 ***
 
+### 28. Find the Index of the First Occurrence in a String
+
+Time O(N) and Space O(1)
+
+```
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    return haystack.indexOf(needle);
+};
+
+```
+*** 
+
+### 242. Valid Anagram
+
+Time and Space  is O(N)
+
+```
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+
+var isAnagram = function (s, t) {
+    if (s.length !== t.length) return false;  // Early return if lengths are not equal
+
+    let map = new Map();
+
+    // Count frequency of each character in string s
+    for (let char of s) {
+        map.set(char, (map.get(char) || 0) + 1);
+    }
+
+    // Decrease frequency for each character in string t
+    for (let char of t) {
+        if (!map.has(char)) return false;  // Character not found in map
+
+        map.set(char, map.get(char) - 1);
+        
+        if (map.get(char) === 0) map.delete(char);  // Remove char from map if count goes to 0
+    }
+
+    // If map is empty, the strings are anagrams
+    return map.size === 0;
+};
+
+```
+
+***
+
 
 
 
