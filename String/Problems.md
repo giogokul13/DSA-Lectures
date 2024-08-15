@@ -178,3 +178,33 @@ var myAtoi = function (s) {
 ```
 
 ***
+
+
+### 686. Repeated String Match
+
+Time O(M + N)
+Space O(1)
+
+```
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {number}
+ */
+var repeatedStringMatch = function (a, b) {
+    let init = a;
+    let count = 1;
+
+    while (a.length < b.length) {
+        a += init;
+        count++;
+    }
+
+    count = (a.indexOf(b) > -1) ? count : ((a + init).indexOf(b) > -1) ? count + 1 : -1;
+
+    return count;
+};
+
+```
+
+***
