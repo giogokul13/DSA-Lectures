@@ -306,3 +306,72 @@ var countAndSay = function (n) {
 ```
 
 ***
+
+
+### 165. Compare Version Numbers
+
+Time O(N) Space O(1)
+
+- Solution 1
+```
+/**
+ * @param {string} version1
+ * @param {string} version2
+ * @return {number}
+ */
+var compareVersion = function (version1, version2) {
+
+    let i = 0, j = 0;
+    let v1 = 0, v2 = 0;
+    let result = 0;
+
+    while (i < version1.length && j < version2.length) {
+
+        while (i < version1.length && version1[i] != ".") {
+            v1 *= 10 + pareInt(version1[i]);
+            i++;
+        }
+
+        while (j < version2.length && version2[j] != ".") {
+            v2 *= 10 + pareInt(version2[i]);
+            j++;
+        }
+
+        if (v1 > v2) result = 1;
+        if (v1 < v2) result = -1;
+
+    }
+    return 0;
+
+};
+
+```
+- Solution 2
+Time O(N) Space O(N)
+
+```
+/**
+ * @param {string} version1
+ * @param {string} version2
+ * @return {number}
+ */
+var compareVersion = function (version1, version2) {
+    let v1 = version1.split('.');
+    let v2 = version2.split('.');
+    let len = Math.max(v1.length, v2.length);
+
+    for (let i = 0; i < len; i++) {
+        let num1 = i < v1.length ? parseInt(v1[i], 10) : 0;
+        let num2 = i < v2.length ? parseInt(v2[i], 10) : 0;
+
+        if (num1 < num2) return -1;
+        if (num1 > num2) return 1;
+    }
+
+    return 0;
+};
+
+```
+
+
+***
