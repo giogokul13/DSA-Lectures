@@ -263,3 +263,46 @@ var repeatedStringMatch = function (a, b) {
 ```
 
 ***
+
+
+### 38. Count and Say
+
+The **time complexity** of this solution is O(2^n) because for each iteration, the length of the result string doubles. 
+
+The **space complexity** is O(2^n) as well because we are storing the result string for each iteration.
+
+```
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var countAndSay = function (n) {
+
+    let result = "1";
+
+    if (n == 1) return "1"
+
+    let count = 0;
+
+    for (let i = 1; i < n; i++) {
+        count = 1;
+        let temp = "";
+        let j = 0;
+
+        while (j < result.length) {
+            if (result[j] === result[j + 1]) {
+                count++;
+            } else {
+                temp += count + result[j];
+                count = 1;
+            }
+            j++;
+        }
+        result = temp;
+    }
+
+    return result;
+};
+```
+
+***
