@@ -1279,6 +1279,60 @@ var flipMatchVoyage = function (root, voyage) {
     preOrder(root);
     return flips;
 };
+
+```
+
+***
+
+
+## Hard Problems
+
+### 987. Vertical Order Traversal of a Binary Tree
+
+Time O(N log N)
+Space O(N)
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+
+var verticalTraversal = function (root) {
+    let indexes = [];
+    let result = []
+
+    let preOrderTraversal = (node, row, col) => {
+        if (!node) return;
+        indexes.push([col, row, node.val]);
+
+        preOrderTraversal(node.left, row + 1, col - 1);
+        preOrderTraversal(node.right, row + 1, col + 1);
+    }
+
+    preOrderTraversal(root, 0, 0);
+
+    // Sort by column first, then by row, and then by value
+    indexes.sort((a, b) => {
+        if (a[0] !== b[0]) return a[0] - b[0];
+        if (a[1] !== b[1]) return a[1] - b[1];
+        return a[2] - b[2];
+    });
+
+    let visitedMap = new Map();
+
+    for (let [col, row, value] of indexes) {
+        if (!visitedMap.has(col)) {
+            result.push([value]);
+            visitedMap.set(col, result.length - 1);
+        } else {
+            result[visitedMap.get(col)].push(value);
+        }
+    }
+
+    return result;
+};
+
 ```
 
 ***
