@@ -166,8 +166,12 @@ var sortedArrayToBST = function (nums) {
 ***
 
 ## 6. 110. Balanced Binary Tree
+
+* Solution 1
+
 Time - O(n)
 Space - O(n)
+
 
 ```
 /**
@@ -188,6 +192,42 @@ function dfs(root) {
     return [isBalanced, ( 1 + Math.max(left[1], right[1]))];
 }
 ```
+
+* Solution 2
+    
+Time O(N) space O(H)
+
+```
+
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function (root) {
+    return (postOrderTraverse(root) !== -1);
+};
+
+let postOrderTraverse = (node) => {
+    if (!node) return 0;
+
+    let leftHeight = postOrderTraverse(node.left);
+
+    if(leftHeight == -1) return -1;
+
+    let rightHeight = postOrderTraverse(node.right);
+
+    if(rightHeight == -1) return -1;
+
+    if (Math.abs(leftHeight - rightHeight) > 1) return -1;
+
+    return Math.max(leftHeight, rightHeight) + 1;
+}
+```
+
+
+***
+
+
 ### Video reference 
 [![YT Video](https://img.youtube.com/vi/QfJsau0ItOY/0.jpg)](https://www.youtube.com/watch?v=QfJsau0ItOY)
 
