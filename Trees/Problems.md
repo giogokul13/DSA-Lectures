@@ -1281,6 +1281,43 @@ var flipMatchVoyage = function (root, voyage) {
 };
 
 ```
+***
+
+### 102. Binary Tree Level Order Traversal
+
+Time O(N)
+Space O(N)
+
+```
+
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+    if(!root) return [];
+    let queue = [root]; // enqueue
+    let values = [];
+    while (queue.length) {
+        let queueLen = queue.length;
+        let currLevel = [];
+        for (let i = 0; i < queueLen; i++) {
+            let node = queue.shift(); // dequeue
+            if (node) {
+                if (node.left) queue.push(node.left);
+                if (node.right) queue.push(node.right);
+
+                currLevel.push(node.val);
+            }
+        }
+        values.push(currLevel);
+    }
+
+    return values;
+
+};
+
+```
 
 ***
 
