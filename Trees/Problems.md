@@ -1361,6 +1361,38 @@ var levelOrder = function (root) {
 
 ***
 
+### 236. Lowest Common Ancestor of a Binary Tree
+
+Time O(N)
+Space O(N)
+
+```
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+    if (!root) return null;
+
+    // If the current node is either p or q, return it
+    if (root === p || root === q) return root;
+
+    // Recur for left and right subtrees
+    let left = lowestCommonAncestor(root.left, p, q);
+    let right = lowestCommonAncestor(root.right, p, q);
+
+    // If p and q are found in left and right subtrees, root is the LCA
+    if (left && right) return root;
+
+    // Otherwise, return the non-null child (left or right)
+    return left ? left : right;
+};
+```
+
+***
+
 
 ## Hard Problems
 
