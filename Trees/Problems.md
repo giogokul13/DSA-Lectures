@@ -1393,6 +1393,48 @@ var lowestCommonAncestor = function (root, p, q) {
 
 ***
 
+### 103. Binary Tree Zigzag Level Order Traversal
+
+Time O(N)
+Space O(N)
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var zigzagLevelOrder = function (root) {
+    if (!root) return [];
+
+    let queue = [root];
+    let values = [];
+    let reverse = 0;
+    while (queue.length) {
+        let queueLen = queue.length;
+        let levels = [];
+        for (let i = 0; i < queueLen; i++) {
+            let node = queue.shift();
+            if (node) {
+                if (node.left) queue.push(node.left);
+
+                if (node.right) queue.push(node.right);
+
+                if (reverse % 2 == 0) levels.push(node.val);
+                else levels.unshift(node.val);
+            }
+        }
+
+        values.push(levels);
+        reverse++;
+    }
+
+    return values;
+};
+
+```
+
+*** 
+
 
 ## Hard Problems
 
