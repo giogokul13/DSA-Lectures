@@ -1432,9 +1432,15 @@ var zigzagLevelOrder = function (root) {
 };
 
 ```
+***
 
-*** 
+### 105. Construct Binary Tree from Preorder and Inorder Traversal
 
+```
+
+```
+
+***
 
 ## Hard Problems
 
@@ -1484,6 +1490,40 @@ var verticalTraversal = function (root) {
     return result;
 };
 
+```
+
+***
+
+### 124. Binary Tree Maximum Path Sum
+
+Time and Space : O(N)
+
+```
+var maxPathSum = function (root) {
+    if (!root) return 0;
+
+    let max = -Infinity;
+    let preorderTraversal = (node) => {
+
+        if (!node) return 0;
+
+        let value = node.val;
+
+        let leftSum = preorderTraversal(node.left);
+        let rightSum = preorderTraversal(node.right);
+
+        let allSum = value + leftSum + rightSum;
+        leftSum += value;
+        rightSum += value;
+
+        max = Math.max(max, value, leftSum, rightSum, allSum);
+        return Math.max(leftSum, rightSum, value);
+    }
+
+    preorderTraversal(root);
+
+    return max;
+};
 ```
 
 ***
