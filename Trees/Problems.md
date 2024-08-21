@@ -1520,6 +1520,8 @@ var flatten = function (root) {
 };
 ```
 
+[![YT Video](https://img.youtube.com/vi/NOKVBiJwkD0/0.jpg)](https://www.youtube.com/watch?v=NOKVBiJwkD0)
+
 ***
 
 ***
