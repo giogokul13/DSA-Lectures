@@ -1455,6 +1455,39 @@ var buildTree = function (preorder, inorder) {
     root.right = buildTree(preorder.slice(mid + 1), inorder.slice(mid + 1));
     return root;
 };
+
+```
+***
+
+###  106. Construct Binary Tree from Inorder and Postorder Traversal
+
+Time and Space is O(N)
+
+```
+/**
+ * @param {number[]} inorder
+ * @param {number[]} postorder
+ * @return {TreeNode}
+ */
+var buildTree = function (inorder, postorder) {
+    if (inorder.length == 0) null;
+
+    let map = new Map();
+
+    for (let i = 0; i < inorder.length; i++) { map.set(inorder[i], i) };
+
+    let recurse = function (start, end) {
+        if (start > end) return null;
+
+        let val = postorder.pop();
+        let root = new TreeNode(val);
+        root.right = recurse(map.get(val) + 1, end);
+        root.left = recurse(start, map.get(val) - 1);
+        return root;
+    }
+
+    return recurse(0, inorder.length - 1);
+};
 ```
 
 ***
