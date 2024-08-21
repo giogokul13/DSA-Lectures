@@ -1490,6 +1490,38 @@ var buildTree = function (inorder, postorder) {
 };
 ```
 
+### 114. Flatten Binary Tree to Linked List 
+
+Time O(N)  Space O(1)
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {void} Do not return anything, modify root in-place instead.
+ */
+var flatten = function (root) {
+
+    if (!root) return null;
+
+    while (root) {
+        if (root.left) { // loop through all the left nodes 
+            let left = root.left;
+            let curr = left;
+
+            while (curr.right) curr = curr.right; // move to the right most node
+
+            curr.right = root.right; // connect the right most node with root's right
+            root.left = null; // mark the root's left as null
+            root.right = left; // poin tthe root's right to new left node
+        }
+
+        root = root.right; // point and start the right from the root's next node.
+    }
+};
+```
+
+***
+
 ***
 
 ## Hard Problems
