@@ -1524,7 +1524,52 @@ var flatten = function (root) {
 
 ***
 
+### 116. Populating Next Right Pointers in Each Node
+
+Time O(N)
+Space O(N)
+
+```
+/**
+ * // Definition for a _Node.
+ * function _Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+
+/**
+ * @param {_Node} root
+ * @return {_Node}
+ */
+var connect = function (root) {
+    if (!root) return root;
+
+    let queue = [root]; // enqueue the root node 
+
+    while (queue.length) { // Loop through the queue untill last element is pushed from tree
+        let queueLen = queue.length;
+        let next = [];
+        for (let i = 0; i < queueLen; i++) {
+            let node = queue.shift(); // remove the element from first
+            node.next = queue[0] || null; // make the next to point the next element from queue if present else point null
+            if (node.left) { // if my left is present, then only push it to the queue because the items are always inserted from the left in Trees
+                next.push(node.left);
+                next.push(node.right);
+            }
+        }
+
+        queue = next; // reassign the queue with next values
+    }
+
+    return root;
+};
+```
+
 ***
+
 
 ## Hard Problems
 
