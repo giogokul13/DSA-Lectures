@@ -1586,6 +1586,39 @@ var connect = function (root) {
     return root;
 };
 ```
+***
+
+### 1008. Construct Binary Search Tree from Preorder Traversal
+
+Time andd Space is O(N)
+
+```
+/**
+ * @param {number[]} preorder
+ * @return {TreeNode}
+ */
+var bstFromPreorder = function (preorder) {
+    let index = 0;
+
+    let construct = (maximum) => {
+        // returning null when the current element is greater than (Integer Max or previous element ) or at the last 
+        if (index == preorder.length || preorder[index] > maximum) {
+            return null;
+        }
+
+        let num = preorder[index];
+        let node = new TreeNode(num);
+        index += 1; // Move to next element
+
+        node.left = construct(num);
+        node.right = construct(maximum);
+
+        return node;
+    }
+
+    return construct(Number.MAX_SAFE_INTEGER);
+};
+```
 
 ***
 
