@@ -618,6 +618,24 @@ var isValidBST = function (root) {
 };
 ```
 
+```
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function (root) {
+    let validate = (node, min, max) => {
+        if (!node) return true;
+
+        if (!(node.val > min && node.val < max)) return false;
+
+        return validate(node.left, min, node.val) && validate(node.right, node.val, max);
+    }
+
+    return validate(root, -Infinity, Infinity);
+};
+```
+
 ***
 
 ## 2. 863. All Nodes Distance K in Binary Tree
