@@ -568,8 +568,27 @@ var diameterOfBinaryTree = function (root) {
     return diameter;
 };
 ```
+***
+
+### 700. Search in a Binary Search Tree
+Time O(log n)
+Space O(1)
+```
+var searchBST = function (root, val) {
+    while(root && root.val != val){
+        if(val < root.val ) {
+            root = root.left;
+        } else {
+            root = root.right;
+        }
+    }
+
+    return root;
+};
+```
 
 ***
+
 
 # Medium Problems
 
