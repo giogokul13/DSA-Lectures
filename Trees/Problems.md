@@ -1640,6 +1640,34 @@ var bstFromPreorder = function (preorder) {
 
 ***
 
+### 235. Lowest Common Ancestor of a Binary Search Tree
+
+Time O(N) 
+Space O(1)
+
+```
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+    while(root){
+        if(root.val < p.val && root.val < q.val) {
+            root = root.right;
+        } else if(root.val > p.val && root.val > q.val) {
+            root = root.left;
+        } else {
+            break;
+        }
+    }
+
+    return root;
+};
+```
+
+
 
 ## Hard Problems
 
