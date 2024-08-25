@@ -590,7 +590,57 @@ var searchBST = function (root, val) {
 ***
 
 
-# Medium Problems
+### 653. Two Sum IV - Input is a BST
+
+Time and Space O(N) 
+
+```
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {boolean}
+ */
+var findTarget = function (root, k) {
+    let valueMap = new Set();
+    let res = false;
+
+    // if(k == 1) return false;
+
+    let inOrderTraverse = (node) => {
+        if (!node) return;
+
+        let target = (k - node.val);
+        if (valueMap.has(target)) {
+            res = true;
+            return;
+        }
+
+        if (!valueMap.has(node.val)) valueMap.add(node.val, true);
+
+
+        inOrderTraverse(node.left);
+        inOrderTraverse(node.right);
+
+    }
+
+    inOrderTraverse(root);
+
+    return res;
+};
+```
+
+***
+
+
+## Medium Problems
 
 ## 1. 98. Validate Binary Search Tree
 Time - O(n)
@@ -1667,6 +1717,35 @@ var lowestCommonAncestor = function (root, p, q) {
 };
 ```
 
+### 230. Kth Smallest Element in a BST
+
+Time and Space is O(N)
+
+```
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function (root, k) {
+    let value;
+    let counter = 0;
+    let inOrderTraversal = (node) => {
+        if (!node) return;
+        inOrderTraversal(node.left);
+        counter++;
+        if (counter == k) value = node.val
+
+        inOrderTraversal(node.right);
+    }
+
+    inOrderTraversal(root);
+
+    return value;
+};
+```
+
+***
 
 
 ## Hard Problems
