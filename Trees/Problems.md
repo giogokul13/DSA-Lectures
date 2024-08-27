@@ -1747,6 +1747,66 @@ var kthSmallest = function (root, k) {
 
 ***
 
+### 173. Binary Search Tree Iterator
+
+Time :
+BSTIterator : O(N)
+next and hasNext : O(1)
+
+Space: O(N)
+
+The time complexity of the BSTIterator constructor is O(n) where n is the number of nodes in the binary search tree. This is because we perform an in-order traversal of the tree to populate the nums array with all the values in sorted order.
+
+The time complexity of the next() and hasNext() methods is O(1) because we are simply accessing elements in the nums array and checking the index against the length of the array.
+
+The space complexity of the BSTIterator is O(n) where n is the number of nodes in the binary search tree. This is because we are storing all the values of the tree in the nums array during the constructor call.
+
+```
+/**
+ * @param {TreeNode} root
+ */
+var BSTIterator = function (root) {
+    this.nums = [];
+    this.index = 0;
+
+    let inOrderTraversal = (node) => {
+        if (!node) return;
+
+        inOrderTraversal(node.left);
+        this.nums.push(node.val);
+        inOrderTraversal(node.right);
+    }
+
+    inOrderTraversal(root);
+};
+
+/**
+ * @return {number}
+ */
+BSTIterator.prototype.next = function () {
+    let value = this.nums[this.index];
+    this.index++;
+
+    return value;
+};
+
+/**
+ * @return {boolean}
+ */
+BSTIterator.prototype.hasNext = function () {
+    return (this.index <= this.nums.length - 1);
+};
+
+/** 
+ * Your BSTIterator object will be instantiated and called as such:
+ * var obj = new BSTIterator(root)
+ * var param_1 = obj.next()
+ * var param_2 = obj.hasNext()
+ */
+
+```
+
+***
 
 ## Hard Problems
 
