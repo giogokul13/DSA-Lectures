@@ -1893,3 +1893,40 @@ var maxPathSum = function (root) {
 ```
 
 ***
+
+### 1373. Maximum Sum BST in Binary Tree
+
+Time O(N)
+Space O(N)
+
+```
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxSumBST = function (root) {
+    let max = 0;
+    let traverse = (node) => {
+        if (!node) return [true, Infinity, -Infinity, 0];
+
+        let [isLBST, leftMin, leftMax, leftSum] = traverse(node.left);
+        
+        let [isRBST, rightMin, rightMax, rightSum] = traverse(node.right);
+
+        if(isLBST && isRBST && leftMax < node.val && rightMin > node.val ){ //if My left tree  is BST and right tree is BST then check the current node for BST
+            let sum = node.val + leftSum + rightSum; // Sum up the right and left sum for total
+            max = Math.max(sum, max);
+            return [true, Math.min(leftMin, node.val), Math.max(rightMax, node.val), sum]
+        }
+
+        return [false, false]; //when there is no BST return false;
+    }
+
+    traverse(root);
+
+    return max;
+
+};
+```
+
+***
