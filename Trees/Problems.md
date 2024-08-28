@@ -1930,3 +1930,84 @@ var maxSumBST = function (root) {
 ```
 
 ***
+
+### 297. Serialize and Deserialize Binary Tree
+
+The time complexity of both serialization and deserialization functions is O(n), where n is the number of nodes in the binary tree. This is because both functions perform a pre-order traversal of the tree, visiting each node once.
+
+The space complexity of the serialization function is O(n) as well, as it uses an array to store the serialized values of the nodes. The space complexity of the deserialization function is also O(n) because it uses recursion to construct the tree, which can result in a recursive call stack of depth equal to the height of the tree.
+
+Overall, the time and space complexity of both functions is O(n) due to the traversal and construction process of the binary tree.
+
+
+```
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+
+/**
+ * Encodes a tree to a single string.
+ *
+ * @param {TreeNode} root
+ * @return {string}
+ */
+var serialize = function (root) {
+    let nums = [];
+
+    let preOrderTraversal = function (node) {
+        if (!node) {
+            nums.push("null");
+            return;
+        };
+
+
+        nums.push(node.val);
+        preOrderTraversal(node.left);
+        preOrderTraversal(node.right);
+    }
+
+    preOrderTraversal(root);
+
+    return nums.join(",");
+};
+
+/**
+ * Decodes your encoded data to tree.
+ *
+ * @param {string} data
+ * @return {TreeNode}
+ */
+var deserialize = function (data) {
+    data = data.split(",");
+    let index = 0;
+    let constructTree = () => {
+        if (data[index] === "null") {
+            index++;
+            return null;
+        }
+
+        let node = new TreeNode(parseInt(data[index]));
+        index++;
+
+        node.left = constructTree();
+        node.right = constructTree();
+
+        return node;
+    }
+
+    let root = constructTree();
+
+    return root;
+};
+
+/**
+ * Your functions will be called as such:
+ * deserialize(serialize(root));
+ */
+```
+
+***
