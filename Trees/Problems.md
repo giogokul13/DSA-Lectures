@@ -2011,3 +2011,49 @@ var deserialize = function (data) {
 ```
 
 ***
+
+
+### 295. Find Median from Data Stream
+
+
+**Not Optimized**
+```
+
+var MedianFinder = function () {
+    this.nums = [];
+};
+
+/** 
+ * @param {number} num
+ * @return {void}
+ */
+MedianFinder.prototype.addNum = function (num) {
+    this.nums.push(num);
+    this.nums.sort((a, b) => a - b);
+};
+
+/**
+ * @return {number}
+ */
+MedianFinder.prototype.findMedian = function () {
+    let value;
+    if (this.nums.length % 2 != 0) {
+        let mid = Math.floor(this.nums.length / 2);
+        value = this.nums[mid];
+    } else {
+        let mid = Math.floor((this.nums.length - 1) / 2);
+        value = (this.nums[mid] + this.nums[mid + 1]) / 2;
+    }
+
+    return value;
+};
+
+/** 
+ * Your MedianFinder object will be instantiated and called as such:
+ * var obj = new MedianFinder()
+ * obj.addNum(num)
+ * var param_2 = obj.findMedian()
+ */
+```
+
+***
