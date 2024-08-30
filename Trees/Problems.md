@@ -639,6 +639,52 @@ var findTarget = function (root, k) {
 
 ***
 
+### 703. Kth Largest Element in a Stream
+
+Time complexity:
+- The constructor has a time complexity of O(n log k) where n is the number of elements in the input array nums and k is the value of k.
+- The add method has a time complexity of O(log k) for each call.
+
+Space complexity:
+- The space complexity is O(k) where k is the value of k, as we are maintaining a priority queue of size k.
+
+```
+/**
+ * @param {number} k
+ * @param {number[]} nums
+ */
+var KthLargest = function(k, nums) {
+    this.minPriQueue = new MinPriorityQueue();
+    this.k = k;
+    for(let num of nums){
+        this.add(num);
+    }
+};
+
+/** 
+ * @param {number} val
+ * @return {number}
+ */
+KthLargest.prototype.add = function(val) {
+   if(this.minPriQueue.size() < this.k) {
+    this.minPriQueue.enqueue(val)
+   } else if(val > this.minPriQueue.front().element) {
+        this.minPriQueue.dequeue();
+        this.minPriQueue.enqueue(val);
+   }
+
+   return this.minPriQueue.front().element;
+};
+
+/** 
+ * Your KthLargest object will be instantiated and called as such:
+ * var obj = new KthLargest(k, nums)
+ * var param_1 = obj.add(val)
+ */
+```
+
+***
+
 
 ## Medium Problems
 
