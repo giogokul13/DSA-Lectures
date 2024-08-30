@@ -1854,6 +1854,36 @@ BSTIterator.prototype.hasNext = function () {
 
 ***
 
+###  215. Kth Largest Element in an Array
+
+The time complexity of this solution is O(n log k), where n is the number of elements in the input array nums and k is the value of k. This is because we are iterating through each element in the input array and performing enqueue and dequeue operations on the min heap, which have a time complexity of O(log k) each.
+
+The space complexity of this solution is O(k), as we are maintaining a min heap of size k to store the k largest elements in the input array.
+
+
+```
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findKthLargest = function (nums, k) {
+
+    let minHeap = new MinPriorityQueue();
+
+    for (let num of nums) {
+        minHeap.enqueue(num);
+
+        if (minHeap.size() > k) minHeap.dequeue();
+    }
+
+    return minHeap.front().element;
+};
+```
+
+***
+
+
 ## Hard Problems
 
 ### 987. Vertical Order Traversal of a Binary Tree
