@@ -685,6 +685,43 @@ KthLargest.prototype.add = function(val) {
 
 ***
 
+### 733. Flood Fill
+
+The time complexity of this algorithm is O(n), where n is the total number of pixels in the image. This is because in the worst case scenario, we may have to visit every pixel in the image to perform the flood fill operation.
+
+The space complexity of this algorithm is also O(n) due to the recursive calls made to perform the flood fill operation. In the worst case scenario, the call stack may grow as large as the number of pixels in the image.
+
+Overall, the time and space complexity of this algorithm is linear in the number of pixels in the image.
+
+```
+/**
+ * @param {number[][]} image
+ * @param {number} sr
+ * @param {number} sc
+ * @param {number} color
+ * @return {number[][]}
+ */
+const floodFill = (image, sr, sc, newColor, firstColor = image[sr][sc]) => {
+    // handle if the coordinate is out of bounds
+    if (sr < 0 || sc < 0 || sr >= image.length || sc >= image[sr].length || image[sr][sc] !== firstColor || image[sr][sc] === newColor)   {
+        return image; // return image as-is
+    }
+    
+    image[sr][sc] = newColor;
+    
+    floodFill(image, sr + 1, sc, newColor, firstColor);
+    floodFill(image, sr - 1, sc, newColor, firstColor);
+    floodFill(image, sr, sc + 1, newColor, firstColor);
+    floodFill(image, sr, sc - 1, newColor, firstColor);
+    
+	// return modified image
+    return image;
+};
+
+```
+
+***
+
 
 ## Medium Problems
 
