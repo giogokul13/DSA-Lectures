@@ -41,6 +41,7 @@ Adjacency matrix
 
 Adjacency List
 
+
 <img width="622" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/a2afa6c0-08c0-46ea-91bf-3d12d46975c1">
 
 <img width="563" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/fd83ccb5-a882-4c67-8c85-4c1425796a6a">
@@ -48,6 +49,7 @@ Adjacency List
 
 
 Adjacency Matrix VS List
+
 <img width="611" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/c154a38b-1423-426d-a958-1e3a7c9b1ad1">
 
 
@@ -88,7 +90,7 @@ Class Graph {
     this.adjacencyList[vertex2].delete(vertex1);
   }
 
-  removeVertex(vertex){ /// TC deoendes upon No, of vertices
+  removeVertex(vertex){ /// TC dependes upon No, of vertices
     if(!this.adjaccencyList[vertex]) return "Not Found";
   
     for(let adjVertex in this.adjacencyList[vertex]){
@@ -104,7 +106,7 @@ const graph = new Graph();
 ```
 
 
-## Conneted Components
+## Connected Components
 
 ## Traversal Algorithm.
 
