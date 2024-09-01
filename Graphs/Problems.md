@@ -144,6 +144,38 @@ class Solution {
 
 ```
 
+DFS Recursion 
+
+```
+class Solution {
+    // Function to return a list containing the DFS traversal of the graph.
+    // Function to return a list containing the DFS traversal of the graph.
+    dfsOfGraph(V, adj) {
+        let visited = new Array(V).fill(false);  // Visited array to keep track of visited nodes
+        let result = [];  // Array to store the DFS traversal path
+
+        // Start DFS traversal from the first vertex (vertex 0)
+        this.depthTraverse(0, adj, visited, result);
+
+        return result;  // Return the traversal path as an array
+    }
+
+    // Helper method for DFS traversal
+    depthTraverse(vertex, adj, visited, result) {
+        // Mark the current vertex as visited
+        visited[vertex] = true;
+        result.push(vertex);  // Add the current vertex to the result path
+
+        // Traverse all the adjacent vertices
+        for (let node of adj[vertex]) {
+            if (!visited[node]) {
+                this.depthTraverse(node, adj, visited, result);
+            }
+        }
+    }
+}
+```
+
 ***
 ***
 ***
