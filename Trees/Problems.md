@@ -61,7 +61,7 @@ Space - O(h) where h is the height of the tree, all the function callas are stor
 ```
 /**
  * @param {TreeNode} p
- * @param {TreeNode} q
+ * @param {TreeNode} q 
  * @return {boolean}
  */
 var isSameTree = function (p, q) {
