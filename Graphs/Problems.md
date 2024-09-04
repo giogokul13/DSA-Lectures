@@ -222,6 +222,56 @@ var canFinish = function (numCourses, prerequisites) {
     return count === numCourses;
 };
 ```
+Another Solution
+
+```
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {boolean}
+ */
+var canFinish = function (numCourses, prerequisites) {
+
+    // construct a adjacency list with the Prerequisites
+
+    let preMap = new Map();
+
+    for (let i = 0; i < numCourses; i++) { // Set a default Map to each course ie AdjacencyList of each course
+        preMap.set(i, []);
+    }
+
+    for (let [course, preReq] of prerequisites) {
+        let preArr = preMap.get(course);
+        preArr.push(preReq);
+
+        preMap.set(course, preArr);
+    }
+
+    let visited = new Set();
+
+    let traverseDFS = function (course) {
+        if (visited.has(course)) return false;
+
+        if (preMap.get(course)?.length == 0) return true;
+
+        visited.add(course);
+        let coursePreReq = preMap.get(course);
+        for (let pre of coursePreReq) {
+            if (!traverseDFS(pre)) return false;
+        }
+        visited.delete(course);
+        preMap.set(course, []);
+        return true;
+    }
+
+    for (let i = 0; i < numCourses; i++) {
+        if (!traverseDFS(i)) return false;
+    }
+
+    return true;
+};
+```
+
 *** 
 547. Number of Provinces 
 
