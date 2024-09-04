@@ -271,6 +271,7 @@ var canFinish = function (numCourses, prerequisites) {
     return true;
 };
 ```
+[![YT Video](https://img.youtube.com/vi/EgI5nU9etnU/0.jpg)](https://www.youtube.com/watch?v=EgI5nU9etnU)
 
 *** 
 547. Number of Provinces 
