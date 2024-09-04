@@ -1151,6 +1151,49 @@ var accountsMerge = function (accounts) {
 
 ***
 
+###  Topological Sort 
+
+### DFS 
+
+Time Complexity: O(V + E).
+Auxiliary Space: O(V).
+
+```
+/**
+ * @param {number} V
+ * @param {number[][]} adj
+ * @returns {number[]}
+*/
+class Solution 
+{
+    //Function to return list containing vertices in Topological order.
+    topoSort(V, adj) {
+       let visited = new Set();
+       let stack = [];
+       
+       const dfs = (vertex) => {
+           visited.add(vertex);
+           
+           for(let node of adj[vertex]) {
+               if(!visited.has(node)) {
+                   dfs(node);
+               }
+           }
+           
+           stack.push(vertex);
+       }
+       
+       for(let i = 0; i < V; i++) {
+           if(!visited.has(i)) dfs(i);
+       }
+       
+       return stack.reverse();
+    }
+}
+```
+
+
+
 
 
 
