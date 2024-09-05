@@ -607,3 +607,11 @@ console.log("Shortest distances from A:", distances);
 
 ```
 
+
+
+## Topological Sort
+
+### Topological Sort is only Applicable to Directed Acyclic Graph (DAG)
+
+The Ordering of elemensts can be unquie based on the Approach.
+
