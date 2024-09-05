@@ -1192,6 +1192,54 @@ class Solution
 }
 ```
 
+### 200. Number of Islands
+
+Time O(M * N)
+Space O(1)
+
+```
+/**
+ * @param {character[][]} grid
+ * @return {number}
+ */
+var numIslands = function (grid) {
+    let islands = 0;
+
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[0].length; col++) {
+            if (grid[row][col] == 1) {
+                islands += 1;
+
+                traverse(row, col, grid);
+            }
+        }
+    }
+
+    return islands;
+
+};
+
+
+function traverse(row, col, grid) {
+
+    if (
+        row < 0 || row > grid.length - 1
+        || col < 0 || col > grid[0].length - 1
+        || grid[row][col] == '0') return;
+
+    grid[row][col] = "0";
+
+    traverse(row + 1, col, grid);
+    traverse(row - 1, col, grid);
+    traverse(row, col + 1, grid);
+    traverse(row, col - 1, grid);
+
+}
+```
+
+***
+
+
 
 
 
