@@ -1240,6 +1240,58 @@ function traverse(row, col, grid) {
 ***
 
 
+### 310. Minimum Height Trees
+
+Time and Space O(N)
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var findMinHeightTrees = function (n, edges) {
+    if (n < 2) return [0] // when the tree has less than two nodes the height is zero;
+
+    let adjList = {};
+
+    // Creating an Adjacency List to construct a undirected graph
+    for (let [i, j] of edges) {
+        if (!adjList[i]) adjList[i] = [];
+        if (!adjList[j]) adjList[j] = [];
+
+        adjList[j].push(i);
+        adjList[i].push(j);
+    }
+
+    let leaves = [];
+
+    // Check if any of the node has one path or connected to one node
+    for (let node in adjList) {
+        if (adjList[node].length == 1) {
+            leaves.push(parseInt(node));
+        }
+    }
+
+    while (n > 2) {
+        n -= leaves.length;
+        let newLeaves = [];
+
+        for (let leaf of leaves) {
+            let adjNode = adjList[leaf].pop();
+            adjList[adjNode].splice(adjList[adjNode].indexOf(leaf), 1); // delete the identified node
+            if (adjList[adjNode].length == 1) {
+                newLeaves.push(adjNode);
+            }
+        }
+        leaves = newLeaves;
+    }
+
+    return leaves;
+};
+```
+
+***
+
 
 
 
@@ -1426,6 +1478,14 @@ var swimInWater = function (grid) {
 
     return minGrid[n - 1][n - 1];
 }; 
+```
+
+***
+
+### 1520. Maximum Number of Non-Overlapping Substrings
+
+```
+
 ```
 
 ***
