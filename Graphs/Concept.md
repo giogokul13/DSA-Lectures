@@ -108,6 +108,11 @@ const graph = new Graph();
 
 ## Connected Components
 
+In Graph, if you can pass through all nodes, this is called as Connected Components
+
+<img width="547" alt="image" src="https://github.com/user-attachments/assets/25f90862-e846-4b64-992c-d4f30c3bd329">
+
+
 ## Traversal Algorithm.
 
 ### DFS
