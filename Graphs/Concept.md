@@ -1,4 +1,4 @@
-# Graphs - Custom datatype
+ # Graphs - Custom datatype
 
 <img width="621" alt="image" src="https://github.com/giogokul13/DSA-Lectures/assets/63816836/8c4363e9-0ed7-4396-a4a1-ba40a6e0bb06">
 
