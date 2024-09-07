@@ -177,7 +177,92 @@ class Solution {
 ```
 
 ***
+
+### 997. Find the Town Judge
+
+Time and Space are O(N)
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} trust
+ * @return {number}
+ */
+var findJudge = function (n, trust) {
+    if (n === 1) return 1; // If there's only one person, they are the judge by default
+
+    let inDegree = new Array(n + 1).fill(0); // People who trust this person
+    let outDegree = new Array(n + 1).fill(0); // People this person trusts
+
+    for (let [a, b] of trust) {
+        outDegree[a]++;
+        inDegree[b]++;
+    }
+
+    // The town judge should be trusted by everyone else (n - 1) and trust no one
+    for (let i = 1; i <= n; i++) {
+        if (inDegree[i] === n - 1 && outDegree[i] === 0) {
+            return i;
+        }
+    }
+
+    return -1; // No judge found
+};
+```
 ***
+
+### 1971. Find if Path Exists in Graph
+
+Time and Space O(V + E)
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {number} source
+ * @param {number} destination
+ * @return {boolean}
+ */
+var validPath = function (n, edges, source, destination) {
+    if (n == 1) return true;
+
+    // If the source and destination are the same, return true
+    if (source === destination) return true;
+
+    let adjList = new Map();
+    let queue = [source];
+    let visited = new Set();
+    visited.add(source);
+
+    for (let [a, b] of edges) {
+        if (!adjList.has(a)) adjList.set(a, []);
+        if (!adjList.has(b)) adjList.set(b, []);
+
+        adjList.get(a).push(b);
+        adjList.get(b).push(a);
+    }
+
+    let front = 0; // Manage front of the queue to avoid using shift()
+    let bfsTraversal = () => {
+        while (front < queue.length) {
+            let element = queue[front++]; // Get the current node from the queue
+            for (let node of adjList.get(element)) {
+                if (destination == node) return true;
+
+                if (!visited.has(node)) {
+                    queue.push(node); // Mark neighbor as visited
+                    visited.add(node); // Add the neighbor to the queue
+                }
+            }
+        }
+
+        return false;
+    }
+
+    return bfsTraversal();
+};
+```
+
 ***
 
 
