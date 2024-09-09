@@ -1476,14 +1476,57 @@ var calcEquation = function (equations, values, queries) {
 ***
 
 
+### 684. Redundant Connection
+Time O(N ^ 2) Space O(N)
 
+```
+/**
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var findRedundantConnection = function (edges) {
+    // Initialize adjacency list
+    const adjList = {};
 
+    // Helper function to perform DFS
+    const dfs = (source, target, visited) => {
+        if (source === target) return true;  // Found a path to the target
+        
+        visited.add(source);  // Mark the source as visited
+        
+        for (const neighbor of adjList[source] || []) {  // Check neighbors
+            if (!visited.has(neighbor)) {
+                if (dfs(neighbor, target, visited)) {  // Recursive DFS call
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    };
 
+    // Process each edge
+    for (const [u, v] of edges) {
+        const visited = new Set();
+        
+        // Check if there's already a path between u and v using DFS
+        if (adjList[u] && adjList[v] && dfs(u, v, visited)) {
+            return [u, v];  // If path exists, this edge is redundant
+        }
 
+        // Add the edge to the adjacency list
+        if (!adjList[u]) adjList[u] = [];
+        if (!adjList[v]) adjList[v] = [];
+        adjList[u].push(v);
+        adjList[v].push(u);
+    }
 
+    return [];
+};
 
+```
 
-
+***
 
 
 
