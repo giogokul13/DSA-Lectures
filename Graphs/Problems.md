@@ -1412,14 +1412,68 @@ var cloneGraph = function (node) {
 
 ***
 
+### 399. Evaluate Division
 
+The time complexity of this code is O(n * m) where n is the number of equations and m is the number of queries. This is because for each query, the code may need to traverse the graph to find the result, and the graph traversal may involve visiting all nodes in the worst case.
 
+The space complexity is O(n) where n is the number of equations. This is because the code constructs a graph to represent the equations, and the size of the graph is proportional to the number of equations.
 
+```
+/**
+ * @param {string[][]} equations
+ * @param {number[]} values
+ * @param {string[][]} queries
+ * @return {number[]}
+ */
+var calcEquation = function (equations, values, queries) {
+    let graph = {};
+    for (let index = 0; index < equations.length; index++) {
+        let val = values[index];
+        let [num, den] = equations[index];
 
+        if (!graph[num]) graph[num] = {};
+        if (!graph[den]) graph[den] = {};
 
+        graph[num][den] = val;
+        graph[den][num] = 1 / val;
+    }
 
+    let execute = (num, den, visited) => {
+        if (!(num in graph) || !(den in graph)) return -1;
 
+        if (num == den) return 1;
 
+        visited.add(num);
+        let neighbours = graph[num];
+
+        for (let neighbour in neighbours) {
+            if (!visited.has(neighbour)) {
+                let result = execute(neighbour, den, visited);
+
+                if (result !== -1) {
+                    return neighbours[neighbour] * result;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    let results = [];
+
+    for (let query of queries) {
+        let [num, den] = query;
+        let visited = new Set();
+        let result = execute(num, den, visited);
+
+        results.push(result);
+    }
+
+    return results;
+};
+```
+
+***
 
 
 
