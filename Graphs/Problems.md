@@ -1563,23 +1563,38 @@ var allPathsSourceTarget = function (graph) {
 
 ***
 
+### 841. Keys and Rooms
 
+The time complexity of this solution is O(n + e), where n is the number of rooms and e is the total number of keys in all rooms. This is because we are visiting each room and each key exactly once.
 
+The space complexity is also O(n + e) due to the space used by the visited set and the recursive call stack.
 
+```
+/**
+ * @param {number[][]} rooms
+ * @return {boolean}
+ */
+var canVisitAllRooms = function (rooms) {
+    let visited = new Set();
 
+    let recurse = (node) => {
+        visited.add(node);
+        for (let neighbour of rooms[node]) {
+            if (!visited.has(neighbour)) {
+                recurse(neighbour);
+            }
+        }
 
+        return visited;
+    }
 
+    recurse(0);
 
+    return visited.size == rooms.length;
+};
+```
 
-
-
-
-
-
-
-
-
-
+***
 
 
 
