@@ -1528,14 +1528,40 @@ var findRedundantConnection = function (edges) {
 
 ***
 
+### 797. All Paths From Source to Target
 
+Time and Space O(N ^ 2)
 
+```
+/**
+ * @param {number[][]} graph
+ * @return {number[][]}
+ */
+var allPathsSourceTarget = function (graph) {
 
+    if (!graph.length) return [];
 
+    const targetNode = graph.length - 1;
+    let paths = [];
 
+    let dfs = (node, path) => {
+        if (node == targetNode) {
+            paths.push([...path]);
+            return;
+        }
 
+        for (let neighbour of graph[node]) {
+            dfs(neighbour, [...path, neighbour]) // Combine the original path + current element to get the entire path
+        }
+    }
 
+    dfs(0, [0]);
 
+    return paths;
+};
+```
+
+***
 
 
 
