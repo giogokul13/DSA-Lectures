@@ -1596,9 +1596,116 @@ var canVisitAllRooms = function (rooms) {
 
 ***
 
+### 851. Loud and Rich
+
+Time O(N ^ 2)
+Space O(N)
+
+```
+/**
+ * @param {number[][]} richer
+ * @param {number[]} quiet
+ * @return {number[]}
+ */
+var loudAndRich = function (richer, quiet) {
+    let richMap = new Array(quiet.length)
+
+    for (let i = 0; i < richMap.length; ++i) {
+        richMap[i] = []
+    }
+    for (const richerPair of richer) {
+        richMap[richerPair[1]].push(richerPair[0])
+    }
+
+    let answer = new Array(quiet.length);
+
+    let calculateLoudestPerson = (person) => {
+        if (!answer[person]) {
+            let loudestPerson = person;
+            let richLoudestPerson;
+
+            for (let richPerson of richMap[person]) {
+                richLoudestPerson = calculateLoudestPerson(richPerson);
+
+                if (quiet[richLoudestPerson] < quiet[loudestPerson]) {
+                    loudestPerson = richLoudestPerson;
+                }
+            }
+
+            answer[person] = loudestPerson;
+        }
+
+        return answer[person];
+    }
 
 
+    for (let i = 0; i < quiet.length; i++) {
+        calculateLoudestPerson(i);
+    }
 
+    return answer
+
+}; 
+```
+
+***
+
+### 886. Possible Bipartition
+
+The time complexity of this algorithm is O(n + e), where n is the number of vertices and e is the number of edges in the graph. This is because we are performing a depth-first search on each vertex, and each edge is visited once.
+
+The space complexity of this algorithm is O(n), where n is the number of vertices in the graph. This is because we are using an adjacency list to represent the graph and an array to store the colors of each vertex.
+
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} dislikes
+ * @return {boolean}
+ */
+var possibleBipartition = function (n, dislikes) {
+    // construct a adjacency List
+    let adjList = {};
+
+    for (let i = 1; i <= n; i++) {
+        adjList[i] = [];
+    }
+
+    for (let [a, b] of dislikes) {
+        adjList[b].push(a);
+        adjList[a].push(b);
+    }
+
+    console.log(adjList);
+    let color = new Array(n + 1).fill(-1);
+
+    let dfs = (vertex) => {
+        for (let node of adjList[vertex]) {
+
+            // If my neighbour nodes are in same color return false// bacause they cannot be Bipartite
+            if (color[node] == color[vertex]) return false;
+
+            if (color[node] == -1) {
+                color[node] = 1 - color[vertex]; // mark it as Zero if it is not visited before and check the upcoming node;
+                if (!dfs(node)) return false;
+            }
+        }
+
+        return true;
+    }
+
+    for (let i = 1; i <= n; i++) {
+        if (color[i] == -1) {
+            color[i] = 0;
+            if (!dfs(i)) return false;
+        }
+    }
+
+    return true;
+};
+```
+
+***
 
 
 
