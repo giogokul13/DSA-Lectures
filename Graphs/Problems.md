@@ -1744,6 +1744,63 @@ var equationsPossible = function(equations) {
 ***
 
 
+### 1042. Flower Planting With No Adjacent
+
+Time complexity: O(n + m), where n is the number of nodes in the garden and m is the number of paths. This is because we are iterating through all the nodes and paths in the garden to build the adjacency list and perform the BFS traversal.
+
+Space complexity: O(n), where n is the number of nodes in the garden. This is because we are storing the adjacency list and the answer array, both of which have a size proportional to the number of nodes in the garden.
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} paths
+ * @return {number[]}
+ */
+var gardenNoAdj = function (n, paths) {
+    let adjList = {};
+    let answer = new Array(n + 1).fill(0);
+
+    for (let i = 1; i <= n; i++) { adjList[i] = [] }
+
+    for (let [a, b] of paths) {
+        if (!adjList[a]) adjList[a] = [];
+        if (!adjList[b]) adjList[b] = [];
+
+        adjList[b].push(a);
+        adjList[a].push(b);
+    }
+
+    let bfsTraversal = (node) => {
+        let queue = [node];
+
+        while (queue.length > 0) {
+            let curr = queue.shift(); // pop the first element
+
+            if (answer[curr]) continue;
+
+            let visited = new Set();
+            console.log(curr);
+            for (let vertex of adjList?.[curr]) {
+                if (answer[vertex]) visited.add(answer[vertex]);
+                else queue.push(vertex);
+            }
+
+            let [flower] = [1, 2, 3, 4].filter(flow => !visited.has(flow)) // If it is not visited then assign the first non visited flow number
+            answer[curr] = flower;
+        }
+    }
+
+    for (let i = 1; i <= n; i++) {
+        bfsTraversal(i) // traverse all gardens
+    }
+
+    answer.shift()// remove the first element as it starts from 0
+    return answer;
+};
+```
+
+***
+
 
 
 
