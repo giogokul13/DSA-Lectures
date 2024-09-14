@@ -1801,12 +1801,66 @@ var gardenNoAdj = function (n, paths) {
 
 ***
 
+### 1129. Shortest Path with Alternating Colors
 
+Time O(V + E)
+Soace O(N)
+```
+/**
+ * @param {number} n
+ * @param {number[][]} redEdges
+ * @param {number[][]} blueEdges
+ * @return {number[]}
+ */
+var shortestAlternatingPaths = function (n, redEdges, blueEdges) {
+    let redGraph = new Array(n).fill(0).map(() => []);
+    let blueGraph = new Array(n).fill(0).map(() => []);
 
+    for (let [a, b] of redEdges) {
+        redGraph[a].push(b);
+    }
 
+    for (let [a, b] of blueEdges) {
+        blueGraph[a].push(b);
+    }
 
+    let answer = new Array(n).fill(-1);
+    let visited = Array.from({ length: n }, () => [false, false]);
 
+    let queue = [[0, 0, 0], [0, 1, 0]]; // [node, color, distance]; 0 - red; 1 - blue;
 
+    visited[0][0] = visited[0][1] = true;
+
+    while (queue.length > 0) {
+        let [node, color, dist] = queue.shift();
+
+        if (answer[node] == -1) {
+            answer[node] = dist;
+        }
+
+        if (color == 0) {
+            for (let neighbour of blueGraph[node]) {
+                if (!visited[neighbour][1]) {
+                    visited[neighbour][1] = true;
+                    queue.push([neighbour, 1, dist + 1]);
+                }
+            }
+        } else {
+            for (let neighbour of redGraph[node]) {
+                if (!visited[neighbour][0]) {
+                    visited[neighbour][0] = true;
+                    queue.push([neighbour, 0, dist + 1]);
+                }
+            }
+        }
+    }
+
+    return answer;
+
+}; 
+```
+
+***
 
 
 
