@@ -1863,6 +1863,164 @@ var shortestAlternatingPaths = function (n, redEdges, blueEdges) {
 ***
 
 
+### 1514. Path with Maximum Probability
+
+Time complexity:
+- Building the adjacency list: O(E), where E is the number of edges
+- Initializing the priority queue: O(1)
+- Processing the priority queue: O(E log E), as each edge is processed once and each edge is pushed and popped from the priority queue
+Overall, the time complexity is O(E log E).
+
+Space complexity:
+- Adjacency list: O(E), as we store each edge in the adjacency list
+- Priority queue: O(E), as at most all edges can be in the priority queue
+- Maximum probability array: O(n), where n is the number of nodes
+Overall, the space complexity is O(E + n).
+
+```
+class MaxHeap {
+    constructor() {
+        this.heap = [];
+    }
+
+    // Insert an element into the heap
+    push([node, prob]) {
+        this.heap.push([node, prob]);
+        this._bubbleUp();
+    }
+
+    // Remove and return the maximum element
+    pop() {
+        const max = this.heap[0];
+        const end = this.heap.pop();
+        if (this.heap.length > 0) {
+            this.heap[0] = end;
+            this._sinkDown();
+        }
+        return max;
+    }
+
+    // Check if the heap is empty
+    isEmpty() {
+        return this.heap.length === 0;
+    }
+
+    // Bubble up the last element to maintain heap property
+    _bubbleUp() {
+        let index = this.heap.length - 1;
+        const element = this.heap[index];
+
+        while (index > 0) {
+            let parentIndex = Math.floor((index - 1) / 2);
+            let parent = this.heap[parentIndex];
+
+            if (element[1] <= parent[1]) break; // Max-heap property is satisfied
+
+            this.heap[parentIndex] = element;
+            this.heap[index] = parent;
+            index = parentIndex;
+        }
+    }
+
+    // Sink down the first element to maintain heap property
+    _sinkDown() {
+        let index = 0;
+        const length = this.heap.length;
+        const element = this.heap[0];
+
+        while (true) {
+            let leftChildIndex = 2 * index + 1;
+            let rightChildIndex = 2 * index + 2;
+            let leftChild, rightChild;
+            let swap = null;
+
+            if (leftChildIndex < length) {
+                leftChild = this.heap[leftChildIndex];
+                if (leftChild[1] > element[1]) {
+                    swap = leftChildIndex;
+                }
+            }
+
+            if (rightChildIndex < length) {
+                rightChild = this.heap[rightChildIndex];
+                if (
+                    (swap === null && rightChild[1] > element[1]) ||
+                    (swap !== null && rightChild[1] > leftChild[1])
+                ) {
+                    swap = rightChildIndex;
+                }
+            }
+
+            if (swap === null) break;
+
+            this.heap[index] = this.heap[swap];
+            this.heap[swap] = element;
+            index = swap;
+        }
+    }
+}
+
+var maxProbability = function (n, edges, succProb, start_node, end_node) {
+    let adjList = {};
+
+    // Initialize the adjacency list
+    for (let i = 0; i < n; i++) {
+        adjList[i] = [];
+    }
+
+    // Build the adjacency list with edges and success probabilities
+    for (let edge = 0; edge < edges.length; edge++) {
+        adjList[edges[edge][0]].push([edges[edge][1], succProb[edge]]);
+        adjList[edges[edge][1]].push([edges[edge][0], succProb[edge]]);
+    }
+
+    // Max-heap (priority queue) to prioritize nodes with higher probability
+    let maxHeap = new MaxHeap();
+    maxHeap.push([start_node, 1]); // [node, probability]
+
+    // Array to store the maximum probability to reach each node
+    let maxProb = new Array(n).fill(0);
+    maxProb[start_node] = 1;
+
+    // Process the priority queue
+    while (!maxHeap.isEmpty()) {
+        // Extract the node with the highest probability
+        let [vertex, currProb] = maxHeap.pop();
+
+        // If we've reached the end node, return the probability
+        if (vertex === end_node) return currProb;
+
+        // Traverse all neighbors
+        for (let [neighbor, prob] of adjList[vertex]) {
+            let newProb = currProb * prob;
+
+            // If we find a path with a higher probability, update and push to the heap
+            if (newProb > maxProb[neighbor]) {
+                maxProb[neighbor] = newProb;
+                maxHeap.push([neighbor, newProb]);
+            }
+        }
+    }
+
+    // If we exhaust the queue and haven't reached the end node
+    return 0;
+};
+
+```
+***
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Hard
 
