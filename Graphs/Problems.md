@@ -2009,6 +2009,60 @@ var maxProbability = function (n, edges, succProb, start_node, end_node) {
 ```
 ***
 
+### 2192. All Ancestors of a Node in a Directed Acyclic Graph
+
+The time complexity of this algorithm is O(n^2) because we are iterating through each node in the graph and for each node, we are potentially visiting all its ancestors. The space complexity is also O(n^2) because we are storing the ancestors for each node in a set, and there can be up to n ancestors for each node.
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[][]}
+ */
+var getAncestors = function (n, edges) {
+    let anscestorList = new Map();
+
+    for (let i = 0; i < n; i++) {
+        anscestorList.set(i, []);
+    }
+
+    for (let [parent, child] of edges) { // construct an ancestor map
+        anscestorList.get(child).push(parent);
+    }
+
+    // Array to store the ancestors for each node
+    let ancestors = new Array(n).fill(0).map(() => new Set());
+
+    // Perform DFS to find all ancestors for each node
+    let dfs = (node) => {
+        for (let parent of anscestorList.get(node)) {
+            if (!ancestors[node].has(parent)) {
+                ancestors[node].add(parent);
+                // Recursively add the ancestors of the parent
+                dfs(parent);
+                // Add all ancestors of the parent to the current node's ancestors
+                for (let ancestor of ancestors[parent]) {
+                    ancestors[node].add(ancestor);
+                }
+            }
+        }
+    };
+
+    // Run DFS for each node to find its ancestors
+    for (let i = 0; i < n; i++) {
+        dfs(i);
+    }
+
+    // Convert the ancestor sets to sorted arrays for the final output
+    return ancestors.map(set => [...set].sort((a, b) => a - b));
+
+};  
+```
+
+**
+
+
+
 
 
 
