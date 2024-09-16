@@ -2128,6 +2128,16 @@ var watchedVideosByFriends = function (watchedVideos, friends, id, level) {
 
 ***
 
+### 1462. Course Schedule IV
+
+Time O(N ^ 3)
+Space O(N * N)
+
+```
+https://leetcode.com/problems/course-schedule-iv/description
+```
+
+***
 
 
 
