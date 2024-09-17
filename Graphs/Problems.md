@@ -2259,6 +2259,46 @@ var minReorder = function (n, connections) {
 ```
 ***
 
+### 1557. Minimum Number of Vertices to Reach All Nodes
+
+<img width="339" alt="image" src="https://github.com/user-attachments/assets/da25a14d-f2db-490e-a94b-bb5fb6a0cfd9">
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var findSmallestSetOfVertices = function(n, edges) {
+     let inDegree = new Array(n).fill(0); // Initialize an array to store in-degrees
+
+    // Process the edges and calculate in-degrees for each node
+    for (let [a, b] of edges) {
+        inDegree[b]++;
+    }
+
+    let result = [];
+
+    // Find nodes with in-degree of 0
+    for (let i = 0; i < n; i++) {
+        if (inDegree[i] === 0) {
+            result.push(i);  // Only nodes with in-degree of 0 are required
+        }
+    }
+
+    return result;
+};
+```
+The time complexity of this function is O(n + m), where n is the number of nodes and m is the number of edges. This is because we iterate through all the edges to calculate the in-degrees of each node, which takes O(m) time. Then, we iterate through all the nodes to find the nodes with in-degree of 0, which takes O(n) time.
+
+The space complexity of this function is O(n), where n is the number of nodes. This is because we create an array of size n to store the in-degrees of each node. Additionally, the space complexity of the result array is also O(n) in the worst case scenario where all nodes have an in-degree of 0.
+
+***
+
+
+
+
+
 
 
 
