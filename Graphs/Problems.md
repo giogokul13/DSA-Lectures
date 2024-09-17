@@ -2133,10 +2133,82 @@ var watchedVideosByFriends = function (watchedVideos, friends, id, level) {
 Time O(N ^ 3)
 Space O(N * N)
 
-```
 https://leetcode.com/problems/course-schedule-iv/description
-```
 
+```
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @param {number[][]} queries
+ * @return {boolean[]}
+ */
+/*var checkIfPrerequisite = function (numCourses, prerequisites, queries) {
+    var preReqMap = {};
+    let answer = [];
+
+    for (let i = 0; i < numCourses; i++) {
+        preReqMap[i] = [];
+    }
+
+    for (let [a, b] of prerequisites) {
+        if(!preReqMap[b]) preReqMap[b] = [];
+        
+        preReqMap[b].push(a);
+    }
+
+
+    let bfsTraversal = (vertex, target) => {
+        let queue = [vertex];
+
+        while (queue.length > 0) {
+            let node = queue.pop();
+            for (let neighbour of preReqMap[node]) {
+                if (neighbour === target) return true;
+
+                queue.push(neighbour);
+            }
+        }
+
+        return false;
+    }
+
+    for (let i = 0; i < queries.length; i++) {
+        answer.push(bfsTraversal(queries[i][1], queries[i][0]));
+    }
+
+    return answer;
+};*/
+
+var checkIfPrerequisite = function (numCourses, prerequisites, queries) {
+    // Step 1: Create the adjacency matrix for the prerequisite graph
+    let dp = Array.from({ length: numCourses }, () => Array(numCourses).fill(false));
+
+    // Fill the adjacency matrix with direct prerequisites
+    for (let [a, b] of prerequisites) {
+        dp[a][b] = true; // a is a prerequisite of b
+    }
+
+    // Step 2: Use Floyd-Warshall to compute the transitive closure
+    for (let k = 0; k < numCourses; k++) {
+        for (let i = 0; i < numCourses; i++) {
+            for (let j = 0; j < numCourses; j++) {
+                if (dp[i][k] && dp[k][j]) {
+                    dp[i][j] = true;
+                }
+            }
+        }
+    }
+
+    // Step 3: Answer each query in constant time
+    let answer = [];
+    for (let [a, b] of queries) {
+        answer.push(dp[a][b]);
+    }
+
+    return answer;
+};
+
+```
 ***
 
 
