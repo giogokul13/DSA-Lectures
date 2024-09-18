@@ -2295,6 +2295,119 @@ The space complexity of this function is O(n), where n is the number of nodes. T
 
 ***
 
+### 1584. Min Cost to Connect All Points
+
+<img width="341" alt="image" src="https://github.com/user-attachments/assets/9fd1ff22-56de-4af4-a6b2-64a78543f2d2">
+
+```
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+
+    push([cost, point]) {
+        this.heap.push([cost, point]);
+        this.bubbleUp(this.heap.length - 1);
+    }
+
+    pop() {
+        if (this.heap.length === 1) return this.heap.pop();
+        const top = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.bubbleDown(0);
+        return top;
+    }
+
+    bubbleUp(index) {
+        while (index > 0) {
+            const parentIndex = Math.floor((index - 1) / 2);
+            if (this.heap[parentIndex][0] <= this.heap[index][0]) break;
+            [this.heap[parentIndex], this.heap[index]] = [this.heap[index], this.heap[parentIndex]];
+            index = parentIndex;
+        }
+    }
+
+    bubbleDown(index) {
+        const length = this.heap.length;
+        while (true) {
+            const left = 2 * index + 1;
+            const right = 2 * index + 2;
+            let smallest = index;
+
+            if (left < length && this.heap[left][0] < this.heap[smallest][0]) {
+                smallest = left;
+            }
+            if (right < length && this.heap[right][0] < this.heap[smallest][0]) {
+                smallest = right;
+            }
+            if (smallest === index) break;
+
+            [this.heap[smallest], this.heap[index]] = [this.heap[index], this.heap[smallest]];
+            index = smallest;
+        }
+    }
+
+    size() {
+        return this.heap.length;
+    }
+}
+
+var minCostConnectPoints = function(points) {
+    let n = points.length;
+    let visited = new Set();
+    let minHeap = new MinHeap();
+    minHeap.push([0, 0]); // [cost, point index]
+    let totalCost = 0;
+
+    while (visited.size < n) {
+        let [cost, u] = minHeap.pop(); // Get the smallest cost edge
+        if (visited.has(u)) continue; // Skip if already visited
+
+        visited.add(u);
+        totalCost += cost;
+
+        // Explore all unvisited neighbors
+        for (let v = 0; v < n; v++) {
+            if (!visited.has(v)) {
+                let distance = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);
+                minHeap.push([distance, v]);
+            }
+        }
+    }
+
+    return totalCost;
+};
+
+```
+The time complexity of this algorithm is O(n^2 * log(n)), where n is the number of points. This is because for each point, we iterate through all other points to calculate the distance and push it into the min heap, which has a log(n) time complexity for insertion. Since we do this for each point, the overall time complexity becomes O(n^2 * log(n)).
+
+The space complexity is O(n) for the visited set and O(n) for the min heap, resulting in a total space complexity of O(n). This is because we are storing the visited points and the distances in the min heap.
+
+***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
