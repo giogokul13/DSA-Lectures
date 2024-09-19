@@ -2389,6 +2389,47 @@ The space complexity is O(n) for the visited set and O(n) for the min heap, resu
 
 ***
 
+### 1615. Maximal Network Rank
+
+<img width="347" alt="image" src="https://github.com/user-attachments/assets/92c7766f-a9b6-4781-a421-2ca30980e4f0">
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} roads
+ * @return {number}
+ */
+var maximalNetworkRank = function (n, roads) {
+    let adjList = {};
+
+    for (let i = 0; i < n; i++) {
+        adjList[i] = new Set();
+    }
+
+    for (let [a, b] of roads) {
+        adjList[a].add(b);
+        adjList[b].add(a);
+    }
+
+    let maximum = 0;
+
+    for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+            let rank = adjList[i].size + adjList[j].size;
+            if (adjList[i].has(j)) {
+                rank--;
+            }
+            maximum = Math.max(maximum, rank);
+        }
+    }
+
+    return maximum;
+};
+```
+The time complexity of this solution is O(n^2) because we have two nested loops iterating over all pairs of nodes in the graph. 
+The space complexity is O(n) because we are storing the adjacency list for each node in the graph.
+
+***
 
 
 
