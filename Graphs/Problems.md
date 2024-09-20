@@ -1104,6 +1104,137 @@ var countPaths = function (n, roads) {
 
 ```
 
+```
+//{ Driver Code Starts
+//Initial Template for javascript
+
+"use strict";
+
+process.stdin.resume();
+process.stdin.setEncoding("utf-8");
+
+let inputString = "";
+let currentLine = 0;
+
+process.stdin.on("data", (inputStdin) => {
+  inputString += inputStdin;
+});
+
+process.stdin.on("end", (_) => {
+  inputString = inputString
+    .trim()
+    .split("\n")
+    .map((string) => {
+      return string.trim();
+    });
+
+  main();
+});
+
+function readLine() {
+  return inputString[currentLine++];
+}
+
+/* Function to print an array */
+function printArray(arr, size) {
+  let i;
+  let s = "";
+  for (i = 0; i < size; i++) {
+    if(arr[i] === -0)
+      arr[i] = 0;
+    s += arr[i] + " ";
+  }
+  console.log(s);
+}
+
+function main() {
+  let t = parseInt(readLine());
+  let i = 0;
+  for (; i < t; i++) {
+    let input_line = readLine().split(" ").map((x)=>parseInt(x));
+    let V = input_line[0];
+    let E = input_line[1];
+    let adj = new Array(V);
+    for(let j = 0;j<V;j++) adj[j] = new Array();
+    for(let j = 0;j < E;j++){
+      input_line = readLine().split(" ").map((x)=>parseInt(x));
+      let u = input_line[0];
+      let v = input_line[1];
+      let w = input_line[2];
+      adj[u].push([v,w]);
+      adj[v].push([u,w]);
+    }
+
+    let S = parseInt(readLine());
+    let obj = new Solution();
+    let res = obj.dijkstra(V,adj,S);
+    printArray(res,res.length);
+  }
+}
+// } Driver Code Ends
+
+
+//User function Template for javascript
+
+/**
+ * @param {number} V
+ * @param {number[][][]} Adj
+ * @param {number} S
+ * @return {number[]}
+ */
+class Solution
+{
+    //Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    dijkstra(V,Adj,S)
+    {
+        
+        let output = new Array(V).fill(Infinity);
+        output[S] = 0;
+        let queue = new MinPriorityQueue();
+        queue.enqueue([S, 0]);
+        while(queue.size()> 0) {
+            let [vertex, distance] = queue.dequeue();
+            
+            for(let [neighbour, weight] of Adj[vertex]) {
+                let newDist = distance + weight;
+                
+                if(newDist < output[neighbour]) {
+                    output[neighbour] = newDist;
+                    queue.enqueue([neighbour, newDist])
+                }
+            }
+        }
+        
+        return output;
+    }
+    
+}
+
+class MinPriorityQueue {
+    constructor() {
+        this.queue = [];
+    }
+
+    enqueue(item) {
+        this.queue.push(item);
+        this.queue.sort((a, b) => a[1] - b[1]); // sort based on the distance (min-heap behavior)
+    }
+
+    dequeue() {
+        return this.queue.shift(); // dequeue the element with the smallest distance
+    }
+
+    size() {
+        return this.queue.length;
+    }
+}
+```
+
+***
+
+
+
 ***
 
 
