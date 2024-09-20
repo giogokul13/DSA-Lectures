@@ -2431,7 +2431,72 @@ The space complexity is O(n) because we are storing the adjacency list for each 
 
 ***
 
+### 1786. Number of Restricted Paths From First to Last Node
 
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/f12fa4ea-9240-42b2-9885-b0bfd41390e4">
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number}
+ */
+var countRestrictedPaths = function(n, edges) {
+    let adjList = Array.from({ length: n + 1 }, () => []);
+    for (let [a, b, c] of edges) {
+        adjList[a].push([b, c]);
+        adjList[b].push([a, c]);
+    }
+
+    let distance = Array(n + 1).fill(Infinity);
+    distance[n] = 0;
+
+    let dijkstra = () => {
+        let queue = new MinPriorityQueue({ priority: (x) => x[1] });
+        queue.enqueue([n, 0]);
+
+        while (queue.size()) {
+            let [node, cost] = queue.dequeue().element;
+            for (let [nextNode, weight] of adjList[node]) {
+                let totalCost = cost + weight;
+                if (distance[nextNode] > totalCost) {
+                    distance[nextNode] = totalCost;
+                    queue.enqueue([nextNode, totalCost]);
+                }
+            }
+        }
+    };
+
+    dijkstra();
+
+    const MOD = 1e9 + 7;
+
+    let dp = new Array(n + 1).fill(-1);
+
+    let dfs = (curr = 1, rCost = distance[1]) => {
+        if (curr == n) return 1;
+        if (dp[curr] != -1) return dp[curr];
+
+        let resPaths = 0;
+
+        for (let [node, weight] of adjList[curr]) {
+            // Check if the neighbor node's distance is smaller, ensuring a restricted path
+            if (distance[node] < rCost) {
+                resPaths = (resPaths + dfs(node, distance[node])) % MOD;
+            }
+        }
+
+        return dp[curr] = resPaths;
+    };
+
+    return dfs();
+};
+
+```
+Time O(N log N)
+Space O(N)
+
+*** 
 
 
 
