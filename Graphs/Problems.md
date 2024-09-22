@@ -2629,6 +2629,98 @@ Space O(N)
 
 *** 
 
+### 2039. The Time When the Network Becomes Idle
+
+<img width="836" alt="image" src="https://github.com/user-attachments/assets/82ff22c0-8047-4e74-8877-b868757e631c">
+
+<img width="732" alt="image" src="https://github.com/user-attachments/assets/3d602afc-12f8-4932-a6c2-94537df0a503">
+
+<img width="559" alt="image" src="https://github.com/user-attachments/assets/5c4554a1-a18e-4564-bf23-36c4f4d4b4c6">
+
+```
+
+```
+
+***
+
+### 2101. Detonate the Maximum Bombs
+
+<img width="375" alt="image" src="https://github.com/user-attachments/assets/f4eb4f49-003a-4d73-b44f-8ebd5bf8c58e">
+
+```
+/**
+ * @param {number[][]} bombs
+ * @return {number}
+ */
+var maximumDetonation = function (bombs) {
+    let bombMap = new Map();
+
+    for (let i = 0; i < bombs.length; i++) {
+        bombMap.set(i, []); // Initialize each bomb with an empty array
+        for (let j = 0; j < bombs.length; j++) {
+            if (i == j) continue; // Skip if it's the same bomb
+
+            let x1 = bombs[i];
+            let x2 = bombs[j];
+
+            // Check if bomb i can detonate bomb j
+            if (canBombDetonate(x1[0], x1[1], x1[2], x2[0], x2[1])) {
+                bombMap.get(i).push(j); // Add j to i's adjacency list
+            }
+        }
+    }
+
+    let max = 0;
+
+    // BFS to find how many bombs can be detonated starting from each bomb
+    let bfsTraversal = (bomb) => {
+        let queue = [bomb];
+        let visited = new Set([bomb]);
+
+        while (queue.length > 0) {
+            let node = queue.shift();
+            for (let neighbour of bombMap.get(node)) {
+                if (!visited.has(neighbour)) {
+                    visited.add(neighbour);
+                    queue.push(neighbour);
+                }
+            }
+        }
+
+        // Track the maximum number of detonations
+        max = Math.max(max, visited.size);
+    };
+
+    // Run BFS for each bomb
+    for (let i = 0; i < bombs.length; i++) {
+        bfsTraversal(i);
+    }
+
+    return max;
+};
+
+// Function to check if bomb1 can detonate bomb2
+function canBombDetonate(x1, y1, r1, x2, y2) {
+    let distanceSquared = (x1 - x2) ** 2 + (y1 - y2) ** 2; // Euclidean distance squared
+    return distanceSquared <= r1 ** 2; // Check if within the range of bomb1's detonation radius
+}
+
+
+function canBombDetonate(x1, y1, r1, x2, y2, r2) {
+    let distance = (x1 - x2) ** 2 + (y1 - y2) ** 2;  // **2 refers to the power 6**2 is Math.pow(6, 2);
+    let radius = r1 * r1;
+
+    return (distance <= radius);
+}
+```
+Time: 
+Space: 
+***
+
+
+
+
+
 
 
 
