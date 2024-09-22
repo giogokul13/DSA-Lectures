@@ -2808,7 +2808,86 @@ The time complexity of this solution is O(n log n) because the sorting step in S
 ***
 
 
+### 2316. Count Unreachable Pairs of Nodes in an Undirected Graph
 
+<img width="492" alt="image" src="https://github.com/user-attachments/assets/1fc6d4a3-0d37-4ec9-8bd2-b9700776c98b">
+
+
+```
+var countPairs = function (n, edges) {
+    let uf = new UnionFind(n);
+
+    // Union the nodes based on edges
+    for (let [a, b] of edges) {
+        uf.union(a, b);
+    }
+
+    // Count the size of each connected component
+    let componentSizes = new Map();
+    for (let i = 0; i < n; i++) {
+        let root = uf.find(i);
+        if (!componentSizes.has(root)) {
+            componentSizes.set(root, uf.getSize(i));
+        }
+    }
+
+    // Calculate the total number of pairs
+    let totalPairs = Math.floor((n * (n - 1)) / 2);
+
+    // Subtract the pairs within each connected component
+    let internalPairs = 0;
+    for (let size of componentSizes.values()) {
+        internalPairs += Math.floor((size * (size - 1)) / 2);
+    }
+
+    return totalPairs - internalPairs;
+};
+
+class UnionFind {
+    constructor(size) {
+        this.parent = Array(size).fill(0).map((_, i) => i);
+        this.rank = Array(size).fill(1);
+        this.componentSize = Array(size).fill(1);
+    }
+
+    find(node) {
+        if (this.parent[node] !== node) {
+            this.parent[node] = this.find(this.parent[node]);  // Path compression
+        }
+        return this.parent[node];
+    }
+
+    union(node1, node2) {
+        const root1 = this.find(node1);
+        const root2 = this.find(node2);
+
+        if (root1 !== root2) {
+            // Union by rank/size
+            if (this.rank[root1] > this.rank[root2]) {
+                this.parent[root2] = root1;
+                this.componentSize[root1] += this.componentSize[root2];
+            } else if (this.rank[root1] < this.rank[root2]) {
+                this.parent[root1] = root2;
+                this.componentSize[root2] += this.componentSize[root1];
+            } else {
+                this.parent[root2] = root1;
+                this.rank[root1]++;
+                this.componentSize[root1] += this.componentSize[root2];
+            }
+        }
+    }
+
+    getSize(node) {
+        return this.componentSize[this.find(node)];
+    }
+}
+
+```
+The time complexity of this solution is O(n + mα(n)), where n is the number of nodes and m is the number of edges. The UnionFind operations have an amortized time complexity of α(n), where α(n) is the inverse Ackermann function, which grows very slowly and is considered to be almost constant. Therefore, the overall time complexity is dominated by the loop that calculates the size of each connected component, which is O(n).
+
+The space complexity of this solution is O(n), where n is the number of nodes. This is because we are using a UnionFind data structure to keep track of the connected components, which requires O(n) space. Additionally, we are using a map to store the sizes of each connected component, which also requires O(n) space.
+
+***
 
 
 
