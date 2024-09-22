@@ -2713,13 +2713,99 @@ function canBombDetonate(x1, y1, r1, x2, y2, r2) {
     return (distance <= radius);
 }
 ```
-Time: 
-Space: 
+Time:  O(N * N)
+Space: O(N)
 ***
 
 
+### 2115. Find All Possible Recipes from Given Supplies
 
+<img width="373" alt="image" src="https://github.com/user-attachments/assets/50568286-f66a-49f5-8b7f-3e2ea3dd9930">
 
+```
+/**
+ * @param {string[]} recipes
+ * @param {string[][]} ingredients
+ * @param {string[]} supplies
+ * @return {string[]}
+ */
+var findAllRecipes = function (recipes, ingredients, supplies) {
+    let suppliesSet = new Set(supplies);
+    let answer = new Set();
+    let found = true;
+    while (found) {
+        found = false;
+        for (let i = 0; i < recipes.length; i++) {
+            if(answer.has(recipes[i])) continue;
+
+            let totalIngredients = ingredients[i].length;
+            let ingFound = 0;
+            for (let j = 0; j < totalIngredients; j++) {
+                if (suppliesSet.has(ingredients[i][j]) || answer.has(ingredients[i][j])) {
+                    ingFound++;
+                }
+            }
+
+            if (ingFound == totalIngredients) {
+                answer.add(recipes[i]);
+                suppliesSet.add(recipes[i]); // Add the recipe to the supplier set for future reference
+                found = true;
+            }
+        }
+    }
+
+    return [...answer];
+};
+```
+The time complexity of this solution is O(n*m), where n is the number of recipes and m is the average number of ingredients in each recipe. This is because we iterate through all the recipes and for each recipe, we iterate through its ingredients to check if they are in the supplies set or the answer set.
+
+The space complexity is O(n), where n is the number of recipes. This is because we use a set to store the answer, which can potentially store all the recipes.
+
+Overall, this solution is efficient as it iterates through each recipe and its ingredients only once, and uses a set to store the answer for quick lookups.
+
+***
+
+### 2285. Maximum Total Importance of Roads
+
+<img width="528" alt="image" src="https://github.com/user-attachments/assets/394dc8aa-6f09-4b09-8886-7ce54603dd8f">
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} roads
+ * @return {number}
+ */
+var maximumImportance = function (n, roads) {
+    // Step 1: Initialize degree array
+    let degrees = new Array(n).fill(0);
+
+    // Step 2: Count the degree of each node
+    for (let [a, b] of roads) {
+        degrees[a]++;
+        degrees[b]++;
+    }
+
+    // Step 3: Sort the degree array indices by the degree values in descending order
+    let sortedNodes = [...Array(n).keys()].sort((a, b) => degrees[b] - degrees[a]);
+
+    // Step 4: Assign importance values (highest to lowest)
+    let importance = new Array(n);
+    for (let i = 0; i < n; i++) {
+        importance[sortedNodes[i]] = n - i; // Assign importance based on sorted order
+    }
+
+    // Step 5: Calculate the total sum of importance for the roads
+    let sum = 0;
+    for (let [a, b] of roads) {
+        sum += importance[a] + importance[b];
+    }
+
+    return sum;
+};
+```
+The time complexity of this solution is O(n log n) because the sorting step in Step 3 takes O(n log n) time. The space complexity is O(n) because we are using additional arrays of size n to store the degrees, sorted nodes, and importance values.
+
+***
 
 
 
