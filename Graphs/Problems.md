@@ -2944,6 +2944,57 @@ var closestMeetingNode = function(edges, node1, node2) {
 
 ***
 
+### 2368. Reachable Nodes With Restrictions
+
+<img width="417" alt="image" src="https://github.com/user-attachments/assets/94ffc953-b170-4460-b9c1-de9b76212985">
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {number[]} restricted
+ * @return {number}
+ */
+var reachableNodes = function (n, edges, restricted) {
+
+    let adjList = new Map();
+    let restrictedSet = new Set(restricted);
+
+    for (let [a, b] of edges) {
+        if (!adjList.has(a)) adjList.set(a, []);
+        if (!adjList.has(b)) adjList.set(b, []);
+
+        adjList.get(a).push(b);
+        adjList.get(b).push(a);
+    }
+
+    let visited = new Set();
+    let queue = [0];
+
+    while (queue.length > 0) {
+        let vertex = queue.pop();
+
+        if (restrictedSet.has(vertex) || visited.has(vertex)) continue;
+
+        visited.add(vertex);
+        for (let neighbour of adjList.get(vertex) || []) {
+            if (!visited.has(neighbour)) {
+                queue.push(neighbour);
+            }
+        }
+    }
+
+    return visited.size;
+};
+
+```
+
+The time complexity of this solution is O(n + m), where n is the number of nodes and m is the number of edges in the graph. This is because we are using a breadth-first search algorithm to traverse the graph, which visits each node and each edge once.
+
+The space complexity is O(n), where n is the number of nodes in the graph. This is because we are using sets and queues to keep track of visited nodes and nodes to visit, which can potentially store all nodes in the graph.
+
+***
+
 
 
 
