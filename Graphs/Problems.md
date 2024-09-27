@@ -3029,6 +3029,47 @@ The space complexity of this function is O(n), where n is the number of edges in
 
 ***
 
+### 2467. Most Profitable Path in a Tree
+
+<img width="464" alt="image" src="https://github.com/user-attachments/assets/987ccf48-58e4-46f4-afbe-ea17643b8550">
+
+<img width="446" alt="image" src="https://github.com/user-attachments/assets/45bcb0c8-1cf6-4e4d-bd4b-76a3071338fe">
+
+
+```
+var mostProfitablePath = function (edges, bob, amount) {
+    let adjList = Array.from({ length: edges.length + 1 }, () => []);
+
+    for (let [i, j] of edges)
+        adjList[i].push(j), adjList[j].push(i);
+
+    function alicePath(node, parent, time) {
+        let totalBobTime = node == bob ? 0 : Infinity, newScore = -Infinity;
+
+        for (const child of adjList[node]) {
+            if (child == parent) continue;
+
+            const [score, bobTime] = alicePath(child, node, time + 1);
+            totalBobTime = Math.min(totalBobTime, bobTime + 1);
+            newScore = Math.max(newScore, score)
+        }
+
+        if (newScore == -Infinity) newScore = 0;
+        if (time < totalBobTime) newScore += amount[node];
+        else if (time == totalBobTime) newScore += amount[node] / 2;
+
+        return [newScore, totalBobTime];
+    }
+
+    return alicePath(0, -1, 0)[0];
+};
+```
+The time complexity of this function is O(n), where n is the number of edges in the input. This is because the function performs a depth-first search traversal of the graph represented by the edges, visiting each node and its adjacent nodes exactly once.
+
+The space complexity of this function is also O(n), as it uses an adjacency list to represent the graph, which requires O(n) space to store the edges. Additionally, the recursive calls in the `alicePath` function also contribute to the space complexity, but since the maximum depth of recursion is limited by the number of nodes in the graph, the overall space complexity remains O(n).
+
+***
+
 
 
 
