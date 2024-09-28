@@ -3070,6 +3070,58 @@ The space complexity of this function is also O(n), as it uses an adjacency list
 
 ***
 
+### 2477. Minimum Fuel Cost to Report to the Capital 
+
+<img width="373" alt="image" src="https://github.com/user-attachments/assets/634cdef0-a9e1-4fd8-a564-f7a7cb7adf63">
+
+```
+/**
+ * @param {number[][]} roads
+ * @param {number} seats
+ * @return {number}
+ */
+var minimumFuelCost = function (roads, seats) {
+    if (roads.length == 0) return roads.length;
+
+    let adjList = new Map();
+    let fuel = 0;
+
+    for (let [a, b] of roads) {
+        if (!adjList.has(a)) adjList.set(a, []);
+        if (!adjList.has(b)) adjList.set(b, []);
+
+        adjList.get(a).push(b);
+        adjList.get(b).push(a);
+    }
+
+    let visited = new Set();
+
+    let DFSTraversal = (vertex) => {
+        visited.add(vertex);
+        let people = 1;
+
+        for (let neighbour of adjList.get(vertex) || []) {
+            if (!visited.has(neighbour)) {
+                let subTreePeople = DFSTraversal(neighbour);
+                fuel += Math.ceil(subTreePeople / seats);
+                people += subTreePeople;
+            }
+        }
+
+        return people;
+    }
+
+    DFSTraversal(0);
+    return fuel;
+
+};
+```
+The time complexity of this solution is O(n), where n is the number of roads in the input. This is because the solution performs a depth-first traversal of the graph represented by the roads, visiting each node only once.
+
+The space complexity of this solution is also O(n), where n is the number of roads in the input. This is because the solution uses a map to represent the adjacency list of the graph, a set to keep track of visited nodes, and recursive function calls for the depth-first traversal. The space complexity is linear with respect to the number of roads in the input.
+
+***
+
 
 
 
