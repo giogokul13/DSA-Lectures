@@ -3122,6 +3122,268 @@ The space complexity of this solution is also O(n), where n is the number of roa
 
 ***
 
+###  2492. Minimum Score of a Path Between Two Cities
+
+<img width="529" alt="image" src="https://github.com/user-attachments/assets/0e5cd159-d043-4ac0-97c4-a1ac0916bfee">
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} roads
+ * @return {number}
+ */
+var minScore = function (n, roads) {
+    let adjList = new Map();
+
+    for (let [a, b, c] of roads) {
+        if (!adjList.has(a)) adjList.set(a, []);
+        if (!adjList.has(b)) adjList.set(b, []);
+
+        adjList.get(a).push([b, c]);
+        adjList.get(b).push([a, c]);
+    }
+
+    let minDist = Infinity;
+
+    let queue = [1];
+    let visited = new Set([1]);
+    let front = 0;
+
+    while (front < queue.length) {
+        let node = queue[front++];
+        // front++;
+        for (let [neighbour, distance] of adjList.get(node) || []) {
+            minDist = Math.min(minDist, distance);
+            if (!visited.has(neighbour)) {
+                queue.push(neighbour);
+                visited.add(neighbour);
+            }
+
+            if (minDist == 1) return 1;
+        }
+    }
+
+    return minDist;
+};  
+```
+The time complexity of this function is O(n + m), where n is the number of nodes and m is the number of edges in the graph represented by the roads array. This is because we are iterating through all nodes and edges in the graph to build the adjacency list and perform the BFS traversal.
+
+The space complexity is O(n + m) as well, where n is the number of nodes and m is the number of edges in the graph. This is because we are storing the adjacency list, queue, visited set, and other variables that grow linearly with the number of nodes and edges in the graph
+***
+
+### 2497. Maximum Star Sum of a Graph
+
+<img width="493" alt="image" src="https://github.com/user-attachments/assets/2bd0790c-b25a-46a5-b38f-a56060ed7756">
+
+<img width="488" alt="image" src="https://github.com/user-attachments/assets/f29c14b8-d8ae-4eae-b1c1-94b1a4aae284">
+
+
+```
+/**
+ * @param {number[]} vals
+ * @param {number[][]} edges
+ * @param {number} k
+ * @return {number}
+ */
+var maxStarSum = function (vals, edges, k) {
+    let maxSum = -Infinity;
+
+    let adjList = new Map();
+
+    for (let [a, b] of edges) {
+        if (!adjList.has(a)) adjList.set(a, []);
+        if (!adjList.has(b)) adjList.set(b, []);
+
+        adjList.get(a).push(vals[b]);
+        adjList.get(b).push(vals[a]);
+    }
+
+    for (let i = 0; i < vals.length; i++) {
+        let neighbours = adjList.get(i) || [];
+
+        neighbours.sort((a, b) => b - a);
+        let sum = vals[i];
+
+        for (let j = 0; j < Math.min(k, neighbours.length); j++) {
+            if (neighbours[j] > 0) sum += neighbours[j];
+        }
+
+        maxSum = Math.max(sum, maxSum);
+    }
+
+    return maxSum;
+};
+```
+The time complexity of this function is O(nlogn), where n is the number of nodes in the graph. This is because we iterate through each node in the graph and sort its neighbors in descending order, which takes O(logn) time for each node.
+
+The space complexity is O(n), where n is the number of nodes in the graph. This is because we use a map to store the adjacency list of the graph, which takes up O(n) space.
+
+***
+
+### 2662. Minimum Cost of a Path With Special Roads
+
+<img width="377" alt="image" src="https://github.com/user-attachments/assets/3a23c042-ce93-404e-bc89-7788464f34dc">
+
+```
+ /**
+ * @param {number[]} start - [startX, startY]
+ * @param {number[]} target - [targetX, targetY]
+ * @param {number[][]} specialRoads - [[x1i, y1i, x2i, y2i, costi], ...]
+ * @return {number}
+ */
+var minimumCost = function(start, target, specialRoads) {
+    // Helper function to compute Manhattan distance
+    const manhattan = (x1, y1, x2, y2) => Math.abs(x2 - x1) + Math.abs(y2 - y1);
+    
+    // Step 1: Collect all key points
+    const points = [];
+    const pointMap = new Map(); // To assign unique indices
+    const addPoint = (x, y) => {
+        const key = `${x},${y}`;
+        if (!pointMap.has(key)) {
+            pointMap.set(key, points.length);
+            points.push([x, y]);
+        }
+        return pointMap.get(key);
+    };
+    
+    // Add start and target
+    const startIdx = addPoint(start[0], start[1]);
+    const targetIdx = addPoint(target[0], target[1]);
+    
+    // Add all special road endpoints
+    for (const road of specialRoads) {
+        const [x1, y1, x2, y2, cost] = road;
+        addPoint(x1, y1);
+        addPoint(x2, y2);
+    }
+    
+    const n = points.length;
+    
+    // Step 2: Build adjacency list
+    const adjList = Array.from({ length: n }, () => []);
+    
+    // Add regular edges (Manhattan distance between all pairs)
+    // To optimize, we only add edges that are relevant, such as start, target, and special road points.
+    // Connecting every pair would be O(n^2), which is impractical for large n.
+    // Instead, we'll consider edges from each point to all other points via regular movement.
+    // This can be optimized further based on problem constraints.
+
+    // To prevent O(n^2) complexity, we'll only connect nodes as needed during Dijkstra's traversal.
+    // Thus, we'll skip adding regular edges upfront and compute them on the fly.
+
+    // Step 3: Add special road edges
+    for (const road of specialRoads) {
+        const [x1, y1, x2, y2, cost] = road;
+        const fromKey = `${x1},${y1}`;
+        const toKey = `${x2},${y2}`;
+        const fromIdx = pointMap.get(fromKey);
+        const toIdx = pointMap.get(toKey);
+        adjList[fromIdx].push({ node: toIdx, cost: cost });
+    }
+    
+    // Step 4: Dijkstra's Algorithm Implementation
+    // Initialize distance array
+    const dist = Array(n).fill(Infinity);
+    dist[startIdx] = 0;
+    
+    // Priority queue implemented as a min-heap
+    const heap = new MinHeap();
+    heap.insert({ node: startIdx, cost: 0 });
+    
+    while (!heap.isEmpty()) {
+        const { node, cost } = heap.extractMin();
+        
+        if (node === targetIdx) {
+            return cost; // Found the shortest path to target
+        }
+        
+        // If we have already found a better path before
+        if (cost > dist[node]) continue;
+        
+        // Explore neighbors via special roads
+        for (const edge of adjList[node]) {
+            const neighbor = edge.node;
+            const newCost = cost + edge.cost;
+            if (newCost < dist[neighbor]) {
+                dist[neighbor] = newCost;
+                heap.insert({ node: neighbor, cost: newCost });
+            }
+        }
+        
+        // Explore neighbors via regular movement
+        for (let i = 0; i < n; i++) {
+            if (i === node) continue; // Skip self
+            const moveCost = manhattan(...points[node], ...points[i]);
+            const newCost = cost + moveCost;
+            if (newCost < dist[i]) {
+                dist[i] = newCost;
+                heap.insert({ node: i, cost: newCost });
+            }
+        }
+    }
+    
+    // If target is unreachable
+    return -1;
+};
+
+// MinHeap Implementation
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+    
+    insert(item) {
+        this.heap.push(item);
+        this.bubbleUp(this.heap.length - 1);
+    }
+    
+    extractMin() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        const min = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.bubbleDown(0);
+        return min;
+    }
+    
+    isEmpty() {
+        return this.heap.length === 0;
+    }
+    
+    bubbleUp(index) {
+        while (index > 0) {
+            let parent = Math.floor((index - 1) / 2);
+            if (this.heap[parent].cost <= this.heap[index].cost) break;
+            [this.heap[parent], this.heap[index]] = [this.heap[index], this.heap[parent]];
+            index = parent;
+        }
+    }
+    
+    bubbleDown(index) {
+        const length = this.heap.length;
+        while (true) {
+            let smallest = index;
+            let left = 2 * index + 1;
+            let right = 2 * index + 2;
+            
+            if (left < length && this.heap[left].cost < this.heap[smallest].cost) {
+                smallest = left;
+            }
+            if (right < length && this.heap[right].cost < this.heap[smallest].cost) {
+                smallest = right;
+            }
+            if (smallest === index) break;
+            [this.heap[smallest], this.heap[index]] = [this.heap[index], this.heap[smallest]];
+            index = smallest;
+        }
+    }
+}
+
+```
+Tine: O(N)
+Space O(N)
+***
 
 
 
