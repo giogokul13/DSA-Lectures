@@ -3385,6 +3385,220 @@ Tine: O(N)
 Space O(N)
 ***
 
+### 2685. Count the Number of Complete Components
+
+<img width="387" alt="image" src="https://github.com/user-attachments/assets/3715b21e-342b-4b07-a4fd-508d2058aaca">
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number}
+ */
+var countCompleteComponents = function (n, edges) {
+    let connComp = 0;
+    let adjList = new Map();
+
+    for (let [a, b] of edges) {
+        if (!adjList.has(a)) adjList.set(a, []);
+
+        if (!adjList.has(b)) adjList.set(b, []);
+
+        adjList.get(a).push(b);
+        adjList.get(b).push(a);
+    }
+
+    let visited = new Set();
+
+    let bfsTraversal = (vertex) => {
+        let queue = [vertex];
+        visited.add(vertex);
+        let nodes = 1, edgesCount = 0;
+        while (queue.length > 0) {
+            let node = queue.shift();
+
+            for (let neighbour of adjList.get(node) || []) {
+                edgesCount += 1;
+                if (!visited.has(neighbour)) {
+                    visited.add(neighbour);
+                    queue.push(neighbour);
+                    nodes += 1;
+                }
+            }
+        }
+
+        edgesCount /= 2;
+
+        if (edgesCount == (nodes * (nodes - 1)) / 2) {
+            connComp += 1;
+        }
+    }
+
+    for (let i = 0; i < n; i++) {
+        if (!visited.has(i)) bfsTraversal(i);
+    }
+
+    return connComp;
+};
+```
+Time complexity: O(n + m), where n is the number of nodes and m is the number of edges in the graph. This is because we are performing a BFS traversal on each connected component in the graph, which requires visiting each node and each edge once.
+
+Space complexity: O(n + m), where n is the number of nodes and m is the number of edges in the graph. This is because we are using a map to store the adjacency list of the graph, a set to store visited nodes, and a queue for BFS traversal, all of which can potentially store all nodes and edges in the graph.
+
+***
+
+### 2924. Find Champion II
+
+<img width="376" alt="image" src="https://github.com/user-attachments/assets/2afee836-49bc-40a8-860f-4f2cb5f0c7db">
+
+<img width="381" alt="image" src="https://github.com/user-attachments/assets/93f0639e-ffcc-45ac-a359-7e04e93ce8c6">
+
+```
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number}
+ */
+var findChampion = function(n, edges) {
+    let champion = -1;
+    let adjList = new Map();
+
+    for(let i = 0; i < n; i++) {
+        adjList.set(i, []);
+    }
+
+    for(let [a, b] of edges) {
+        adjList.get(b).push(a);
+    }
+
+    for(let i = 0; i < n; i++) {
+        if(adjList.get(i).length == 0) {
+            if(champion != -1) return -1;
+
+            champion = i;
+        }
+    }
+
+    return champion;
+};
+```
+Time complexity:
+The time complexity of this solution is O(n) where n is the number of nodes in the graph. This is because we iterate through all the nodes in the graph to check for the champion node.
+Space complexity:
+The space complexity is also O(n) because we are storing the adjacency list of the graph in a Map data structure, which can have at most n entries (one for each node).
+***
+
+### 2976. Minimum Cost to Convert String I
+
+<img width="384" alt="image" src="https://github.com/user-attachments/assets/769de51d-dd1b-41f2-b728-c1d6c43eaba9">
+
+```
+/**
+ * @param {string} source
+ * @param {string} target
+ * @param {character[]} original
+ * @param {character[]} changed
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minimumCost = function (source, target, original, changed, cost) {
+    // Edge case: If source and target are the same, no cost is needed
+    if (source === target) return 0;
+
+    // Initialize distance matrix with Infinity
+    const V = 26; // Number of lowercase English letters
+    const INF = Number.MAX_SAFE_INTEGER;
+    let dist = Array.from({ length: V }, () => Array(V).fill(INF));
+
+    // Set distance from each character to itself as 0
+    for (let i = 0; i < V; i++) {
+        dist[i][i] = 0;
+    }
+
+    // Build the initial conversion map based on the given transformations
+    for (let i = 0; i < original.length; i++) {
+        const from = original[i].charCodeAt(0) - 97; // 'a' -> 0, 'b' -> 1, ..., 'z' -> 25
+        const to = changed[i].charCodeAt(0) - 97;
+        const c = cost[i];
+
+        // If multiple transformations exist, keep the minimum cost
+        if (c < dist[from][to]) {
+            dist[from][to] = c;
+        }
+    }
+
+    // Apply Floyd-Warshall to compute all-pairs minimum cost
+    for (let k = 0; k < V; k++) {
+        for (let i = 0; i < V; i++) {
+            for (let j = 0; j < V; j++) {
+                if (dist[i][k] !== INF && dist[k][j] !== INF) {
+                    if (dist[i][j] > dist[i][k] + dist[k][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        }
+    }
+
+    let totalMinCost = 0;
+
+    // Iterate through each character in the source and target strings
+    for (let i = 0; i < source.length; i++) {
+        const srcChar = source[i];
+        const tgtChar = target[i];
+
+        // If characters are the same, no cost is needed
+        if (srcChar === tgtChar) continue;
+
+        const srcIdx = srcChar.charCodeAt(0) - 97;
+        const tgtIdx = tgtChar.charCodeAt(0) - 97;
+
+        // If there's no path to transform srcChar to tgtChar, return -1
+        if (dist[srcIdx][tgtIdx] === INF) {
+            return -1;
+        }
+
+        // Accumulate the minimum cost
+        totalMinCost += dist[srcIdx][tgtIdx];
+    }
+
+    return totalMinCost;
+};
+```
+
+***
+
+### 3015. Count the Number of Houses at a Certain Distance I
+
+<img width="382" alt="image" src="https://github.com/user-attachments/assets/23b0c2a8-c5b4-40ee-a5bd-9e17ba10c0d6">
+
+```
+/**
+ * @param {number} n
+ * @param {number} x
+ * @param {number} y
+ * @return {number[]}
+ */
+var countOfPairs = function (n, x, y) {
+    const result = new Array(n).fill(0);
+
+    for (let i = 1; i <= n; i++) {
+        for (let j = i + 1; j <= n; j++) {
+            const distance = Math.min(
+                Math.abs(i - j),
+                Math.abs(i - x) + Math.abs(j - y) + 1,
+                Math.abs(i - y) + Math.abs(j - x) + 1
+            );
+            result[distance - 1]++;
+        }
+    }
+
+    return result.map((count, index) => count * 2);
+};
+```
+Time complexity: O(N ^2)
+Space complexity: O(N)
+***
 
 
 
