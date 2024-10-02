@@ -79,7 +79,44 @@ Time O9N loh N0
 Space O(N)
 ***
 
+### 
 
+<img width="382" alt="image" src="https://github.com/user-attachments/assets/c8db65c5-075b-4142-b6af-c2c6d2f152e2">
+
+```
+/**
+ * @param {string} text1
+ * @param {string} text2
+ * @return {number}
+ */
+var longestCommonSubsequence = function (text1, text2) {
+    let m = text1.length;
+    let n = text2.length;
+
+    // Create a 2D array to store the lengths of the longest common subsequence
+    let dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0));
+
+    // Fill the dp array
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            if (text1[i - 1] === text2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1; // Match found, extend the LCS
+            } else {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]); // Take the maximum LCS excluding one character
+            }
+        }
+    }
+    // console.log(dp);
+    // The LCS length is in the bottom-right corner of the dp array
+    return dp[m][n];
+};
+
+```
+The time complexity of this solution is O(m*n), where m is the length of text1 and n is the length of text2. This is because we are filling up a 2D array of size (m+1) x (n+1) to store the lengths of the longest common subsequence, and we iterate through each cell of the array once.
+
+The space complexity of this solution is also O(m*n) because we are using a 2D array of size (m+1) x (n+1) to store the lengths of the longest common subsequence.
+
+***
 
 
 
