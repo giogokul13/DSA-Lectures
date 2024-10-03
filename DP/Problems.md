@@ -162,6 +162,50 @@ Time and Space O(N * N)
 
 ***
 
+### 64. Minimum Path Sum
+
+<img width="385" alt="image" src="https://github.com/user-attachments/assets/6d98b24b-614b-4a0e-8702-39bb17d3ad2d">
+
+```
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var minPathSum = function (grid) {
+    let rows = grid.length;
+    let cols = grid[0].length;
+
+    let dp = Array.from({ length: rows }, () => new Array(cols).fill(0));
+
+    dp[0][0] = grid[0][0];
+
+    for (let j = 1; j < cols; j++) {
+        dp[0][j] = dp[0][j - 1] + grid[0][j];
+    }
+    console.log("Pass 1", dp);
+
+    for (let i = 1; i < rows; i++) {
+        dp[i][0] = dp[i - 1][0] + grid[i][0];
+    }
+
+    console.log("Pass 1", dp);
+
+    for (let i = 1; i < rows; i++) {
+        for (let j = 1; j < cols; j++) {
+            dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+        }
+    }
+    console.log("Final", dp);
+
+    return dp[rows - 1][cols - 1];
+};
+```
+
+The time complexity of this solution is O(m*n), where m is the number of rows and n is the number of columns in the grid. This is because we iterate through each cell in the grid exactly once to calculate the minimum path sum.
+
+The space complexity is also O(m*n) because we are using a 2D array of the same size as the input grid to store the minimum path sum values for each cell.
+ 
+***
 
 
 
@@ -185,7 +229,8 @@ Time and Space O(N * N)
 
 
 
-## Hard
+
+
 
 
 
