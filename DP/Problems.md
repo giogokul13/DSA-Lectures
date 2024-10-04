@@ -207,6 +207,81 @@ The space complexity is also O(m*n) because we are using a 2D array of the same 
  
 ***
 
+### 198. House Robber
+
+<img width="383" alt="image" src="https://github.com/user-attachments/assets/8dbffc44-9612-4250-b23a-7cb758f96642">
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function (nums) {
+    if(nums.length == 0) return 0;
+
+    if(nums.length == 1) return nums[0];
+
+
+    let dp = new Array(nums.length).fill(0);
+    dp[0] = nums[0];
+    dp[1] = Math.max(nums[0], nums[1]); 
+
+    for(let i = 2; i < nums.length; i++) {
+        dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+    }
+
+    return dp[nums.length - 1];
+};
+```
+Time and Space are O(N)
+***
+
+### 213. House Robber II
+
+<img width="383" alt="image" src="https://github.com/user-attachments/assets/346b8315-2438-4414-84c8-f02e47e6f16d">
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function (nums) {
+    if (nums.length == 0) return 0;
+
+    if (nums.length == 1) return nums[0];
+
+    if (nums.length == 2) return Math.max(nums[0], nums[1]);
+    if (nums.length == 3) return Math.max(nums[0], nums[1], nums[2]);
+
+    let case1 = robMoney(nums.slice(0, nums.length - 1));
+    let case2 = robMoney(nums.slice(1));
+
+    return Math.max(case1, case2);
+
+};
+
+function robMoney(nums) {
+    if (nums.length === 0) return 0;
+    if (nums.length === 1) return nums[0];
+    
+    let prev1 = Math.max(nums[0], nums[1]); // dp[i-1]
+    let prev2 = nums[0];                     // dp[i-2]
+    
+    for (let i = 2; i < nums.length; i++) {
+        let current = Math.max(prev1, prev2 + nums[i]);
+        prev2 = prev1;
+        prev1 = current;
+    }
+    
+    return prev1;
+}
+```
+Time and Space O(1)
+
+***
+
+
+
 
 
 
