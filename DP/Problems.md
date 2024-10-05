@@ -277,10 +277,38 @@ function robMoney(nums) {
 }
 ```
 Time and Space O(1)
-
 ***
 
+### 62. Unique Paths
 
+<img width="386" alt="image" src="https://github.com/user-attachments/assets/2b5ccd07-c525-4b00-8a54-eab97c622ae0">
+
+```
+var uniquePaths = function(m, n){
+    let grid = new Array(m).fill(0).map(() => Array(n).fill(0));
+
+    for(let i = 0; i < m; i++){  //first column values to be 1
+        grid[i][0] = 1;
+    } 
+
+    for(let i = 0; i < n; i++){ // first row values to be 1
+        grid[0][i] = 1;
+    }
+
+
+    for(let i = 1; i < m; i++){ 
+        //loop through the grid and calculate the current value by the previous left cell and top cell
+        for(let j = 1; j < n; j++){
+            grid[i][j] = grid[i - 1][j] + grid[i][j - 1];
+        }
+    }
+
+
+    return grid[m - 1][n - 1];
+}
+```
+Tine and Space O(M * N)
+***
 
 
 
