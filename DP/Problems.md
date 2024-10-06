@@ -310,6 +310,55 @@ var uniquePaths = function(m, n){
 Tine and Space O(M * N)
 ***
 
+### 63. Unique Paths II
+
+<img width="388" alt="image" src="https://github.com/user-attachments/assets/b9abeb76-4e23-45ac-9234-e73b1ce13a5a">
+
+```
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number}
+ */
+var uniquePathsWithObstacles = function (obstacleGrid) {
+    let m = obstacleGrid.length;
+    if (m === 0) return 0;
+    let n = obstacleGrid[0].length;
+    if (n === 0) return 0;
+
+    // If starting or ending cell has obstacle, no paths exist
+    if (obstacleGrid[0][0] === 1 || obstacleGrid[m - 1][n - 1] === 1) {
+        return 0;
+    }
+
+    // Initialize a 1D DP array
+    let dp = new Array(n).fill(0);
+    dp[0] = 1; // Start position
+
+    // Initialize first row
+    for (let j = 1; j < n; j++) {
+        dp[j] = obstacleGrid[0][j] === 1 ? 0 : dp[j - 1];
+    }
+
+    // Iterate through each row starting from the second row
+    for (let i = 1; i < m; i++) {
+        // Update the first column for the current row
+        dp[0] = obstacleGrid[i][0] === 1 ? 0 : dp[0];
+        for (let j = 1; j < n; j++) {
+            if (obstacleGrid[i][j] === 1) {
+                dp[j] = 0; // Obstacle cell
+            } else {
+                dp[j] = dp[j] + dp[j - 1];
+            }
+        }
+    }
+
+    return dp[n - 1];
+};
+
+```
+
+***
+
 
 
 
