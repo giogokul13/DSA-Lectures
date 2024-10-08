@@ -356,10 +356,67 @@ var uniquePathsWithObstacles = function (obstacleGrid) {
 };
 
 ```
-
 ***
 
+### 120. Triangle
 
+<img width="381" alt="image" src="https://github.com/user-attachments/assets/2ed18f17-1a8e-425d-bb16-c542b6daa6e7">
+
+```
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+var minimumTotal = function(triangle) {
+    let n = triangle.length;
+
+    // Start from the second-last row and work upwards
+    for (let i = n - 2; i >= 0; i--) {
+        for (let j = 0; j < triangle[i].length; j++) {
+            // Update the current element with the sum of itself and the minimum of the two adjacent elements below
+            triangle[i][j] += Math.min(triangle[i + 1][j], triangle[i + 1][j + 1]);
+        }
+    }
+
+    // The top element contains the minimum path sum
+    return triangle[0][0];
+};
+
+```
+Time complexity
+The time complexity of this solution is O(n^2), where n is the number of rows in the triangle. This is because we iterate through each element in the triangle once and perform constant time operations on each element.
+Space complexity
+The space complexity is O(1) because we are modifying the input triangle in place without using any additional data structures that grow with the input size.
+***
+
+### 931. Minimum Falling Path Sum
+
+<img width="880" alt="image" src="https://github.com/user-attachments/assets/ae117970-a3d3-40e8-aef9-bd84e5e39db7">
+
+```
+/**
+ * @param {number[][]} matrix
+ * @return {number}
+ */
+var minFallingPathSum = function(matrix) {
+    let m = matrix.length;
+    
+    for(let i = m - 2; i >= 0; i--) {
+        for(let j = 0; j < m; j++) {
+            let a = (j - 1 < 0) ? matrix[i + 1][j]: matrix[i + 1][j - 1];
+            let b = (j + 1 > m - 1) ? matrix[i + 1][j]: matrix[i + 1][j + 1];
+            let c = (j >= 0 && j <= m - 1) ? matrix[i + 1][j]: matrix[i + 1][j];
+            matrix[i][j] += Math.min(a, b, c);
+        }
+    }
+    return Math.min(...matrix[0]);
+};
+```
+The time complexity of this solution is O(n^2) where n is the number of rows in the matrix. This is because we iterate through each cell in the matrix once and perform constant time operations on each cell.
+
+The space complexity is O(1) because we are not using any extra space that scales with the input size. We are modifying the input matrix in place to store the minimum falling path sum.
+
+***
 
 
 
