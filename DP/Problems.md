@@ -456,6 +456,14 @@ The space complexity is O(target) because we are using a one-dimensional array o
 
 ***
 
+### 
+
+
+```
+
+```
+
+***
 
 
 
@@ -480,3 +488,124 @@ The space complexity is O(target) because we are using a one-dimensional array o
 
 
 ## Hard
+
+### 2035. Partition Array Into Two Arrays to Minimize Sum Difference
+
+<img width="417" alt="image" src="https://github.com/user-attachments/assets/ce07e75a-36ac-4a2f-bf47-e74e49b3702d">
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minimumDifference = function(nums) {
+    const n = nums.length / 2;
+    const totalSum = nums.reduce((acc, num) => acc + num, 0);
+    const target = totalSum / 2;
+    
+    // Split the array into two halves
+    const left = nums.slice(0, n);
+    const right = nums.slice(n);
+    
+    // Function to generate subset sums grouped by subset size
+    const generateSubsetSums = (arr) => {
+        const len = arr.length;
+        const subsetSums = new Array(len + 1).fill(0).map(() => []);
+        
+        // Iterate over all possible subsets using bitmask
+        for (let i = 0; i < (1 << len); i++) {
+            let sum = 0;
+            let size = 0;
+            for (let j = 0; j < len; j++) {
+                if (i & (1 << j)) {
+                    sum += arr[j];
+                    size++;
+                }
+            }
+            subsetSums[size].push(sum);
+        }
+        
+        // Sort the subset sums for each size for efficient binary searching
+        for (let k = 0; k <= len; k++) {
+            subsetSums[k].sort((a, b) => a - b);
+        }
+        
+        return subsetSums;
+    };
+    
+    const leftSums = generateSubsetSums(left);  // leftSums[k] = list of sums for subsets of size k
+    const rightSums = generateSubsetSums(right); // rightSums[k] = list of sums for subsets of size k
+    
+    let minDiff = Infinity;
+    
+    // Iterate over possible subset sizes in the left half
+    for (let k = 0; k <= n; k++) {
+        const kLeft = k;
+        const kRight = n - k;
+        if (kRight < 0 || kRight > n) continue;
+        
+        const leftList = leftSums[kLeft];
+        const rightList = rightSums[kRight];
+        
+        if (leftList.length === 0 || rightList.length === 0) continue;
+        
+        for (let sum1 of leftList) {
+            // Find sum2 in rightList closest to (target - sum1)
+            let needed = target - sum1;
+            let idx = binarySearchClosest(rightList, needed);
+            let sum2 = rightList[idx];
+            let sumA = sum1 + sum2;
+            let diff = Math.abs(2 * sumA - totalSum);
+            if (diff < minDiff) minDiff = diff;
+            
+            // Also check the previous index if possible to find a closer sum
+            if (idx > 0) {
+                sum2 = rightList[idx - 1];
+                sumA = sum1 + sum2;
+                diff = Math.abs(2 * sumA - totalSum);
+                if (diff < minDiff) minDiff = diff;
+            }
+        }
+    }
+    
+    return minDiff;
+};
+
+/**
+ * Helper function to find the index of the closest number to the target in a sorted array.
+ * If two numbers are equally close, returns the smaller one.
+ * @param {number[]} arr - Sorted array of numbers.
+ * @param {number} target - The target number to find the closest to.
+ * @return {number} - Index of the closest number.
+ */
+function binarySearchClosest(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+    let bestIdx = -1;
+    let minDiff = Infinity;
+    
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+        let currentDiff = Math.abs(arr[mid] - target);
+        
+        if (currentDiff < minDiff) {
+            minDiff = currentDiff;
+            bestIdx = mid;
+        }
+        
+        if (arr[mid] < target) {
+            left = mid + 1;
+        } else if (arr[mid] > target) {
+            right = mid - 1;
+        } else {
+            // Exact match found
+            return mid;
+        }
+    }
+    
+    return bestIdx;
+}
+
+```
+
+***
