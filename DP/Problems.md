@@ -418,7 +418,43 @@ The space complexity is O(1) because we are not using any extra space that scale
 
 ***
 
+### 416. Partition Equal Subset Sum
 
+<img width="416" alt="image" src="https://github.com/user-attachments/assets/074955d6-d4be-4c80-b657-bd1fed9df5da">
+
+```
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canPartition = function (nums) {
+    let totalSum = 0;
+    for (let i = 0; i < nums.length; i++) {
+        totalSum += nums[i];
+    }
+
+    if (totalSum % 2 != 0) return false;
+
+    let target = totalSum / 2;
+    let dp = new Array(target + 1).fill(false);
+    dp[0] = true;
+
+    for (let num of nums) {
+        for (let i = target; i >= num; i--) {
+            if (dp[i - num]) dp[i] = true;
+        }
+    }
+
+    return dp[target];
+};
+```
+**Time complexity: O(N * Target)**
+The time complexity of this solution is O(n * target), where n is the number of elements in the input array and target is the total sum divided by 2. This is because we iterate through each element in the input array and for each element, we iterate through the target sum.
+
+**Space complexity: O(Target)**
+The space complexity is O(target) because we are using a one-dimensional array of size target to store the intermediate results.
+
+***
 
 
 
