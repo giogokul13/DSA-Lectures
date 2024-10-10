@@ -2,7 +2,41 @@
 
 ## Easy 
 
+### 455. Assign Cookies
 
+<img width="419" alt="image" src="https://github.com/user-attachments/assets/a14f45cb-c25b-4e1e-9100-6d05a2b5c097">
+
+```
+/**
+ * @param {number[]} g
+ * @param {number[]} s
+ * @return {number}
+ */
+var findContentChildren = function (g, s) {
+    let max = 0;
+    let childIndex = 0;
+    let cookieIndex = 0;
+
+    g.sort((a, b) => b - a); // Sort the Childrens in decending order of greed
+    s.sort((a, b) => b - a); // Sort the Cookies in decending order of Cookies count
+
+    while (childIndex < g.length) {
+        if (!g[childIndex] || !s[cookieIndex]) break;
+
+        if (s[cookieIndex] >= g[childIndex]) { // now compare if the cookies is grater than greed, then incrementand move forward
+            max++;
+            cookieIndex++;
+        }
+        childIndex++;
+    }
+    return max;
+};
+```
+
+Time O(N log N)
+Space O(1)
+
+***
 
 
 ## Medium
@@ -456,14 +490,50 @@ The space complexity is O(target) because we are using a one-dimensional array o
 
 ***
 
-### 
+### 322. Coin Change
 
+<img width="419" alt="image" src="https://github.com/user-attachments/assets/9d6eb299-c930-47dc-8278-055a9cfdda13">
 
 ```
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function(coins, amount) {
+    let dp = new Array(amount + 1).fill(Infinity);
+    dp[0] = 0;
 
+    for(let coin of coins) {
+        for(let i = coin; i <= amount; i++ ){
+            dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+        }
+    }
+
+    return (dp[amount] == Infinity) ? -1 : dp[amount];
+};
 ```
+The time complexity of this solution is O(n * m), where n is the amount and m is the number of coins. This is because we iterate through each coin for each amount value.
+
+The space complexity is O(n), where n is the amount. This is because we are using an array of size amount + 1 to store the minimum number of coins needed to make up each amount value.
 
 ***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
