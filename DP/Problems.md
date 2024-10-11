@@ -519,6 +519,42 @@ The space complexity is O(n), where n is the amount. This is because we are usin
 
 ***
 
+### 494. Target Sum
+
+<img width="418" alt="image" src="https://github.com/user-attachments/assets/f9f8eb2b-dc4f-4598-9d5e-164ea971a729">
+
+```
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var findTargetSumWays = function (nums, target) {
+    let totalSum = nums.reduce((acc, num) => acc + num, 0);
+
+    if(totalSum < Math.abs(target) || (totalSum + target) % 2 !== 0) return 0;
+
+    const subSetSum = (totalSum + target) / 2;
+
+    const dp = new Array(subSetSum + 1).fill(0);
+    dp[0] = 1;
+
+    for(let num of nums) {
+        for(let j = subSetSum; j >= num; j--) {
+            dp[j] += dp[j - num];
+        }
+    }
+
+    return dp[subSetSum];
+
+};
+```
+The time complexity of this solution is O(n * target), where n is the number of elements in the input array nums and target is the target sum. This is because we iterate through each element in the nums array and for each element, we iterate through the subsetSum array, which has a size of target.
+
+The space complexity is O(target) because we are using a DP array of size subsetSum to store the number of ways to reach each sum.
+
+***
+
 
 
 
