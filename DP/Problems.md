@@ -555,9 +555,100 @@ The space complexity is O(target) because we are using a DP array of size subset
 
 ***
 
+### 518. Coin Change II
 
+<img width="418" alt="image" src="https://github.com/user-attachments/assets/bce7aa14-87c2-4664-80e1-1f4e9a502536">
 
+```
+/**
+ * @param {number} amount
+ * @param {number[]} coins
+ * @return {number}
+ */
+var change = function(amount, coins) {
+    let dp = new Array(amount + 1).fill(0);
+    dp[0] = 1;
 
+    for(let coin of coins) {
+        for(let i = coin; i <= amount; i++) {
+            dp[i] += dp[i - coin]; 
+        } 
+    }
+
+    return dp[amount];
+};
+```
+The time complexity of this solution is O(n*m), where n is the amount and m is the number of coins. This is because we iterate through each coin for each amount from 1 to the target amount.
+
+The space complexity is O(n), where n is the amount. This is because we use an array of size amount + 1 to store the number of ways to make change for each amount.
+
+***
+
+### 1143. Longest Common Subsequence
+
+```
+/**
+ * @param {string} text1
+ * @param {string} text2
+ * @return {number}
+ */
+var longestCommonSubsequence = function (text1, text2) {
+    let m = text1.length;
+    let n = text2.length;
+
+    // Create a 2D array to store the lengths of the longest common subsequence
+    let dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0));
+
+    // Fill the dp array
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            if (text1[i - 1] === text2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1; // Match found, extend the LCS
+            } else {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]); // Take the maximum LCS excluding one character
+            }
+        }
+    }
+    // console.log(dp);
+    // The LCS length is in the bottom-right corner of the dp array
+    return dp[m][n];
+};
+
+```
+Time O(M * N)
+Space O(M * N)
+***
+
+### 516. Longest Palindromic Subsequence
+
+<img width="418" alt="image" src="https://github.com/user-attachments/assets/3d3cd4da-1080-47c3-a824-5fe00a32e84f">
+
+```
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestPalindromeSubseq = function (s) {
+    let n = s.length;
+    let dp = Array(n).fill().map(() => Array(n).fill(0));
+
+    for (let i = n - 1; i >= 0; i--) {
+        dp[i][i] = 1;
+
+        for (let j = i + 1; j < n; j++) {
+            if (s[i] == s[j]) { // If the two characters match, the longest palindromic can be extended by two
+                dp[i][j] = 2 + dp[i + 1][j - 1];
+            } else {
+                dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+
+    return dp[0][n - 1];
+};
+```
+Time andd Space is O(N * N)
+***
 
 
 
@@ -713,5 +804,59 @@ function binarySearchClosest(arr, target) {
 }
 
 ```
+
+***
+
+### 44. Wildcard Matching
+
+<img width="417" alt="image" src="https://github.com/user-attachments/assets/5e5f881e-d9a8-4738-8407-454a4f9664d8">
+
+```
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {boolean}
+ */
+var isMatch = function (s, p) {
+    const m = s.length;
+    const n = p.length;
+
+    // Initialize DP table with false
+    const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(false));
+
+    // Empty pattern matches empty string
+    dp[0][0] = true;
+
+    // Initialize first row (s is empty)
+    for (let j = 1; j <= n; j++) {
+        if (p[j - 1] === '*') {
+            dp[0][j] = dp[0][j - 1];
+        }
+    }
+
+    // Fill the DP table
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            if (p[j - 1] === '*') {
+                // '*' matches zero characters (dp[i][j - 1]) or one/more characters (dp[i - 1][j])
+                dp[i][j] = dp[i][j - 1] || dp[i - 1][j];
+            } else if (p[j - 1] === '?' || p[j - 1] === s[i - 1]) {
+                // Current characters match or pattern has '?'
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                // Characters do not match
+                dp[i][j] = false;
+            }
+        }
+    }
+
+    return dp[m][n];
+};
+```
+The time complexity of this solution is O(m*n), where m is the length of string s and n is the length of string p. This is because we are filling up a DP table of size (m+1) x (n+1) with nested loops iterating over m and n.
+
+The space complexity of this solution is also O(m*n) because we are using a DP table of size (m+1) x (n+1) to store the intermediate results.
+
+Overall, this solution uses dynamic programming to efficiently solve the problem of matching a string against a pattern, with a time and space complexity of O(m*n).
 
 ***
