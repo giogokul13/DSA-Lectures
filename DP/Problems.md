@@ -38,6 +38,44 @@ Space O(1)
 
 ***
 
+### 119. Pascal's Triangle II
+
+<img width="409" alt="image" src="https://github.com/user-attachments/assets/c2ef5478-dc85-41d0-be3d-789402011ad1">
+
+```
+/**
+ * @param {number} rowIndex
+ * @return {number[]}
+ */
+var getRow = function(rowIndex) {
+    let result = new Array(rowIndex + 1).fill(1);
+
+    for(let i = 2; i <= rowIndex; i++) {
+        for(let j = i - 1; j > 0; j--) {
+            result[j] = result[j] + result[ j - 1]; 
+        }
+    }
+
+    return result;
+};
+```
+Time O(RowIndex * RowIndex)
+Space O(rowIndex)
+
+***
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Medium
 
