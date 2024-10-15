@@ -860,3 +860,40 @@ The space complexity of this solution is also O(m*n) because we are using a DP t
 Overall, this solution uses dynamic programming to efficiently solve the problem of matching a string against a pattern, with a time and space complexity of O(m*n).
 
 ***
+
+### 1312. Minimum Insertion Steps to Make a String Palindrome
+
+<img width="414" alt="image" src="https://github.com/user-attachments/assets/45ead3a1-8f20-416c-884d-7f1e4a80e242">
+
+```
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minInsertions = function (s) {
+    let n = s.length;
+    let dp = new Array(n).fill(0);
+
+    for (let i = n - 2; i >= 0; i--) {
+        let prev = 0;
+
+        for (let j = i + 1; j < n; j++) {
+            const temp = dp[j];
+            if (s[i] == s[j]) {
+                dp[j] = prev;
+            } else {
+                dp[j] = Math.min(dp[j], dp[j - 1]) + 1;
+            }
+
+            prev = temp;
+        }
+    }
+
+    return dp[n - 1];
+};
+```
+
+Time O(N * N)
+Space O(N)
+
+***
