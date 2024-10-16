@@ -64,6 +64,65 @@ Space O(rowIndex)
 
 ***
 
+### 392. Is Subsequence
+
+<img width="418" alt="image" src="https://github.com/user-attachments/assets/2b768f7e-628b-4c13-81e8-00d736551c3c">
+
+```
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence = function (s, t) {
+    let i = 0; j = 0;
+
+    while (i < s.length && j < t.length) {
+        if (s[i] == t[j]) {
+            i++;
+        }
+        j++;
+    }
+    return (i == s.length);
+};
+```
+The time complexity of this solution is O(n), where n is the length of the longer string between s and t. This is because we iterate through both strings at most once.
+
+The space complexity of this solution is O(1) because we are using a constant amount of extra space, regardless of the input size.
+
+***
+
+### 746. Min Cost Climbing Stairs
+
+<img width="418" alt="image" src="https://github.com/user-attachments/assets/09f18391-24a1-4a09-b932-8e38a231d688">
+
+```
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minCostClimbingStairs = function(cost) {
+    let n = cost.length;
+    let first = cost[0];
+    let second = cost[1];
+
+    if(n <= 2) return Math.min(first, second);
+
+    for(let i = 2; i < n; i++) {
+        let curr = cost[i] + Math.min(first, second);
+
+        first = second;
+        second = curr;
+    }
+
+    return Math.min(first, second);
+};
+```
+Time O(N)
+Space O(1)
+
+***
+
 
 
 
