@@ -123,6 +123,21 @@ Space O(1)
 
 ***
 
+### 1025. Divisor Game
+
+<img width="412" alt="image" src="https://github.com/user-attachments/assets/f1ca03ba-6783-4053-bce7-f4bfb0002d70">
+
+```
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var divisorGame = function(n) {
+    return n % 2 == 0;
+};
+```
+Time and Space is O(1)
+***
 
 
 
