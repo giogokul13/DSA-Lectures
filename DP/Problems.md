@@ -139,6 +139,43 @@ var divisorGame = function(n) {
 Time and Space is O(1)
 ***
 
+### 1137. N-th Tribonacci Number
+
+<img width="412" alt="image" src="https://github.com/user-attachments/assets/a0bb8af1-6af1-472b-8bbc-a1485841ec6c">
+
+```
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var tribonacci = function (n) {
+    if (n < 2) return n;
+
+    let [first, second, third] = [0, 1, 1];
+    let fourth = first + second + third;
+
+    while (n > 2) {
+        fourth = first + second + third;
+        first = second;
+        second = third;
+        third = fourth;
+        n--;
+    }
+
+    return third;
+};
+```
+Time O(N)
+Space O(1)
+***
+
+
+
+
+
+
+
+
 
 
 
