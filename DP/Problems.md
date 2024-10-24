@@ -169,6 +169,40 @@ Time O(N)
 Space O(1)
 ***
 
+### 2900. Longest Unequal Adjacent Groups Subsequence I
+
+<img width="420" alt="image" src="https://github.com/user-attachments/assets/6e0f9ac0-3582-4302-9479-c3a369fa5e40">
+
+```
+/**
+ * @param {string[]} words
+ * @param {number[]} groups
+ * @return {string[]}
+ */
+var getLongestSubsequence = function(words, groups) {
+    let ans = [];
+    let flag = -1;
+
+    for(let i = 0; i < groups.length; i++) {
+        if(groups[i] != flag) {
+            flag = groups[i];
+            ans.push(words[i]);
+        }
+    }
+
+    return ans;
+};
+```
+Time and Space O(N)
+***
+
+
+
+
+
+
+
+
 
 
 
