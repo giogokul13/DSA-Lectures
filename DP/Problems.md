@@ -833,6 +833,32 @@ var longestPalindromeSubseq = function (s) {
 Time andd Space is O(N * N)
 ***
 
+### 45. Jump Game II
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var jump = function(nums) {
+    let minJumps = 0;
+    let [max, oldMax] = [0, 0]
+    for(let i = 0; i < nums.length - 1; i++) {
+        max = Math.max(max, i + nums[i]);
+
+        if(i == oldMax) {
+            minJumps++;
+            oldMax = max;
+        }
+    }
+
+    return minJumps;
+};
+```
+Time: O(N) and Space O(1)
+
+***
+
 
 
 
