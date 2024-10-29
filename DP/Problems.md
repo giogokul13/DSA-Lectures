@@ -859,6 +859,44 @@ Time: O(N) and Space O(1)
 
 ***
 
+### 91. Decode Ways
+
+<img width="415" alt="{13106358-EB1C-4A4F-95FF-140D4D894077}" src="https://github.com/user-attachments/assets/b6082cfe-d41c-4f04-879e-bc63af7a8e20">
+
+<img width="413" alt="{67061FD2-80E9-4833-9DC3-59F868FB7BDA}" src="https://github.com/user-attachments/assets/e3574b38-623a-42c4-aa37-61f9593f7273">
+
+```
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var numDecodings = function (s) {
+
+    if (!s || s[0] === "0") return 0;
+
+    let dp = new Array(s.length + 1).fill(0);
+    dp[0] = 1;
+    dp[1] = 1;
+
+    for (let i = 2; i <= s.length; i++) {
+        let oneDigit = parseInt(s[i - 1]);
+        let twoDigits = parseInt(s.substring(i - 2, i));
+
+        if (oneDigit !== 0) {
+            dp[i] += dp[i - 1];
+        }
+
+        if (twoDigits >= 10 && twoDigits <= 26) {
+            dp[i] += dp[i - 2];
+        }
+    }
+
+    return dp[s.length];
+};
+```
+Time and Space O(N)
+***
+
 
 
 
