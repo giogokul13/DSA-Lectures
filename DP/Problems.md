@@ -897,6 +897,34 @@ var numDecodings = function (s) {
 Time and Space O(N)
 ***
 
+### 96. Unique Binary Search Trees
+
+<img width="415" alt="{57E43923-AD7F-4889-BD64-D868193FD7F4}" src="https://github.com/user-attachments/assets/047ef48b-6bdc-4e31-a8a6-b04e3127fe06">
+
+```
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numTrees = function(n) {
+    let dp = new Array(n + 1).fill(0);
+    dp[0] = 1; dp[1] = 1;
+
+    for(let i = 2; i <= n; i++) {
+        for(let j = 1; j <= i; j++) {
+            dp[i] += dp[j - 1] * dp[i - j];
+        }
+    }
+
+    return dp[n];
+};
+```
+The time complexity of the given function `numTrees` is O(n^2). This is because there are two nested loops: the outer loop runs from 2 to n (which is n - 1 iterations), and the inner loop runs from 1 to i (which can be up to n iterations in the worst case). Therefore, the total number of operations is proportional to the sum of the first n integers, leading to a quadratic time complexity.
+
+The space complexity is O(n). This is due to the use of the `dp` array, which stores the number of unique binary search trees that can be formed with a given number of nodes. The size of this array is n + 1, which simplifies to O(n) in terms of space complexity
+
+***
+
 
 
 
