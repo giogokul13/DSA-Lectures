@@ -925,6 +925,50 @@ The space complexity is O(n). This is due to the use of the `dp` array, which st
 
 ***
 
+### 95. Unique Binary Search Trees II
+
+```
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number} n
+ * @return {TreeNode[]}
+ */
+var generateTrees = function (n) {
+    if (n == 0) return [];
+
+    let constructTree = function (start, end) {
+        if (start > end) return [null];
+
+        let trees = [];
+
+        for (let i = start; i <= end; i++) {
+            let leftTree = constructTree(start, i - 1);
+            let rightTree = constructTree(i + 1, end);
+
+            for (let left of leftTree) {
+                for (let right of rightTree) {
+                    let tree = new TreeNode(i);
+                    tree.left = left;
+                    tree.right = right;
+                    trees.push(tree);
+                }
+            }
+        }
+        return trees;
+    };
+    return constructTree(1, n);
+}
+```
+
+***
+
 
 
 
