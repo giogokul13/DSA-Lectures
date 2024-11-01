@@ -969,6 +969,41 @@ var generateTrees = function (n) {
 
 ***
 
+### 97. Interleaving String
+
+<img width="423" alt="{82E67946-4CBC-4C7E-9611-553A7F4A6E31}" src="https://github.com/user-attachments/assets/4ca03da1-95cc-44de-9cb6-098080fda0fb">
+
+
+```
+/**
+ * @param {string} s1
+ * @param {string} s2
+ * @param {string} s3
+ * @return {boolean}
+ */
+var isInterleave = function (s1, s2, s3) {
+    if (s1.length + s2.length !== s3.length) return false;
+
+    const dp = Array(s1.length + 1).fill(false).map(() => Array(s2.length + 1).fill(false));
+    dp[0][0] = true;
+
+    for (let i = 0; i <= s1.length; i++) {
+        for (let j = 0; j <= s2.length; j++) {
+            if (i > 0 && s1[i - 1] === s3[i + j - 1]) {
+                dp[i][j] = dp[i][j] || dp[i - 1][j];
+            }
+            if (j > 0 && s2[j - 1] === s3[i + j - 1]) {
+                dp[i][j] = dp[i][j] || dp[i][j - 1];
+            }
+        }
+    }
+
+    return dp[s1.length][s2.length];
+};
+```
+Time and Space O(N * M)
+***
+
 
 
 
