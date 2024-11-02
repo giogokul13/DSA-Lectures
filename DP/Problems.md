@@ -1004,7 +1004,15 @@ var isInterleave = function (s1, s2, s3) {
 Time and Space O(N * M)
 ***
 
+### 122. Best Time to Buy and Sell Stock II
 
+<img width="417" alt="{F180A2C9-9FBA-4B94-BE04-BDE3293D1BDD}" src="https://github.com/user-attachments/assets/b4f5ddbe-1278-46c5-b274-3ea7b4f49238">
+
+```
+
+```
+
+***
 
 
 
