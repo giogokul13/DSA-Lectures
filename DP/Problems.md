@@ -1009,8 +1009,26 @@ Time and Space O(N * M)
 <img width="417" alt="{F180A2C9-9FBA-4B94-BE04-BDE3293D1BDD}" src="https://github.com/user-attachments/assets/b4f5ddbe-1278-46c5-b274-3ea7b4f49238">
 
 ```
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+    let profitGained = 0;
+
+    for (let i = 0; i < prices.length - 1; i++) {
+        if (prices[i] < prices[i + 1]) {
+            profitGained += (prices[i + 1] - prices[i]);
+        }
+    }
+
+    return profitGained;
+};
 
 ```
+The time complexity of the given function `maxProfit` is O(n), where n is the length of the `prices` array. This is because the function iterates through the array once, performing a constant amount of work for each element (comparing and potentially adding to `profitGained`).
+
+The space complexity is O(1), as the function uses a fixed amount of additional space regardless of the input size. It only utilizes a few variables (`profitGained` and the loop index `i`), which do not scale with the size of the input array. Thus, the function is efficient in both time and space.
 
 ***
 
