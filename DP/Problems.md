@@ -1032,7 +1032,41 @@ The space complexity is O(1), as the function uses a fixed amount of additional 
 
 ***
 
+### 139. Word Break
 
+```
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+var wordBreak = function (s, wordDict) {
+    let dp = new Array(s.length + 1).fill(false);
+    dp[0] = true;
+
+    for(let i = 0; i <= s.length; i++) {
+        if(dp[i]) {
+            for(let word of wordDict) {
+                if(s.slice(i, i + word.length) == word) {
+                    dp[i + word.length] = true; 
+                }
+            }
+        }
+    }
+
+    return dp[s.length];
+};
+```
+* Time complexity:
+    The time complexity of the wordBreak function can be analyzed as follows:
+    The outer loop runs from 0 to the length of the string s, which is O(n), where n is the length of s.
+    Inside the outer loop, there is an inner loop that iterates over each word in the wordDict. If we denote the number of words in wordDict as m, then the inner loop runs O(m) times.
+    For each word, the function checks if a substring of s matches the word, which takes O(k) time, where k is the length of the word. In the worst case, if we consider the average length of the words in the dictionary to be O(k), the total time spent in the inner loop can be approximated as O(m * k).
+    Combining these factors, the overall time complexity is O(n * m * k).
+
+* Space complexity:
+    The space complexity of the function is primarily determined by the dp array, which has a size of n + 1. Thus, the space complexity is O(n).
+***
 
 
 
