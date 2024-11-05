@@ -1068,7 +1068,39 @@ var wordBreak = function (s, wordDict) {
     The space complexity of the function is primarily determined by the dp array, which has a size of n + 1. Thus, the space complexity is O(n).
 ***
 
+### 221. Maximal Square
 
+<img width="416" alt="{B157CD0D-ED67-4453-BBC1-A3A7C169FC11}" src="https://github.com/user-attachments/assets/02ed4b2a-0f51-4495-b2f3-c85e9640f086">
+
+```
+/**
+ * @param {character[][]} matrix
+ * @return {number}
+ */
+var maximalSquare = function (matrix) {
+    if (matrix.length < 1) return 0;
+
+    let rows = matrix.length;
+    let cols = matrix[0].length;
+
+    let dp = new Array(rows + 1).fill(0).map(() => new Array(cols + 1).fill(0));
+    let max = 0;
+
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            if (matrix[row][col] == '1') {
+                dp[row + 1][col + 1] = Math.min(dp[row][col], dp[row + 1][col], dp[row][col + 1]) + 1;
+                max = Math.max(max, dp[row + 1][col + 1]);
+            }
+        }
+    }
+
+    return max * max;
+};
+```
+Time and Space is O(M * N)
+
+***
 
 
 
