@@ -196,6 +196,27 @@ var getLongestSubsequence = function(words, groups) {
 Time and Space O(N)
 ***
 
+### 263. Ugly Number
+
+<img width="418" alt="{8FCC0A63-634D-47AA-90E5-E55FE46F1AC0}" src="https://github.com/user-attachments/assets/91729cdc-8123-4361-826a-2825946e9a75">
+
+```
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isUgly = function (num) {
+    for (prime of [2, 3, 5]) {
+        while (num && num % prime == 0) {
+            num /= prime;
+        }
+    }
+    return (num == 1);
+};
+```
+Time and Space is O(1)
+***
+
 
 
 
@@ -1099,6 +1120,16 @@ var maximalSquare = function (matrix) {
 };
 ```
 Time and Space is O(M * N)
+
+***
+
+### 264. Ugly Number II
+
+![{71987ECD-C9FB-45F6-B275-13009C437F71}](https://github.com/user-attachments/assets/1d40025c-3474-49c2-8b0b-4f408257a1d7)
+
+```
+
+```
 
 ***
 
