@@ -1128,9 +1128,61 @@ Time and Space is O(M * N)
 ![{71987ECD-C9FB-45F6-B275-13009C437F71}](https://github.com/user-attachments/assets/1d40025c-3474-49c2-8b0b-4f408257a1d7)
 
 ```
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var nthUglyNumber = function (n) {
+    let uglyNums = new Array(n);
+    let [index2, index3, index5] = [0, 0, 0];
+    uglyNums[0] = 1;
+
+    for(let i = 1; i < uglyNums.length; i++) {
+        uglyNums[i] = Math.min(uglyNums[index2] * 2, uglyNums[index3] * 3, uglyNums[index5] * 5);
+
+        if(uglyNums[i] == uglyNums[index2] * 2) {
+            index2++;
+        }
+
+        if(uglyNums[i] == uglyNums[index3] * 3) {
+            index3++;
+        }
+
+        if(uglyNums[i] == uglyNums[index5] * 5) {
+            index5++;
+        }
+    }
+    return uglyNums[n - 1];
+}
+```
+Time and Space is O(N)
+
+***
+
+### 309. Best Time to Buy and Sell Stock with Cooldown
+
+![image](https://github.com/user-attachments/assets/a98ed9a4-6670-427e-a24d-33c1c4af5154)
 
 ```
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+    let [sell, prevSell, buy] = [0, 0, Number.MIN_SAFE_INTEGER];
+    let prevBuy;
 
+    for (let price of prices) {
+        prevBuy = buy;
+        buy = Math.max(prevSell - price, prevBuy);
+        prevSell = sell;
+        sell = Math.max(prevBuy + price, prevSell);
+    }
+
+    return sell;
+};
+```
+Time Complexity is O(N) and Space Complexity O(1)
 ***
 
 
