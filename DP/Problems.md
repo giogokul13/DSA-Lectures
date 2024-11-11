@@ -1185,7 +1185,43 @@ var maxProfit = function (prices) {
 Time Complexity is O(N) and Space Complexity O(1)
 ***
 
+### 313. Super Ugly Number
 
+![{5807D5C6-C4FF-4A3B-92AF-82F731AE1DC8}](https://github.com/user-attachments/assets/ec746f0d-1cce-4cec-8dad-7063a3ebce2d)
+
+```
+/**
+ * @param {number} n
+ * @param {number[]} primes
+ * @return {number}
+ */
+var nthSuperUglyNumber = function(n, primes) {
+    const uglyNums = new Array(n).fill(Infinity);
+    uglyNums[0] = 1;  // The first super ugly number is always 1
+    
+    const indices = new Array(primes.length).fill(0);  // Keeps track of multiples of each prime
+
+    for (let i = 1; i < n; i++) {
+        // Calculate the next super ugly number by taking the minimum of primes * uglyNums
+        for (let j = 0; j < primes.length; j++) {
+            uglyNums[i] = Math.min(uglyNums[i], primes[j] * uglyNums[indices[j]]);
+        }
+        
+        // Increment the index for each prime used to form the current smallest super ugly number
+        for (let j = 0; j < primes.length; j++) {
+            if (uglyNums[i] === primes[j] * uglyNums[indices[j]]) {
+                indices[j]++;
+            }
+        }
+    }
+    
+    return uglyNums[n - 1];
+};
+
+```
+Time O(N∗K)
+Space O(N)
+***
 
 
 
