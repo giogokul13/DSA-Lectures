@@ -1223,7 +1223,45 @@ Time O(N∗K)
 Space O(N)
 ***
 
+### 337. House Robber III 
 
+![{DA0C7341-840C-4C5F-B28D-097D8D70A2E1}](https://github.com/user-attachments/assets/0e288a67-dd1c-4c7c-8a86-b3664fe0cbed)
+
+```
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var rob = function (root) {
+    let max = -Infinity;
+
+    let traverseAndRob = function (node) {
+        if (!node) return [0, 0];
+
+        let left = traverseAndRob(node.left);
+        let right = traverseAndRob(node.right);
+
+        let robNow = node.val + left[0] + right[0];
+        let robskip = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+        return [robskip, robNow];
+    }
+
+    max = traverseAndRob(root);
+
+    return Math.max(max[0], max[1]);
+};
+
+```
+Time and Space is O(N) and O(H)
+***
 
 
 
