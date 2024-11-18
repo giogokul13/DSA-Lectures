@@ -1263,7 +1263,30 @@ var rob = function (root) {
 Time and Space is O(N) and O(H)
 ***
 
+### 357. Count Numbers with Unique Digits
 
+![{C52AF746-087E-4C3B-B3C5-B7BB25E2FC94}](https://github.com/user-attachments/assets/9fdbc03c-406a-427f-ba3d-83ad67fcfa38)
+
+```
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countNumbersWithUniqueDigits = function (n) {
+    if (n === 0) return 1;
+    let result = 10;
+    let availDigit = 9;
+    let unique = 9;
+    for (let i = 2; i <= n && availDigit > 0; i++) {
+        unique *= availDigit;
+        result = result + unique;
+        availDigit--;
+    }
+    return result;
+}
+```
+Time O(N) Space O(1)
+***
 
 
 
