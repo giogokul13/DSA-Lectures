@@ -1288,8 +1288,51 @@ var countNumbersWithUniqueDigits = function (n) {
 Time O(N) Space O(1)
 ***
 
+### 368. Largest Divisible Subset
 
+![{D64F6697-05D4-47C3-85DD-61D5D582C1D6}](https://github.com/user-attachments/assets/fd4b496d-7329-4183-bf19-c5cd6965b324)
 
+```
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var largestDivisibleSubset = function (nums) {
+
+    nums.sort((a, b) => a - b);
+    let dp = Array(nums.length).fill(1);
+    let prev = Array(nums.length).fill(-1);
+
+    let maxIndex = 0;
+
+    for (let i = 1; i < nums.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if ((nums[i] % nums[j] == 0) && dp[i] < dp[j] + 1 ) {
+                dp[i] = dp[j] + 1;
+                prev[i] = j;
+            }
+        }
+
+        if(dp[i] > dp[maxIndex]) {
+            maxIndex = i;
+        }
+    }
+
+    let result = [];
+
+    for(let i = maxIndex; i >= 0; i = prev[i]) {
+        result.push(nums[i]);
+        if(prev[i] == -1) break;
+    }
+
+    return result.reverse();
+};
+```
+The time complexity of the `largestDivisibleSubset` function is O(n^2), where n is the number of elements in the input array `nums`. This is because there are two nested loops: the outer loop iterates through each element of the array, and the inner loop checks all previous elements to find divisibility and update the dynamic programming table.
+
+The space complexity is O(n) due to the use of two additional arrays, `dp` and `prev`, both of which store information for each element in the input array. The `dp` array keeps track of the size of the largest divisible subset that ends with each element, while the `prev` array stores the index of the previous element in the subset for reconstruction purposes. Thus, the overall space used is linear with respect to the input size.
+
+***
 
 
 
