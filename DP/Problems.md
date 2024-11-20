@@ -1334,7 +1334,41 @@ The space complexity is O(n) due to the use of two additional arrays, `dp` and `
 
 ***
 
+### 375. Guess Number Higher or Lower II
 
+![{50FCBD4E-1A45-4AEA-A3E8-84D7CB7035C5}](https://github.com/user-attachments/assets/dafde539-3534-4aae-b70c-e40194555b2b)
+
+![{2FD41640-646A-491B-A31C-540B70D6CC6D}](https://github.com/user-attachments/assets/776c1b0e-e299-4965-90d7-5806ceaab34b)
+
+```
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var getMoneyAmount = function (n) {
+    let table = Array.from({ length: n + 1 }, () => Array(n + 1).fill(0));
+    let calculate = function (start, end) {
+        if (start >= end) return 0;
+
+        if (table[start][end] != 0) return table[start][end];
+
+        let res = Number.MAX_SAFE_INTEGER;
+        for (let i = start; i <= end; i++) {
+            let temp = i + Math.max(calculate(start, i - 1), calculate(i + 1, end));
+            res = Math.min(res, temp);
+        }
+        table[start][end] = res;
+        return res;
+    }
+
+    return calculate(1, n);
+};
+```
+- Time complexity: O(N ^ 3)
+    The time complexity of the given function getMoneyAmount is O(n^3). This is because the function uses a nested loop structure where the outer loop iterates over the range from start to end, and for each iteration, it makes two recursive calls to calculate, which can also take O(n) time in the worst case. Since the function is called for every pair of start and end values, the overall complexity becomes O(n^3).
+- Space complexity: O(N ^ 2)
+    The space complexity is O(n^2). This is due to the table array that is created to store the results of subproblems, which has dimensions (n+1) x (n+1). Additionally, the recursion stack can go as deep as O(n) in the worst case, but the dominant factor in space complexity is the table, leading to an overall space complexity of O(n^2).
+***
 
 
 
