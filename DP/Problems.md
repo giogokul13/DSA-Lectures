@@ -1370,7 +1370,44 @@ var getMoneyAmount = function (n) {
     The space complexity is O(n^2). This is due to the table array that is created to store the results of subproblems, which has dimensions (n+1) x (n+1). Additionally, the recursion stack can go as deep as O(n) in the worst case, but the dominant factor in space complexity is the table, leading to an overall space complexity of O(n^2).
 ***
 
+### 376. Wiggle Subsequence
 
+![{F8167C97-32F4-456E-BA89-74C9EE7FA1DA}](https://github.com/user-attachments/assets/4cc4d6ef-8afe-4fbe-a4d9-c79537922ccb)
+    
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var wiggleMaxLength = function (nums) {
+    let len = nums.length, i = 1;
+    while (nums[i] == nums[i - 1]) i++ // if the current and previous elements are same move forward.
+
+    let up = nums[i - 1] > nums[i] /** Initial Check if the 1st progressis positive or negative  */
+    let ans = 1;
+
+    while (i < len) {
+        /**
+        * if up and current element is less than previous element go ahead, as we want a negative sequence
+        * if !up and current element is greater than previous element go ahead, as we want a positive sequence
+         */
+        if ((up && nums[i] < nums[i - 1]) || !up && nums[i] > nums[i - 1]) {
+            up = !up;
+            ans++;
+        }
+
+        i++; //irrespect to the sequence kepp increasing as we can omit/avoid numbers in the list
+    }
+
+    return ans;
+};
+```
+
+- The time complexity of the wiggleMaxLength function is O(n), where n is the length of the input array nums. This is because the function iterates through the array at most twice: once to skip over any initial equal elements and once to evaluate the conditions for counting the wiggle sequence. Each element is processed in constant time.
+
+- The space complexity is O(1), as the function uses a fixed amount of extra space regardless of the input size. It only utilizes a few variables (len, i, up, and ans) to keep track of the current state and does not create any additional data structures that grow with the input size.
+
+***
 
 
 
