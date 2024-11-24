@@ -1409,7 +1409,36 @@ var wiggleMaxLength = function (nums) {
 
 ***
 
+### 377. Combination Sum IV
 
+![{21CCACB6-BF79-485F-B535-6396FB621322}](https://github.com/user-attachments/assets/e56ee7d3-b3aa-48b9-8705-08164a30fd8a)
+
+```
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var combinationSum4 = function (nums, target) {
+    let dp = Array(target + 1).fill(0);
+    dp[0] = 1;
+
+    for (let i = 1; i <= target; i++) {
+        for (let num of nums) {
+            if (i - num >= 0) {
+                dp[i] += dp[i - num];
+            }
+        }
+    }
+
+    return dp[target];
+};
+```
+The time complexity of the `combinationSum4` function is O(target * n), where `target` is the input target value and `n` is the number of elements in the `nums` array. This is because we have a nested loop: the outer loop iterates from 1 to `target`, and for each iteration, the inner loop iterates through all elements in `nums`. Therefore, the total number of operations is proportional to the product of the target and the number of elements in the array.
+
+The space complexity is O(target), as we are using a single array `dp` of size `target + 1` to store the number of combinations for each value from 0 to `target`. This array is the only significant additional space used in the function, leading to a linear space complexity with respect to the target value
+
+***
 
 
 
