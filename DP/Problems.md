@@ -1440,7 +1440,38 @@ The space complexity is O(target), as we are using a single array `dp` of size `
 
 ***
 
+### 396. Rotate Function
 
+![{A8422E63-AB49-4FC9-9F35-A1E7F3A58833}](https://github.com/user-attachments/assets/b66f59e6-7fe4-460e-a5ed-90a3d1668eda)
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxRotateFunction = function (nums) {
+    let n = nums.length;
+    let totalSum = nums.reduce((acc, num) => acc + num, 0);
+
+    let currentFactor = 0;
+    for (let i = 0; i < nums.length; i++) {
+        currentFactor += i * nums[i];
+    }
+
+    let maxFactor = currentFactor;
+    for (let i = 1; i < n; i++) {
+        currentFactor = currentFactor + totalSum - n * nums[n - i];
+        maxFactor = Math.max(currentFactor, maxFactor);
+    }
+
+    return maxFactor;
+};
+```
+The time complexity of the `maxRotateFunction` is O(n), where n is the length of the input array `nums`. This is because the function performs a constant amount of work for each element in the array during the initial calculation of `totalSum` and `currentFactor`, and then it iterates through the array once more to compute the maximum rotation function value.
+
+The space complexity is O(1), as the function uses a fixed amount of extra space regardless of the input size. It only utilizes a few variables to store intermediate results (like `totalSum`, `currentFactor`, and `maxFactor`), and does not use any additional data structures that scale with the input size.
+
+***
 
 
 
