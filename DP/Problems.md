@@ -1473,7 +1473,34 @@ The space complexity is O(1), as the function uses a fixed amount of extra space
 
 ***
 
+### 397. Integer Replacement
 
+![{8E0C0DD8-7EE7-4AE6-946C-8907FCFDCA9F}](https://github.com/user-attachments/assets/efc40c21-9aef-402d-8867-a0de217f8f21)
+
+```
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var integerReplacement = function (n, c = 0) {
+    let count = 0;
+    while (n > 1) {
+        if (n % 2 === 0) { n /= 2; }
+        else {
+            if (n !== 3 && (n + 1) % 4 === 0) { n++; }
+            else { n--; }
+        }
+        count++;
+    }
+    return count;
+};
+
+```
+The time complexity of the `integerReplacement` function is O(log n). This is because, in each iteration of the while loop, the value of `n` is either halved (when `n` is even) or changed to `n + 1` or `n - 1` (when `n` is odd). Halving the number reduces its size significantly, leading to a logarithmic number of operations relative to the initial value of `n`.
+
+The space complexity is O(1) since the algorithm uses a constant amount of space. It only requires a few variables (`count` and `n`) to keep track of the current state, regardless of the size of the input `n`. There are no data structures that grow with the input size.
+
+***
 
 
 
