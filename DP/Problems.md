@@ -1502,7 +1502,33 @@ The space complexity is O(1) since the algorithm uses a constant amount of space
 
 ***
 
+### 413. Arithmetic Slices
 
+<img width="420" alt="image" src="https://github.com/user-attachments/assets/7e08bb59-2abe-4c98-907b-de016ffb8dfd">
+
+```javascript []
+/**
+ * @param {number[]} nums
+ * @return {number}[s](url)
+ */
+var numberOfArithmeticSlices = function (nums) {
+    let count = 0;
+    let dp = 0;
+    for (let i = 2; i < nums.length; i++) {
+        if (nums[i] - nums[i - 1] === nums[i - 1] - nums[i - 2]) {
+            dp += 1; // extende the sequence to next items
+            count += dp; // increase the total count
+        } else {
+            dp = 0; //reset the sequence as there is different difference
+        }
+    }
+
+    return count;
+};
+```
+Time O(N) space O(1)
+
+***
 
 
 
