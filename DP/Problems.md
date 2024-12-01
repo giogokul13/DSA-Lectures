@@ -1530,7 +1530,38 @@ Time O(N) space O(1)
 
 ***
 
+### 435. Non-overlapping Intervals
 
+![{951EBAC1-DFD6-487E-B8DA-9045EE30A6FE}](https://github.com/user-attachments/assets/450c82a8-4778-4613-951c-98e36727ca4f)
+
+```
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var eraseOverlapIntervals = function (intervals) {
+    if (intervals.length == 0) return 0;
+
+    let duplicates = 0;
+    let prevEnd = -Infinity;
+
+    intervals.sort((a, b) => a[1] - b[1]); //  sort by end interval
+
+    for (let [start, end] of intervals) {
+        // if the start is greater or equal to the prev end then there is no duplicate
+        if (start >= prevEnd) {
+            prevEnd = end; // apply the last visted end to see what is overlapping to the neext interval
+        } else {
+            duplicates++;
+        }
+    }
+
+    return duplicates;
+};
+```
+Time - O(n Log n)
+Space O(1)
+***
 
 
 
