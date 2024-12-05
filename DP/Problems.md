@@ -1609,6 +1609,45 @@ var canIWin = function (maxChoosableInteger, desiredTotal) {
   
 ***
 
+### 467. Unique Substrings in Wraparound String
+
+![{9A2244A3-4584-494A-A1FF-EAEAF0A916DF}](https://github.com/user-attachments/assets/b1a1491b-75d0-4cea-beb4-f68595e83966)
+
+```
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var findSubstringInWraproundString = function (s) {
+    let dp = new Array(26).fill(0);
+    let start = "a".charCodeAt(0);
+    let count = 0;
+
+    for (let i = 0; i < s.length; i++) {
+        let asciiValue = s.charCodeAt(i);
+        let prevAsciiValue = s.charCodeAt(i - 1);
+        let position = asciiValue - start;
+
+        /**
+            Check if my difference is 
+            1  ---> currentValuee and previous value
+            25 ---> previuosValue - currentValue
+         */
+        count = (asciiValue - prevAsciiValue == 1) || (prevAsciiValue - asciiValue == 25) ? count + 1 : 1;
+        dp[position] = Math.max(count, dp[position]);
+    }
+
+    return dp.reduce((total, count) => total + count);
+};
+```
+Time O(N)
+Space O(1)
+***
+
+
+
+
+
 
 ## Hard
 
