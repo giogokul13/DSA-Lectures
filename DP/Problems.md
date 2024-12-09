@@ -1644,9 +1644,64 @@ Time O(N)
 Space O(1)
 ***
 
+### 473. Matchsticks to Square
 
+![{EAB7D9DD-DEFE-4F1A-806B-8F825B1F4A73}](https://github.com/user-attachments/assets/f10475ee-7216-4745-b902-e0c2f6ffe71a)
 
+```
+/**
+ * @param {number[]} matchsticks
+ * @return {boolean}
+ */
+var makesquare = function (matchsticks) {
+    let perimeter = 0;
 
+    // Check the sum of matchsticks length if they are not divisible by 4 then it is not feasible
+    for (let stick of matchsticks) {
+        perimeter += stick;
+    }
+
+    if (perimeter % 4 !== 0) return false;
+
+    let sideLength = Math.floor(perimeter / 4);
+
+    let sides = new Array(4).fill(0);
+
+    matchsticks.sort((a, b) => b - a); // Sort in descending order for optimization
+
+    let backtrack = (index) => {
+
+        if (index == matchsticks.length) {
+            return (sides[0] == sideLength && sides[1] == sideLength
+                && sides[2] == sideLength && sides[2] == sideLength
+            );
+        }
+
+        for (let i = 0; i < 4; i++) {
+            if (sides[i] + matchsticks[index] > sideLength) continue;
+
+            sides[i] += matchsticks[index];
+
+            if (backtrack(index + 1)) return true;
+
+            sides[i] -= matchsticks[index];
+
+            if (sides[i] == 0) break;
+        }
+
+        return false;
+    }
+
+    return backtrack(0);
+};
+```
+- Time complexity:
+The time complexity of the makesquare function can be analyzed based on the backtracking approach used to explore the possible combinations of matchsticks. In the worst case, the function may need to explore all possible distributions of matchsticks across the four sides. This leads to a time complexity of O(4^n), where n is the number of matchsticks. However, due to the pruning of the search space (e.g., skipping sides that exceed the target length and avoiding duplicate states), the average case may perform significantly better, especially for smaller inputs
+
+- Space complexity:
+The space complexity is primarily determined by the recursion stack used during the backtracking process. In the worst case, the depth of the recursion can go up to n (the number of matchsticks), leading to a space complexity of O(n). Additionally, the space used for the sides array is constant, O(1), since it always holds four elements regardless of the input size.
+
+***
 
 
 ## Hard
