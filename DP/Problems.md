@@ -1703,6 +1703,49 @@ The space complexity is primarily determined by the recursion stack used during 
 
 ***
 
+### 474. Ones and Zeroes
+
+![{FA3558A8-13D5-4AC1-B49D-B18B1E5899A9}](https://github.com/user-attachments/assets/731c17a1-2894-4be0-a670-96a741522171)
+
+```
+/**
+ * @param {string[]} strs
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var findMaxForm = function (strs, m, n) {
+    const dp = Array(m + 1).fill(0).map(() => Array(n + 1).fill(0));
+    for (let str of strs) {
+        let count0 = 0;
+        let count1 = 0;
+        for (let i = 0; i < str.length; i++) {
+            if (str[i] == "1") count1++;
+            if (str[i] == "0") count0++
+        }
+
+        for (let i = m; i >= count0; i--) {
+            for (let j = n; j >= count1; j--) {
+                dp[i][j] = Math.max(dp[i][j], 1 + dp[i - count0][j - count1]);
+            }
+        }
+    }
+
+    return dp[m][n];
+};
+```
+- Time complexity: O(L×m×n), where 𝐿 is the number of strings in strs, m and n are the count of 0's and 1's
+- Space complexity: O(M * N) stores the string combination array
+***
+
+
+
+
+
+
+
+
+
 
 ## Hard
 
