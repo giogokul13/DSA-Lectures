@@ -1,4 +1,4 @@
-# Dynamic Programmig Problems
+# Dynamic Programming Problems
 
 ## Easy 
 
