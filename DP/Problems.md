@@ -1738,6 +1738,49 @@ var findMaxForm = function (strs, m, n) {
 - Space complexity: O(M * N) stores the string combination array
 ***
 
+### 526. Beautiful Arrangement
+
+```
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countArrangement = function (n) {
+    let count = 0;
+
+    let backtrack = (index, visited) => {
+        if (index > n) {
+            count++;
+            return;
+        }
+
+        for (let i = 1; i <= n; i++) {
+            if (!visited[i] && (i % index == 0 || index % i == 0)) {
+                visited[i] = true;
+                backtrack(index + 1, visited);
+                visited[i] = false;
+            }
+        }
+
+    }
+
+    let visited = new Array(n + 1).fill(false);
+    backtrack(1, visited);
+
+    return count;
+};
+```
+- Time complexity: O(n!)
+The time complexity of the countArrangement function can be analyzed based on the backtracking approach used to generate valid arrangements. The function explores all permutations of the numbers from 1 to n, but it only counts those that satisfy the given conditions (i % index == 0 or index % i == 0).
+
+In the worst case, the function will explore all n! permutations of the numbers. However, due to the constraints imposed by the conditions, not all permutations will be valid, which can reduce the actual number of recursive calls. Nevertheless, the upper bound remains O(n!), as we may need to explore many of these permutations to find valid arrangements.
+
+- Space complexity: O(n)
+The space complexity is primarily determined by the recursion stack and the visited array. The recursion depth can go up to n, leading to a space complexity of O(n) for the recursion stack. The visited array takes O(n) space as well. Therefore, the overall space complexity is O(n).
+
+***
+
+
 
 
 
