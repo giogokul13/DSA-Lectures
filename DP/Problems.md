@@ -1780,10 +1780,28 @@ The space complexity is primarily determined by the recursion stack and the visi
 
 ***
 
+### 553. Optimal Division     
 
+![{3B4EB0D3-52DC-4781-983F-04BAD87E1178}](https://github.com/user-attachments/assets/613f7f6d-3489-4fa6-a9e1-5472bedb8919)
 
+```
+/**
+ * @param {number[]} nums
+ * @return {string}
+ */
+var optimalDivision = function(nums) {
+    if(nums.length == 1) return ""+ nums;
 
+    if(nums.length == 2) return `${nums[0]}/${nums[1]}`;
 
+    let result = `${nums[0]}/(${nums.slice(1).join("/")})`;
+
+    return result;
+};
+```
+Time O(N)
+Space O(1)
+***
 
 
 
