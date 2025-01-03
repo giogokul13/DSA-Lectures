@@ -1,3 +1,37 @@
+## Easy
+
+1005. Maximize Sum Of Array After K Negations
+
+<img width="419" alt="{F5BCC7D3-C973-4E9E-B453-1B754FC29053}" src="https://github.com/user-attachments/assets/ccaa04cc-4397-4081-a122-4d0310d0305d" />
+
+```
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var largestSumAfterKNegations = function (nums, k) {
+
+    nums.sort((a, b) => a - b);
+    for (let i = 0; i < nums.length && k > 0; i++) {
+        if (nums[i] < 0) {
+            nums[i] = -nums[i];
+            k--;
+        }
+    }
+
+    nums.sort((a, b) => a - b); // Re-sort after flipping negatives
+    if (k % 2 === 1) {
+        nums[0] = -nums[0];
+    }
+
+    return nums.reduce((sum, num) => sum + num, 0);
+};
+```
+Time is O(N log N), Space O(N)
+***
+
+
 ## Medium
 
 347. Top K Frequent Elements
